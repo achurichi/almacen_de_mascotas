@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,800&display=swap" rel="stylesheet">
+    {% block static %}{% endblock %}
+</head>
+
+<body>
+    <header class="container">
+        <div class="container-header">
+            <div class="header-logo">
+                <a href={% url 'home' %}>
+                    <img src={% static 'img/cat.png' %} alt="Icono Menu" class="main-logo">
+                </a>
+            </div>
+
+            <nav id="navegation" class="navegation">
+                <a href="#">Notificaciones</a>
+                <a href="{% url 'files:pets_list' %}">Fichas</a>
+                <a href="#">Ventas</a>
+                <a href="#">Turnos</a>
+                <a href="#">Internación</a>
+            </nav>
+        </div> 
+    </header>
+
+    <div class="container">
+        <nav>
+          {% comment %} <a href="{% url 'home' %}">Almacén de Mascotas</a> {% endcomment %}
+          {% comment %} <a href="{% url 'courses:list' %}">Cursos</a> {% endcomment %}
+        </nav>
+
+        {% comment %} {% last_course as lc %}
+        <p>No te pierdas nuestro último curso:
+          <a href="{% url 'courses:detail' pk=lc.pk %}">{{ lc }}</a>
+        </p> {% endcomment %}
+      
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

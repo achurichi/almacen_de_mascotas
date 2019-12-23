@@ -1,0 +1,121 @@
+:root {
+	--border-gray: #a5a2a2;
+	--hover-gray: #d8d8d8;
+	--purple: #b128b1;
+	--purple-dark: #851785;
+}
+
+html {
+	box-sizing: border-box;
+	font-size: 62.5%; /** Reset para REMS - 62.5% = 10px de 16px **/
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+}
+
+h2 {
+	font-size: 2rem;
+	font-weight: 600;
+	width: 90%;
+	padding: 2rem 0 1rem 0;
+	margin-bottom: 2rem;
+	text-align: center;
+	border-bottom: 2px solid gainsboro;
+}
+
+form {
+	justify-content: center;
+}
+.field-input-container {
+	width: 80%;
+	margin-bottom: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #f6f6f6;
+	border-radius: 0.3rem;
+	border: 0.1rem solid gainsboro;
+	box-shadow: 0 0.2rem 0.2rem #e6e6e6;
+	padding: 0 1.5rem 3rem 1.5rem;
+}
+.field-container {
+	width: 75%;
+	min-height: 5rem;
+	padding: 0.6rem;
+	margin-bottom: 1.4rem;
+	font-size: 2rem;
+	display: flex;
+	align-items: center;
+}
+.field-container label {
+	margin-right: 2rem;
+	width: 30%;
+}
+.field-container input,
+textarea {
+	height: 4rem;
+	width: 70%;
+	padding: 1rem;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 1.7rem;
+}
+.checkbox-container,
+.select-date-container {
+	width: 70%;
+}
+.checkbox-container input {
+	margin: 0;
+	width: 2.6rem;
+	height: 2.6rem;
+}
+.select-date-container select {
+	height: 3rem;
+	width: 24%;
+	margin-right: 7px;
+	padding-left: 4px;
+	background-color: white;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 1.6rem;
+}
+#castration-date-container {
+	transition: all 0.2s ease-in;
+}
+.field-container textarea {
+	height: 20rem;
+	width: 100%;
+	resize: none;
+	font-size: 2rem;
+}
+.textarea-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.textarea-container label {
+	margin-bottom: 1rem;
+}
+.field-img-container {
+	width: 30%;
+	display: flex;
+}
+input[type='submit'] {
+	width: 73%;
+	border: none;
+	background-color: var(--purple);
+	height: 6rem;
+	margin-top: 2rem;
+	font-size: 2rem;
+	color: white;
+	font-weight: 600;
+}
+input[type='submit']:hover {
+	background-color: var(--purple-dark);
+	color: var(--hover-gray);
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+}

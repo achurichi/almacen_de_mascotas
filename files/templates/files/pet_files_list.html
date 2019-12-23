@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %} Todas las Fichas {% endblock %}
+
+{% block content %}
+    <div class="files-container">
+        <div class="files-nav">
+            <form class="searchbar-container" method="get">
+                <input type="text" id="file-search" name="q" placeholder="Buscar..." value={{ query }} >
+                <a class="cancel-icon-position" href={% url 'files:pets_list' %}>
+                    <img src={% static 'img/times-circle-solid.svg' %} alt="Agregar Ficha">
+                </a>
+            </form>
+
+            {% comment %} <div class="plus-square-solid"> {% endcomment %}
+            <a class="add-icon-position" href={% url 'files:add_pet' %}>
+                <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Ficha">
+            </a>    
+            {% comment %} </div> {% endcomment %}
+        </div>
+
+        <div class="cards">
+            {% for petFile in petFiles %}
+                <div class="card">
+                    <header>
+                        <a href="#">{{ petFile.pet_name }}</a>
+                    </header>
+                    
+                    <div class="card-copy">
+                        <p>ID: {{ petFile.pk }}</p>
+                        <p>Sexo: {{ petFile.sex }}</p>
+                        <p>Raza: {{ petFile.race }}</p>
+                        <p>Edad: {{ petFile.age }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        documnet.getElementById("file-search").value = "{{ query }}"
+    </script>
+{% endblock %}
