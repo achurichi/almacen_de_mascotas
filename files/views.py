@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.db.models import Q
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from .models import PetFile, Owner
 from .forms import PetForm, OwnerForm
 
 
 def petFiles_list(request):
-    # petFiles = PetFile.objects.all()
     query = ""
     if request.GET:
         query = request.GET['q']
@@ -38,20 +39,27 @@ def petFiles_list_queryset(query=None):
 
 
 def add_pet(request):
-    petForm = PetForm(request.POST or None)
-    ownerForm = OwnerForm(request.POST or None)
+    petForm = PetForm(request.POST, request.FILES)
+    ownerForm = OwnerForm(request.POST)
     if petForm.is_valid() and ownerForm.is_valid():
         savedPetFile = petForm.save()
         ownerForm = ownerForm.save(commit=False)
         ownerForm.petFile = savedPetFile
         ownerForm.save()
+
         # petForm = PetForm()
         # ownerForm = OwnerForm()
 
-        return petFiles_list(request)
+        return HttpResponseRedirect(reverse('files:pets_list'))
+        # return petFiles_list(request)
 
     context = {
         'petForm': petForm,
         'ownerForm': ownerForm,
     }
     return render(request, 'files/add_pet.html', context)
+
+
+def pet_file_detail(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    return render(request, 'files/pet_file_detail.html', {'petFile': petFile})

@@ -24,14 +24,19 @@
             {% for petFile in petFiles %}
                 <div class="card">
                     <header>
-                        <a href="#">{{ petFile.pet_name }}</a>
+                        <a href="{% url 'files:detail' pk=petFile.pk %}">{{ petFile.pet_name }}</a>
                     </header>
                     
                     <div class="card-copy">
-                        <p>ID: {{ petFile.pk }}</p>
-                        <p>Sexo: {{ petFile.sex }}</p>
-                        <p>Raza: {{ petFile.race }}</p>
-                        <p>Edad: {{ petFile.age }}</p>
+                        <div class="card-copy-img">
+                            <img src="{{ petFile.pet_img.url}}" alt="foto-mascota">
+                        </div>
+                        <div class="card-copy-text">
+                            <p>ID: {{ petFile.pk }}</p>
+                            <p>Sexo: {{ petFile.sex }}</p>
+                            <p>Raza: {{ petFile.race }}</p>
+                            <p>Edad: {{ petFile.age }}</p>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

@@ -9,8 +9,7 @@
 {% block title %} Nueva Ficha {% endblock %}
 
 {% block content %}
-    <form method="post" class="container">  
-        {% csrf_token %}
+    <form method="post" enctype="multipart/form-data" class="container"> {% csrf_token %}
         <div class="field-input-container">
             <h2>Datos de la mascota</h2>
 
@@ -64,9 +63,9 @@
                 {{ petForm.obs }}
             </div>
         
-            <div class="field-img-container">
-                <label for="obs">IMAGEN </label>
-                <input id="obs" type="image" name="obs">
+            <div class="field-container">
+                <label for="pet_img">Imagen de perfil: </label>
+                <div class="img-container">{{ petForm.pet_img }}</div>
             </div>
 
 

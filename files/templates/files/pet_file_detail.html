@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% comment %} {% load humanize course_extras %} {% endcomment %}
+
+{% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
+
+{% block content %}
+    <article>
+        <h2>{{ petFile.pet_name }}</h2>
+        {{ petFile.sex }}
+
+        {% comment %} <p>
+            Hay {{ course.lesson_set.all.count|apnumber }} leccion{{ course.lesson_set.count|pluralize:"es" }} en este curso: {{ course.lesson_set.all|join:", " }}
+        </p>
+    
+
+        <section>
+            {% for lesson in course.lesson_set.all %}
+                <h3>
+                    <a href="{% url 'courses:lesson_detail' course_pk=lesson.course.pk lesson_pk=lesson.pk%}">{{ lesson.title }}</a>
+                </h3>
+                {{ lesson.description|markdown_to_html|safe }}
+            {% endfor %}
+        </section> {% endcomment %}
+    </article>
+{% endblock %}

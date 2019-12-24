@@ -99,9 +99,20 @@ textarea {
 .textarea-container label {
 	margin-bottom: 1rem;
 }
-.field-img-container {
-	width: 30%;
+.img-container {
+	width: 70%;
+}
+.img-container {
+	width: 70%;
+}
+.img-container input {
+	width: 100%;
 	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	background: none;
+	padding-bottom: 36px;
 }
 input[type='submit'] {
 	width: 73%;

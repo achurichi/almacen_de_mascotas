@@ -4,10 +4,11 @@ import datetime
 
 class PetFile(models.Model):
     pet_name = models.CharField(max_length=255)
+    pet_img = models.ImageField(
+        blank=True, upload_to='images/', default='images/no-image-found.jpg')
     sex = models.CharField(max_length=64)
     race = models.CharField(max_length=255)
     age = models.IntegerField(default=0)
-    # default=datetime.date(1111, 11, 11)
     date_of_birth = models.DateField(blank=True, null=True)
     castrated = models.BooleanField(default=False)
     # default=datetime.date(1111, 11, 11)

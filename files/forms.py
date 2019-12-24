@@ -10,11 +10,8 @@ class PetForm(forms.ModelForm):
 
     sex = forms.CharField(required=False)
     race = forms.CharField(required=False)
-    # age = forms.IntegerField(required=False, initial=0)
     date_of_birth = castration_date = forms.DateField(
         required=False,
-        # initial=None,
-
         widget=forms.SelectDateWidget(
             empty_label=("Año", "mes", "día"),
             years=range(now.year, now.year - 40, -1),
@@ -29,6 +26,7 @@ class PetForm(forms.ModelForm):
         model = PetFile
         fields = [
             'pet_name',
+            'pet_img',
             'sex',
             'race',
             'age',
@@ -57,18 +55,3 @@ class OwnerForm(forms.ModelForm):
             'phone_number_2',
             'phone_number_3',
         ]
-
-
-# class PetForm(forms.ModelForm):
-#     name = forms.CharField(label='name', max_length=100)
-#     sex = forms.CharField(label='name', max_length=64)
-
-#     name = forms.CharField(label='name', max_length=255)
-#     sex = forms.CharField(label='sex', max_length=64)
-#     race = forms.CharField(label='race', max_length=255)
-#     age = forms.IntegerField(label='age')
-#     date_of_birth = forms.DateTimeField(label='date_of_birth')
-#     castrated = forms.BooleanField(label='castrated')
-#     castration_date = forms.DateTimeField(label='castration_date')
-#     description = forms.CharField(label='description')
-#     obs = forms.CharField(label='obs')
