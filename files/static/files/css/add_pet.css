@@ -20,14 +20,40 @@ h2 {
 	font-size: 2rem;
 	font-weight: 600;
 	width: 90%;
+	text-align: center;
+}
+h2:not(#datos-mascota-title) {
 	padding: 2rem 0 1rem 0;
 	margin-bottom: 2rem;
-	text-align: center;
 	border-bottom: 2px solid gainsboro;
 }
 
 form {
 	justify-content: center;
+}
+.icon-title-container {
+	width: 90%;
+	margin-bottom: 2rem;
+	padding: 2rem 0 1rem 0;
+	display: flex;
+	border-bottom: 2px solid gainsboro;
+}
+.icon-title-container h2 {
+	margin-bottom: 0;
+}
+.back-icon-position {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.4s;
+}
+.back-icon-position:hover {
+	transform: scale(1.2);
+}
+.back-icon-position img {
+	height: 4rem;
+	display: flex;
+	transition: all 0.4s;
 }
 .field-input-container {
 	width: 80%;
@@ -62,6 +88,26 @@ textarea {
 	border-radius: 0.4rem;
 	border: 0.1rem solid var(--border-gray);
 	font-size: 1.7rem;
+}
+#id_sex {
+	display: flex;
+	justify-content: flex-start;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#id_sex li label {
+	display: flex;
+	width: 100%;
+}
+#id_sex_1 {
+	margin-left: 30px;
+}
+#id_sex_0 {
+	margin-left: 0;
+}
+.sex-radio-container input {
+	height: 2.3rem;
 }
 .checkbox-container,
 .select-date-container {
@@ -111,6 +157,7 @@ textarea {
 	justify-content: center;
 	align-items: center;
 	border: none;
+	outline: none;
 	background: none;
 	padding-bottom: 36px;
 }

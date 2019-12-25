@@ -39,19 +39,19 @@ def petFiles_list_queryset(query=None):
 
 
 def add_pet(request):
-    petForm = PetForm(request.POST, request.FILES)
+    if request.method == "POST" or request.method == "FILES":
+        petForm = PetForm(request.POST, request.FILES)
+    else:
+        petForm = PetForm(initial={'sex': 'Macho'})
     ownerForm = OwnerForm(request.POST)
+
     if petForm.is_valid() and ownerForm.is_valid():
         savedPetFile = petForm.save()
         ownerForm = ownerForm.save(commit=False)
         ownerForm.petFile = savedPetFile
         ownerForm.save()
 
-        # petForm = PetForm()
-        # ownerForm = OwnerForm()
-
         return HttpResponseRedirect(reverse('files:pets_list'))
-        # return petFiles_list(request)
 
     context = {
         'petForm': petForm,

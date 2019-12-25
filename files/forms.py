@@ -4,11 +4,16 @@ from .models import PetFile, Owner
 
 import datetime
 
+SEX_CHOICES = [('Macho', 'Macho'), ('Hembra', 'Hembra')]
+
 
 class PetForm(forms.ModelForm):
     now = datetime.datetime.now()
 
-    sex = forms.CharField(required=False)
+    sex = forms.ChoiceField(
+        widget=forms.RadioSelect,
+        choices=([('Macho', 'Macho'), ('Hembra', 'Hembra'), ]),
+    )
     race = forms.CharField(required=False)
     date_of_birth = castration_date = forms.DateField(
         required=False,

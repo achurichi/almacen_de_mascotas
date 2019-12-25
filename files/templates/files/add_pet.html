@@ -11,7 +11,13 @@
 {% block content %}
     <form method="post" enctype="multipart/form-data" class="container"> {% csrf_token %}
         <div class="field-input-container">
-            <h2>Datos de la mascota</h2>
+            <div class ="icon-title-container">
+                <a class="back-icon-position" href={% url 'files:pets_list' %}>
+                    <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+                </a>
+                
+                <h2 id="datos-mascota-title">Datos de la mascota</h2>    
+            </div>
 
             <div class="field-container">
                 <label for="name">Nombre: </label>
@@ -20,7 +26,7 @@
 
             <div class="field-container">
                 <label for="sex">Sexo: </label>
-                {{ petForm.sex }}
+                <div class="sex-radio-container">{{ petForm.sex }}</div>
             </div>
 
             <div class="field-container">
@@ -49,7 +55,7 @@
             </div>
 
             <div class="field-container textarea-container">
-                <label for="obs">Alergias: </label>
+                <label for="allergies">Alergias: </label>
                 {{ petForm.allergies }}
             </div>
 
