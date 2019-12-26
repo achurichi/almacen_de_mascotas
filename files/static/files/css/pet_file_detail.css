@@ -1,21 +1,3 @@
-:root {
-	--border-gray: #a5a2a2;
-	--hover-gray: #d8d8d8;
-	--purple: #b128b1;
-	--purple-dark: #851785;
-}
-
-html {
-	box-sizing: border-box;
-	font-size: 62.5%; /** Reset para REMS - 62.5% = 10px de 16px **/
-}
-
-*,
-*::after,
-*::before {
-	box-sizing: inherit;
-}
-
 h2 {
 	font-size: 2rem;
 	font-weight: 600;

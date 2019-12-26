@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% load static %}
 
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_files_list.css' %}">
+{% endblock %}
+
 {% block title %} Todas las Fichas {% endblock %}
 
 {% block content %}
@@ -13,11 +17,9 @@
                 </a>
             </form>
 
-            {% comment %} <div class="plus-square-solid"> {% endcomment %}
             <a class="add-icon-position" href={% url 'files:add_pet' %}>
                 <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Ficha">
             </a>    
-            {% comment %} </div> {% endcomment %}
         </div>
 
         <div class="cards">

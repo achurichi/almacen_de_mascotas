@@ -1,9 +1,10 @@
 {% extends 'layout.html' %}
-{% load static %}
+{% load static js %}
 {% comment %} {% load humanize course_extras %} {% endcomment %}
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_file_detail.css' %}">
+    <script type="text/javascript" src="{% static 'files/js/pet_file_detail.js' %}"></script>
 {% endblock %}
 
 {% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
@@ -134,28 +135,6 @@
     </article>
 
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {    
-                adjustCheckbox()
-                resizeTextareas()
-            });       
-        
-        function adjustCheckbox() {
-            var checkbox = document.getElementById('checkbox-castrated');
-            var divElem = document.getElementById('castration-date-container');
-
-            {% if petFile.castrated == True %}
-                checkbox.checked = "true"
-            {% else %}
-                divElem.style.display = 'none'
-            {% endif %}
-        }
-
-        function resizeTextareas() {
-            var textareas = document.getElementsByClassName('large-text');
-            Array.prototype.forEach.call(textareas, function(textarea) {
-                textarea.style.height = '1px';
-                textarea.style.height = (textarea.scrollHeight-4)+'px';
-            });
-        }
+            var castrated="{{ petFile.castrated|js }}";
     </script>
 {% endblock %}

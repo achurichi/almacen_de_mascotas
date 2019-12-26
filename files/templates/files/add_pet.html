@@ -3,7 +3,7 @@
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/add_pet.css' %}">
-    {% comment %} <script src="{% static 'files/js/add_pet.js' %}"></script>  {% endcomment %}
+    <script type="text/javascript" src="{% static 'files/js/add_pet.js' %}"></script>
 {% endblock %}
 
 {% block title %} Nueva Ficha {% endblock %}
@@ -77,50 +77,71 @@
 
             <h2>Datos del dueño</h2>
 
-            <div class="field-container">
-                <label for="name">Nombre: </label>
-                {{ ownerForm.owner_name }}
+            <div class="owner-options">
+                <button type="button" class="selected" id="new-button">Nuevo</button>
+                <button type="button" class="not-selected" id="search-button">Buscar</button>
             </div>
 
-            <div class="field-container">
-                <label for="name">Dirección: </label>
-                {{ ownerForm.address }}
+            <div class="owner-container" id="new-owner-container">
+                <div class="field-container">
+                    <label for="name">Nombre: </label>
+                    {{ ownerForm.owner_name }}
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Dirección: </label>
+                    {{ ownerForm.address }}
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Teléfono 1: </label>
+                    {{ ownerForm.phone_number_1 }}
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Teléfono 2: </label>
+                    {{ ownerForm.phone_number_2 }}
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Teléfono 3: </label>
+                    {{ ownerForm.phone_number_3 }}
+                </div>
             </div>
 
-            <div class="field-container">
-                <label for="name">Teléfono 1: </label>
-                {{ ownerForm.phone_number_1 }}
-            </div>
+            <div class="owner-container" id="existing-owner-container" style="display:none">
+                {% comment %} <form class="searchbar-container" method="get"> {% endcomment %}
+                <input type="text" id="owner-search" name="q" placeholder="Buscar...">
+                {% comment %} </form>   {% endcomment %}
 
-            <div class="field-container">
-                <label for="name">Teléfono 2: </label>
-                {{ ownerForm.phone_number_2 }}
-            </div>
+                <div class="field-container">
+                    <label for="name">Nombre: </label>
+                    <input disabled class="disabled-input"> </input>
+                </div>
 
-            <div class="field-container">
-                <label for="name">Teléfono 3: </label>
-                {{ ownerForm.phone_number_3 }}
+                <div class="field-container">
+                    <label for="name">Dirección: </label>
+                    <input disabled class="disabled-input"> </input>
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Teléfono 1: </label>
+                    <input disabled class="disabled-input"> </input>
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Teléfono 2: </label>
+                    <input disabled class="disabled-input"> </input>
+                </div>
+
+                <div class="field-container">
+                    <label for="name">Teléfono 3: </label>
+                    <input disabled class="disabled-input"> </input>
+                </div>
             </div>
 
             <input type="submit" value="Agregar">
         </div>
     </form>
-
-    <script type="text/javascript">
-        checkbox = document.getElementById('id_castrated');
-
-        document.addEventListener("DOMContentLoaded", function () {
-                var divElem = document.getElementById('castration-date-container'); 
-                divElem.style.display = 'none';
-            });
-
-        checkbox.addEventListener('click', function() {
-                var divElem = document.getElementById('castration-date-container'); 
-                if (this.checked)
-                    divElem.style.display = 'flex';
-                else
-                    divElem.style.display = 'none';
-            });
-    </script>
 {% endblock %}
 

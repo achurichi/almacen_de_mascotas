@@ -38,6 +38,11 @@ def petFiles_list_queryset(query=None):
     return list(set(queryset))
 
 
+def pet_file_detail(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    return render(request, 'files/pet_file_detail.html', {'petFile': petFile})
+
+
 def add_pet(request):
     if request.method == "POST" or request.method == "FILES":
         petForm = PetForm(request.POST, request.FILES)
@@ -58,8 +63,3 @@ def add_pet(request):
         'ownerForm': ownerForm,
     }
     return render(request, 'files/add_pet.html', context)
-
-
-def pet_file_detail(request, pk):
-    petFile = get_object_or_404(PetFile, pk=pk)
-    return render(request, 'files/pet_file_detail.html', {'petFile': petFile})
