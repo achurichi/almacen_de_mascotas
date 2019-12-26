@@ -6,20 +6,21 @@
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,800&display=swap" rel="stylesheet">
     {% block static %}{% endblock %}
 </head>
 
 <body>
-    <header class="container">
-        <div class="container-header">
+    <header class="site-header">
+        <div class="container container-header">
             <div class="header-logo">
                 <a href={% url 'home' %}>
                     <img src={% static 'img/cat.png' %} alt="Icono Menu" class="main-logo">
                 </a>
             </div>
 
-            <nav id="navegation" class="navegation">
+            <nav>
                 <a href="#">Notificaciones</a>
                 <a href="{% url 'files:pets_list' %}">Fichas</a>
                 <a href="#">Ventas</a>

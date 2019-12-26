@@ -32,10 +32,15 @@
                             <img src="{{ petFile.pet_img.url}}" alt="foto-mascota">
                         </div>
                         <div class="card-copy-text">
-                            <p>ID: {{ petFile.pk }}</p>
+                            {% comment %} <p>ID: {{ petFile.pk }}</p> {% endcomment %}
                             <p>Sexo: {{ petFile.sex }}</p>
                             <p>Raza: {{ petFile.race }}</p>
                             <p>Edad: {{ petFile.age }}</p>
+                            {% if petFile.castrated == True%}
+                                <p>Castrado: Si</p>
+                            {% else %}
+                                <p>Castrado: No</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
