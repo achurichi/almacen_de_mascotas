@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -44,18 +44,28 @@ def pet_file_detail(request, pk):
 
 
 def add_pet(request):
+    newOwner = None
     if request.method == "POST" or request.method == "FILES":
         petForm = PetForm(request.POST, request.FILES)
+        ownerForm = OwnerForm(request.POST)
+        newOwner = request.POST.get('owner_option', None)
     else:
         petForm = PetForm(initial={'sex': 'Macho'})
-    ownerForm = OwnerForm(request.POST)
+        ownerForm = OwnerForm()
 
-    if petForm.is_valid() and ownerForm.is_valid():
-        savedPetFile = petForm.save()
-        ownerForm = ownerForm.save(commit=False)
-        ownerForm.petFile = savedPetFile
-        ownerForm.save()
-
+    if petForm.is_valid() and newOwner == "True":
+        savedOwner = ownerForm.save()
+        petForm = petForm.save(commit=False)
+        petForm.owner = savedOwner
+        petForm.save()
+        return HttpResponseRedirect(reverse('files:pets_list'))
+    # VER COMO HACER CUANDO SE DEJA EN BLANCO EL NOMBRE DEL DUEÑO EN MODO DE BUSQUEDA
+    elif petForm.is_valid() and newOwner == "False":
+        owner_id = request.POST.get('owner_id', None)
+        existingOwner = Owner.objects.filter(id=owner_id)
+        petForm = petForm.save(commit=False)
+        petForm.owner = existingOwner[0]
+        petForm.save()
         return HttpResponseRedirect(reverse('files:pets_list'))
 
     context = {
@@ -63,3 +73,21 @@ def add_pet(request):
         'ownerForm': ownerForm,
     }
     return render(request, 'files/add_pet.html', context)
+
+
+def search_owners(request):
+    search_text = request.GET.get('search_text', None)
+    existingOwners = Owner.objects.filter(owner_name__contains=search_text)
+    data = dict()
+
+    for i, owner in enumerate(existingOwners):
+        data["owner"+str(i)] = {
+            'owner_name': owner.owner_name,
+            'address': owner.address,
+            'phone_number_1': owner.phone_number_1,
+            'phone_number_2': owner.phone_number_2,
+            'phone_number_3': owner.phone_number_3,
+            'id': owner.id,
+        }
+
+    return JsonResponse(data)

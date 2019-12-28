@@ -38,10 +38,17 @@
                             <p>Sexo: {{ petFile.sex }}</p>
                             <p>Raza: {{ petFile.race }}</p>
                             <p>Edad: {{ petFile.age }}</p>
+
                             {% if petFile.castrated == True%}
                                 <p>Castrado: Si</p>
                             {% else %}
                                 <p>Castrado: No</p>
+                            {% endif %}
+                            
+                            {% if petFile.aggressive == True%}
+                                <p>Agresivo: Si</p>
+                            {% else %}
+                                <p>Agresivo: No</p>
                             {% endif %}
                         </div>
                     </div>

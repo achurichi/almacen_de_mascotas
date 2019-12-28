@@ -95,7 +95,7 @@ article {
 	margin-right: 2rem;
 	width: 30%;
 }
-#checkbox-castrated {
+.field-container input[type='checkbox'] {
 	width: 70%;
 	margin: 0;
 	width: 2.6rem;

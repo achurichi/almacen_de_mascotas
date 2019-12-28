@@ -23,6 +23,7 @@ class PetForm(forms.ModelForm):
         )
     )
     castrated = forms.BooleanField(required=False)
+    aggressive = forms.BooleanField(required=False)
     description = forms.CharField(required=False, widget=forms.Textarea)
     obs = forms.CharField(required=False, widget=forms.Textarea)
     allergies = forms.CharField(required=False, widget=forms.Textarea)
@@ -38,6 +39,7 @@ class PetForm(forms.ModelForm):
             'date_of_birth',
             'castrated',
             'castration_date',
+            'aggressive',
             'description',
             'obs',
             'allergies',
@@ -45,6 +47,7 @@ class PetForm(forms.ModelForm):
 
 
 class OwnerForm(forms.ModelForm):
+    # owner_name = forms.CharField(required=False)
     address = forms.CharField(required=False)
     phone_number_1 = forms.CharField(required=False)
     phone_number_2 = forms.CharField(required=False)

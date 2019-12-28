@@ -64,9 +64,7 @@
 
         <div class="field-container">
             <label for="castrated">Castrado: </label>
-            <div class="castration-date-container">
-                <input type="checkbox" id="checkbox-castrated" disabled="disabled"></input>
-            </div>
+            <input type="checkbox" id="checkbox-castrated" disabled></input>
         </div>
 
         <div class="field-container" id="castration-date-container">
@@ -76,6 +74,11 @@
             {% else %}
                 <div class="select-date-container">{{ petFile.castration_date }}</div>
             {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label for="aggressive">Agresivo: </label>
+            <input type="checkbox" id="checkbox-aggressive" disabled></input>
         </div>
 
         <div class="field-container textarea-container">
@@ -136,5 +139,6 @@
 
     <script type="text/javascript">
             var castrated="{{ petFile.castrated|js }}";
+            var aggressive="{{ petFile.aggressive|js }}";
     </script>
 {% endblock %}

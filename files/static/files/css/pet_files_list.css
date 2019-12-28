@@ -106,6 +106,7 @@
 }
 .card .card-copy {
 	display: flex;
+	align-items: center;
 	flex-direction: initial;
 	font-size: 2rem;
 	line-height: 1.5rem;

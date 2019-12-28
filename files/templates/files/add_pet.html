@@ -1,15 +1,16 @@
 {% extends "layout.html" %}
-{% load static %}
+{% load static update_variable %}
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/add_pet.css' %}">
+    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'files/js/add_pet.js' %}"></script>
 {% endblock %}
 
 {% block title %} Nueva Ficha {% endblock %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data" class="container"> {% csrf_token %}
+    <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
         <div class="field-input-container">
             <div class ="icon-title-container">
                 <a class="back-icon-position" href={% url 'files:pets_list' %}>
@@ -49,9 +50,14 @@
                 <div class="checkbox-container">{{ petForm.castrated }}</div>
             </div>
 
-            <div class="field-container" id="castration-date-container">
+            <div class="field-container" id="castration-date-container" style="display:none">
                 <label for="castration_date">Fecha de castración: </label>
                 <div class="select-date-container">{{ petForm.castration_date }}</div>
+            </div>
+
+            <div class="field-container">
+                <label for="aggressive">Agresivo: </label>
+                <div class="checkbox-container">{{ petForm.aggressive }}</div>
             </div>
 
             <div class="field-container textarea-container">
@@ -82,62 +88,33 @@
                 <button type="button" class="not-selected" id="search-button">Buscar</button>
             </div>
 
-            <div class="owner-container" id="new-owner-container">
-                <div class="field-container">
-                    <label for="name">Nombre: </label>
-                    {{ ownerForm.owner_name }}
-                </div>
-
-                <div class="field-container">
-                    <label for="name">Dirección: </label>
-                    {{ ownerForm.address }}
-                </div>
-
-                <div class="field-container">
-                    <label for="name">Teléfono 1: </label>
-                    {{ ownerForm.phone_number_1 }}
-                </div>
-
-                <div class="field-container">
-                    <label for="name">Teléfono 2: </label>
-                    {{ ownerForm.phone_number_2 }}
-                </div>
-
-                <div class="field-container">
-                    <label for="name">Teléfono 3: </label>
-                    {{ ownerForm.phone_number_3 }}
-                </div>
+            <div id="autocomplete-div" class="autocomplete" style="width:300px;">
+                <input style="display:none" id="owner-search" type="text" name="owner-search" placeholder="Buscar...">
             </div>
 
-            <div class="owner-container" id="existing-owner-container" style="display:none">
-                {% comment %} <form class="searchbar-container" method="get"> {% endcomment %}
-                <input type="text" id="owner-search" name="q" placeholder="Buscar...">
-                {% comment %} </form>   {% endcomment %}
+            <div class="field-container">
+                <label for="name">Nombre: </label>
+                {{ ownerForm.owner_name }}
+            </div>
 
-                <div class="field-container">
-                    <label for="name">Nombre: </label>
-                    <input disabled class="disabled-input"> </input>
-                </div>
+            <div class="field-container">
+                <label for="name">Dirección: </label>
+                {{ ownerForm.address }}
+            </div>
 
-                <div class="field-container">
-                    <label for="name">Dirección: </label>
-                    <input disabled class="disabled-input"> </input>
-                </div>
+            <div class="field-container">
+                <label for="name">Teléfono 1: </label>
+                {{ ownerForm.phone_number_1 }}
+            </div>
 
-                <div class="field-container">
-                    <label for="name">Teléfono 1: </label>
-                    <input disabled class="disabled-input"> </input>
-                </div>
+            <div class="field-container">
+                <label for="name">Teléfono 2: </label>
+                {{ ownerForm.phone_number_2 }}
+            </div>
 
-                <div class="field-container">
-                    <label for="name">Teléfono 2: </label>
-                    <input disabled class="disabled-input"> </input>
-                </div>
-
-                <div class="field-container">
-                    <label for="name">Teléfono 3: </label>
-                    <input disabled class="disabled-input"> </input>
-                </div>
+            <div class="field-container">
+                <label for="name">Teléfono 3: </label>
+                {{ ownerForm.phone_number_3 }}
             </div>
 
             <input type="submit" value="Agregar">

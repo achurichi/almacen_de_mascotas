@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-	adjustCheckbox()
+	adjustCheckboxes()
 	resizeTextareas()
 })
 
-function adjustCheckbox() {
-	var checkbox = document.getElementById('checkbox-castrated')
+function adjustCheckboxes() {
+	var checkbox_castrated = document.getElementById('checkbox-castrated')
 	var divElem = document.getElementById('castration-date-container')
-
 	if (castrated == 'true') {
-		checkbox.checked = 'true'
+		checkbox_castrated.checked = 'true'
 	} else {
 		divElem.style.display = 'none'
+	}
+
+	var checkbox_aggressive = document.getElementById('checkbox-aggressive')
+	if (aggressive == 'true') {
+		checkbox_aggressive.checked = 'true'
 	}
 }
 

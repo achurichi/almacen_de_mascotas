@@ -2,6 +2,15 @@ from django.db import models
 import datetime
 
 
+class Owner(models.Model):
+    owner_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    phone_number_1 = models.CharField(max_length=100)
+    phone_number_2 = models.CharField(max_length=100)
+    phone_number_3 = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class PetFile(models.Model):
     pet_name = models.CharField(max_length=255)
     pet_img = models.ImageField(
@@ -12,6 +21,7 @@ class PetFile(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     castrated = models.BooleanField(default=False)
     castration_date = models.DateField(blank=True, null=True)
+    aggressive = models.BooleanField(default=False)
     description = models.TextField(default='')
     obs = models.TextField(default='')
     allergies = models.TextField(default='')
@@ -22,20 +32,11 @@ class PetFile(models.Model):
     #     Vaccination_history, on_delete=models.CASCADE)
     # deworming_history = models.ForeignKey(
     #     Deworming_history, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
-
-
-class Owner(models.Model):
-    owner_name = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    phone_number_1 = models.CharField(max_length=100)
-    phone_number_2 = models.CharField(max_length=100)
-    phone_number_3 = models.CharField(max_length=100)
-    petFile = models.ForeignKey(PetFile, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class ClinicHistory(models.Model):

@@ -2,8 +2,10 @@
 	--border-gray: #a5a2a2;
 	--hover-gray: #d8d8d8;
 	--not-selected-gray: #c3c3c3;
+	--not-selected-gray-text: #6d6c6c;
 	--disabled-gray: #e8e8e8;
 	--purple: #b128b1;
+	--light-purple: #d285d2;
 	--purple-dark: #851785;
 }
 
