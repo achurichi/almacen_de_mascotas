@@ -22,6 +22,6 @@ function resizeTextareas() {
 	var textareas = document.getElementsByClassName('large-text')
 	Array.prototype.forEach.call(textareas, function(textarea) {
 		textarea.style.height = '1px'
-		textarea.style.height = textarea.scrollHeight - 4 + 'px'
+		textarea.style.height = textarea.scrollHeight + 'px'
 	})
 }

@@ -40,7 +40,11 @@ def petFiles_list_queryset(query=None):
 
 def pet_file_detail(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    return render(request, 'files/pet_file_detail.html', {'petFile': petFile})
+    context = {
+        'petFile': petFile,
+        'ownerFile': petFile.owner,
+    }
+    return render(request, 'files/pet_file_detail.html', context)
 
 
 def add_pet(request):
@@ -59,14 +63,14 @@ def add_pet(request):
         petForm.owner = savedOwner
         petForm.save()
         return HttpResponseRedirect(reverse('files:pets_list'))
-    # VER COMO HACER CUANDO SE DEJA EN BLANCO EL NOMBRE DEL DUEÑO EN MODO DE BUSQUEDA
     elif petForm.is_valid() and newOwner == "False":
         owner_id = request.POST.get('owner_id', None)
-        existingOwner = Owner.objects.filter(id=owner_id)
-        petForm = petForm.save(commit=False)
-        petForm.owner = existingOwner[0]
-        petForm.save()
-        return HttpResponseRedirect(reverse('files:pets_list'))
+        if owner_id != "":
+            existingOwner = Owner.objects.filter(id=owner_id)
+            petForm = petForm.save(commit=False)
+            petForm.owner = existingOwner[0]
+            petForm.save()
+            return HttpResponseRedirect(reverse('files:pets_list'))
 
     context = {
         'petForm': petForm,
@@ -77,7 +81,8 @@ def add_pet(request):
 
 def search_owners(request):
     search_text = request.GET.get('search_text', None)
-    existingOwners = Owner.objects.filter(owner_name__contains=search_text)
+    existingOwners = Owner.objects.filter(
+        owner_name__contains=search_text)[0:40]
     data = dict()
 
     for i, owner in enumerate(existingOwners):

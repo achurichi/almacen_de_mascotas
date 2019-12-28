@@ -21,7 +21,7 @@
             </div>
 
             <div class="field-container">
-                <label for="name">Nombre: </label>
+                <label for="name">Nombre: *</label>
                 {{ petForm.pet_name }}
             </div>
 
@@ -93,7 +93,7 @@
             </div>
 
             <div class="field-container">
-                <label for="name">Nombre: </label>
+                <label for="name">Nombre: *</label>
                 {{ ownerForm.owner_name }}
             </div>
 
@@ -117,6 +117,8 @@
                 {{ ownerForm.phone_number_3 }}
             </div>
 
+            <p class="extra-info">* Campo Requerido </p>
+            
             <input type="submit" value="Agregar">
         </div>
     </form>

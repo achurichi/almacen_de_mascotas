@@ -10,6 +10,9 @@ class Owner(models.Model):
     phone_number_3 = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['created_at']
+
 
 class PetFile(models.Model):
     pet_name = models.CharField(max_length=255)
@@ -37,6 +40,9 @@ class PetFile(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['created_at']
 
 
 class ClinicHistory(models.Model):

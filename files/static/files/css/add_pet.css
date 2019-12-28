@@ -180,11 +180,11 @@ textarea {
 	background-color: var(--not-selected-gray);
 	color: var(--not-selected-gray-text);
 }
-
-.disabled-input:disabled {
+.like-disabled {
 	background-color: var(--disabled-gray);
+	outline: none;
+	cursor: default;
 }
-
 .autocomplete {
 	position: relative;
 	display: inline-block;
@@ -203,12 +203,6 @@ textarea {
 	border-color: var(--purple);
 	border-radius: 5px;
 }
-/* input:-moz-read-only,
-input:read-only,
-#id_owner_name {
-	cursor: pointer;
-	background-color: yellow;
-} */
 .autocomplete-items {
 	position: absolute;
 	border: 1px solid #d4d4d4;
@@ -232,6 +226,9 @@ input:read-only,
 .autocomplete-active {
 	background-color: var(--light-purple) !important;
 	color: #ffffff;
+}
+.extra-info {
+	font-size: 1.4rem;
 }
 
 input[type='submit'] {

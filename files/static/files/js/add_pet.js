@@ -33,10 +33,25 @@ document.addEventListener('DOMContentLoaded', function() {
 			clearOwnerInputs()
 
 			document.getElementById('id_owner_name').readOnly = false
+			document
+				.getElementById('id_owner_name')
+				.classList.remove('like-disabled')
 			document.getElementById('id_address').readOnly = false
+			document
+				.getElementById('id_address')
+				.classList.remove('like-disabled')
 			document.getElementById('id_phone_number_1').readOnly = false
+			document
+				.getElementById('id_phone_number_1')
+				.classList.remove('like-disabled')
 			document.getElementById('id_phone_number_2').readOnly = false
+			document
+				.getElementById('id_phone_number_2')
+				.classList.remove('like-disabled')
 			document.getElementById('id_phone_number_3').readOnly = false
+			document
+				.getElementById('id_phone_number_3')
+				.classList.remove('like-disabled')
 		}
 	})
 
@@ -50,10 +65,23 @@ document.addEventListener('DOMContentLoaded', function() {
 			clearOwnerInputs()
 
 			document.getElementById('id_owner_name').readOnly = true
+			document
+				.getElementById('id_owner_name')
+				.classList.add('like-disabled')
 			document.getElementById('id_address').readOnly = true
+			document.getElementById('id_address').classList.add('like-disabled')
 			document.getElementById('id_phone_number_1').readOnly = true
+			document
+				.getElementById('id_phone_number_1')
+				.classList.add('like-disabled')
 			document.getElementById('id_phone_number_2').readOnly = true
+			document
+				.getElementById('id_phone_number_2')
+				.classList.add('like-disabled')
 			document.getElementById('id_phone_number_3').readOnly = true
+			document
+				.getElementById('id_phone_number_3')
+				.classList.add('like-disabled')
 		}
 	})
 

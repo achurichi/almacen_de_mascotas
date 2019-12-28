@@ -27,36 +27,36 @@
 
         <div class="field-container">
             <label for="name">Nombre: </label>
-            {{ petFile.pet_name }}
+            <div class="adjust-margin">{{ petFile.pet_name }}</div>
         </div>
 
         <div class="field-container">
             <label for="sex">Sexo: </label>
             {% if petFile.sex == "" %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
-                {{ petFile.sex }}
+                <div class="adjust-margin">{{ petFile.sex }}</div>
             {% endif %}
         </div>
 
         <div class="field-container">
             <label for="race">Raza: </label>
             {% if petFile.race == "" %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
-                {{ petFile.race }}
+                <div class="adjust-margin">{{ petFile.race }}</div>
             {% endif %}
         </div>
 
         <div class="field-container">
             <label for="age">Edad: </label>
-            {{ petFile.age }}
+            <div class="adjust-margin">{{ petFile.age }}</div>
         </div>
 
         <div class="field-container">
             <label for="date_of_birth">Fecha de nacimiento: </label>
             {% if petFile.date_of_birth == None %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
                 <div class="select-date-container">{{ petFile.date_of_birth }}</div>
             {% endif %}
@@ -70,7 +70,7 @@
         <div class="field-container" id="castration-date-container">
             <label for="castration_date">Fecha de castración: </label>
             {% if petFile.castration_date == None %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
                 <div class="select-date-container">{{ petFile.castration_date }}</div>
             {% endif %}
@@ -84,7 +84,7 @@
         <div class="field-container textarea-container">
             <label for="allergies">Alergias: </label>
             {% if petFile.allergies == "" %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
                 <textarea readonly class="large-text">{{ petFile.allergies }}</textarea>
             {% endif %}
@@ -93,7 +93,7 @@
         <div class="field-container textarea-container">
             <label for="description">Descripción: </label>
             {% if petFile.description == "" %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
                 <textarea readonly class="large-text">{{ petFile.description }}</textarea>
             {% endif %}
@@ -102,7 +102,7 @@
         <div class="field-container textarea-container">
             <label for="obs">Observaciones: </label>
             {% if petFile.obs == "" %}
-                Sin información
+                <div class="adjust-margin">Sin información</div>
             {% else %}
                 <textarea readonly class="large-text">{{ petFile.obs }}</textarea>
             {% endif %}
@@ -113,27 +113,43 @@
 
         <div class="field-container">
             <label for="name">Nombre: </label>
-            {{ ownerFile.owner_name }}
+            <div class="adjust-margin">{{ ownerFile.owner_name }}</div>
         </div>
 
         <div class="field-container">
             <label for="name">Dirección: </label>
-            {{ ownerFile.address }}
+            {% if ownerFile.address == "" %}
+                <div class="adjust-margin">Sin información</div>
+            {% else %}
+                <div class="adjust-margin">{{ ownerFile.address }}</div>
+            {% endif %}
         </div>
 
         <div class="field-container">
             <label for="name">Teléfono 1: </label>
-            {{ ownerFile.phone_number_1 }}
+            {% if ownerFile.phone_number_1 == "" %}
+                <div class="adjust-margin">Sin información</div>
+            {% else %}
+                <div class="adjust-margin">{{ ownerFile.phone_number_1 }}</div>
+            {% endif %}
         </div>
 
         <div class="field-container">
             <label for="name">Teléfono 2: </label>
-            {{ ownerFile.phone_number_2 }}
+            {% if ownerFile.phone_number_2 == "" %}
+                <div class="adjust-margin">Sin información</div>
+            {% else %}
+                <div class="adjust-margin">{{ ownerFile.phone_number_2 }}</div>
+            {% endif %}
         </div>
 
         <div class="field-container">
             <label for="name">Teléfono 3: </label>
-            {{ ownerFile.phone_number_3 }}
+            {% if ownerFile.phone_number_3 == "" %}
+                <div class="adjust-margin">Sin información</div>
+            {% else %}
+                <div class="adjust-margin">{{ ownerFile.phone_number_3 }}</div>
+            {% endif %}
         </div>
     </article>
 

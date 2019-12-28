@@ -47,7 +47,6 @@ class PetForm(forms.ModelForm):
 
 
 class OwnerForm(forms.ModelForm):
-    # owner_name = forms.CharField(required=False)
     address = forms.CharField(required=False)
     phone_number_1 = forms.CharField(required=False)
     phone_number_2 = forms.CharField(required=False)

@@ -112,3 +112,7 @@ article {
 	font: inherit;
 	font-size: 2rem;
 }
+.adjust-margin {
+	margin-block-start: 2px;
+	margin-block-end: 2px;
+}

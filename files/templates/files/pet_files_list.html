@@ -27,6 +27,10 @@
                 <div class="card">
                     <header>
                         <a href="{% url 'files:detail' pk=petFile.pk %}">{{ petFile.pet_name }}</a>
+                        
+                        <a class="delete-icon-position" href="#">
+                            <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                        </a>
                     </header>
                     
                     <div class="card-copy">
@@ -34,7 +38,6 @@
                             <img src="{{ petFile.pet_img.url}}" alt="foto-mascota">
                         </div>
                         <div class="card-copy-text">
-                            {% comment %} <p>ID: {{ petFile.pk }}</p> {% endcomment %}
                             <p>Sexo: {{ petFile.sex }}</p>
                             <p>Raza: {{ petFile.race }}</p>
                             <p>Edad: {{ petFile.age }}</p>
