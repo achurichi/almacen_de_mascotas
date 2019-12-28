@@ -47,6 +47,17 @@ def pet_file_detail(request, pk):
     return render(request, 'files/pet_file_detail.html', context)
 
 
+def delete_file(request):
+    pet_id = request.POST.get('pet_id', None)
+    owner_id = PetFile.objects.filter(id=pet_id)[0].owner.pk
+    PetFile.objects.filter(id=pet_id).delete()
+    # Si el dueño no tiene mas animales también debe eliminarse
+    if len(PetFile.objects.filter(owner_id=owner_id)) == 0:
+        Owner.objects.filter(id=owner_id).delete()
+
+    return JsonResponse({'pet_id': pet_id})
+
+
 def add_pet(request):
     newOwner = None
     if request.method == "POST" or request.method == "FILES":

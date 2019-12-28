@@ -3,11 +3,13 @@
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_files_list.css' %}">
+    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'files/js/pet_files_list.js' %}"></script>
 {% endblock %}
 
 {% block title %} Todas las Fichas {% endblock %}
 
-{% block content %}
+{% block content %} {% csrf_token %}
     <div class="files-container">
         <div class="files-nav">
             <form class="searchbar-container" method="get">
@@ -24,13 +26,13 @@
 
         <div class="cards">
             {% for petFile in petFiles %}
-                <div class="card">
+                <div class="card" id="card-{{ petFile.pk }}">
                     <header>
                         <a href="{% url 'files:detail' pk=petFile.pk %}">{{ petFile.pet_name }}</a>
                         
-                        <a class="delete-icon-position" href="#">
+                        <button class="delete-btn delete-icon-position" value="{{petFile.pk}}">
                             <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
-                        </a>
+                        </button>
                     </header>
                     
                     <div class="card-copy">

@@ -109,13 +109,18 @@
 	text-decoration: underline;
 }
 .delete-icon-position {
+	background: none;
+	border: none;
+	outline: none;
+	padding: 0;
 	margin-right: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: all 0.5s;
+	transition: transform 0.5s;
 }
 .delete-icon-position:hover {
+	cursor: pointer;
 	transform: scale(1.2);
 }
 .delete-icon-position img {
