@@ -1,20 +1,25 @@
 $(function() {
 	$('.delete-btn').on('click', function() {
 		var csrftoken = getCookie('csrftoken')
-		// Acá tiene que ir un botón para confirmar la eliminación de la ficha
-		$.ajax({
-			type: 'POST',
-			url: '/files/delete_file/',
-			data: {
-				pet_id: $(this).val(),
-				csrfmiddlewaretoken: csrftoken
-			},
-			dataType: 'json',
-			success: function deleteCard(data) {
-				var elem = document.getElementById('card-' + data['pet_id'])
-				elem.parentNode.removeChild(elem)
-			}
-		})
+		if (
+			confirm(
+				'¿Desea eliminar esta ficha?\n\nSe eliminará la ficha de esta mascota junto con toda su información. También se eliminará la información del dueño en caso de que este no posea más mascotas'
+			) == true
+		) {
+			$.ajax({
+				type: 'POST',
+				url: '/files/delete_file/',
+				data: {
+					pet_id: $(this).val(),
+					csrfmiddlewaretoken: csrftoken
+				},
+				dataType: 'json',
+				success: function deleteCard(data) {
+					var elem = document.getElementById('card-' + data['pet_id'])
+					elem.parentNode.removeChild(elem)
+				}
+			})
+		}
 	})
 })
 
