@@ -75,11 +75,9 @@ article {
 	height: auto;
 	width: auto;
 	margin-bottom: 2rem;
-	display: flex;
-	justify-content: center;
 }
 .field-container {
-	width: 75%;
+	width: 65%;
 	min-height: 5rem;
 	padding: 1.6rem 0.6rem;
 	font-size: 2rem;
@@ -87,23 +85,65 @@ article {
 	align-items: center;
 	border-bottom: 1px solid gainsboro;
 }
-.textarea-container {
+.textarea-container-row {
 	display: flex;
 	align-items: flex-start;
 }
+.textarea-container-col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.img-info-container {
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-size: 1.8rem;
+	border-radius: 0.4rem;
+}
+.img-info-container h3 {
+	width: 100%;
+	margin: 0 0 0.6rem 12px;
+	padding: 0;
+	font-size: 2rem;
+	font-weight: 500;
+}
+.img-container {
+	width: 100%;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	overflow: auto;
+	font-size: 1.8rem;
+	padding: 1rem;
+	border-radius: 0.4rem;
+	border: 3px solid gainsboro;
+}
+#clear-img-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: 2rem;
+}
+#clear-img-container input {
+	margin-left: 15px;
+}
 .field-container label {
 	margin-right: 2rem;
-	width: 30%;
+	min-width: 35%;
 }
-.field-container input[type='checkbox'] {
-	width: 70%;
-	margin: 0;
-	width: 2.6rem;
-	height: 2.6rem;
+.field-container input {
+	height: 4rem;
+	width: 100%;
+	padding: 1rem;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 1.7rem;
 }
-.textarea-container textarea {
-	width: 68%;
+.no-edit-textarea {
+	width: 100%;
 	margin: 0;
+	padding: 0;
 	resize: none;
 	background: none;
 	border: none;
@@ -112,7 +152,67 @@ article {
 	font: inherit;
 	font-size: 2rem;
 }
+#id_allergies,
+#id_description,
+#id_obs {
+	height: 20rem;
+	width: 100%;
+	resize: none;
+	padding: 1rem;
+	margin-top: 1rem;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 2rem;
+}
+input[type='checkbox'] {
+	margin: 0;
+	width: 2.6rem;
+	height: 2.6rem;
+}
+#id_sex {
+	display: flex;
+	justify-content: flex-start;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#id_sex li label {
+	display: flex;
+	width: 100%;
+}
+#id_sex_1 {
+	margin-left: 30px;
+	margin-right: 4px;
+}
+#id_sex_0 {
+	margin-left: 0;
+	margin-right: 4px;
+}
+.sex-radio-container input {
+	height: 2.3rem;
+}
 .adjust-margin {
-	margin-block-start: 2px;
-	margin-block-end: 2px;
+	margin-block-start: 1px;
+	margin-block-end: 1px;
+}
+.select-date-container select {
+	height: 3rem;
+	width: 100%;
+	margin-right: 7px;
+	padding-left: 4px;
+	background-color: white;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 1.6rem;
+}
+
+.set-display {
+	display: flex;
+}
+.set-display:not(.keep-width) {
+	width: 65%;
+}
+.set-no-display {
+	display: none;
+	width: 100%;
 }

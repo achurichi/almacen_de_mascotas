@@ -17,94 +17,137 @@
             
             <h2 id="datos-mascota-title">Datos de la mascota</h2> 
 
-            <button class="edit-icon-button">
+            <button id="edit-btn" class="edit-icon-button">
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
             </button>  
         </div>
 
-        <img class="pet-img" src="{{ petFile.pet_img.url}}" alt="foto-mascota">
+        <img class="set-display keep-width pet-img" src="{{ petFile.pet_img.url}}" alt="foto-mascota">
+        <div id="status-check" class="set-no-display img-info-container">
+            <h3>Foto de Perfil:</h3>
+            <div id="change-img-container" class="img-container">{{ petForm.pet_img }}</div>
+        </div>
 
         <div class="field-container">
             <label for="name">Nombre: </label>
-            <div class="adjust-margin">{{ petFile.pet_name }}</div>
+            <div class="set-display adjust-margin">{{ petFile.pet_name }}</div>
+            <div class="set-no-display">{{ petForm.pet_name }}</div>
         </div>
 
         <div class="field-container">
             <label for="sex">Sexo: </label>
-            {% if petFile.sex == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="adjust-margin">{{ petFile.sex }}</div>
-            {% endif %}
+            
+            <div class="set-display">
+                {% if petFile.sex == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="adjust-margin">{{ petFile.sex }}</div>
+                    {% endif %}
+            </div>
+            
+            <div class="set-no-display sex-radio-container">{{ petForm.sex }}</div>
         </div>
 
         <div class="field-container">
             <label for="race">Raza: </label>
-            {% if petFile.race == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="adjust-margin">{{ petFile.race }}</div>
-            {% endif %}
+            
+            <div class="set-display">
+                {% if petFile.race == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="adjust-margin">{{ petFile.race }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="set-no-display">{{ petForm.race }}</div>
         </div>
 
         <div class="field-container">
             <label for="age">Edad: </label>
-            <div class="adjust-margin">{{ petFile.age }}</div>
+            <div class="set-display adjust-margin">{{ petFile.age }}</div>
+            <div class="set-no-display">{{ petForm.age }}</div>
         </div>
 
         <div class="field-container">
             <label for="date_of_birth">Fecha de nacimiento: </label>
-            {% if petFile.date_of_birth == None %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="select-date-container">{{ petFile.date_of_birth }}</div>
-            {% endif %}
+            
+            <div class="set-display">
+                {% if petFile.date_of_birth == None %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="select-date-container">{{ petFile.date_of_birth }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="set-no-display select-date-container">{{ petForm.date_of_birth }}</div>
         </div>
 
         <div class="field-container">
             <label for="castrated">Castrado: </label>
-            <input type="checkbox" id="checkbox-castrated" disabled></input>
+            <input class="set-display keep-width" type="checkbox" id="checkbox-castrated" disabled></input>
+            <div class="set-no-display">{{ petForm.castrated }}</div>
         </div>
 
         <div class="field-container" id="castration-date-container">
             <label for="castration_date">Fecha de castración: </label>
-            {% if petFile.castration_date == None %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="select-date-container">{{ petFile.castration_date }}</div>
-            {% endif %}
+
+            <div class="set-display">
+                {% if petFile.castration_date == None %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="select-date-container">{{ petFile.castration_date }}</div>
+                {% endif %} 
+            </div>
+
+            <div class="set-no-display select-date-container">{{ petForm.castration_date }}</div>
         </div>
 
         <div class="field-container">
             <label for="aggressive">Agresivo: </label>
-            <input type="checkbox" id="checkbox-aggressive" disabled></input>
+            <input class="set-display keep-width" type="checkbox" id="checkbox-aggressive" disabled></input>
+            <div class="set-no-display">{{ petForm.aggressive }}</div>
         </div>
 
-        <div class="field-container textarea-container">
+        <div id="allergies-textarea" class="field-container textarea-container-row">
             <label for="allergies">Alergias: </label>
-            {% if petFile.allergies == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <textarea readonly class="large-text">{{ petFile.allergies }}</textarea>
-            {% endif %}
+            
+            <div class="set-display">
+                {% if petFile.allergies == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <textarea readonly class="large-text no-edit-textarea">{{ petFile.allergies }}</textarea>
+                {% endif %}
+            </div>
+            
+            <div class="set-no-display keep-width">{{ petForm.allergies }}</div>
         </div>
 
-        <div class="field-container textarea-container">
+        <div id="description-textarea" class="field-container textarea-container-row">
             <label for="description">Descripción: </label>
-            {% if petFile.description == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <textarea readonly class="large-text">{{ petFile.description }}</textarea>
-            {% endif %}
+
+            <div class="set-display">
+                {% if petFile.description == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <textarea readonly class="large-text no-edit-textarea ">{{ petFile.description }}</textarea>
+                {% endif %}
+            </div>
+
+            <div class="set-no-display keep-width">{{ petForm.description }}</div>
         </div>
 
-        <div class="field-container textarea-container">
+        <div id="obs-textarea" class="field-container textarea-container-row">
             <label for="obs">Observaciones: </label>
-            {% if petFile.obs == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <textarea readonly class="large-text">{{ petFile.obs }}</textarea>
-            {% endif %}
+
+            <div class="set-display">
+                {% if petFile.obs == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <textarea readonly class="large-text no-edit-textarea">{{ petFile.obs }}</textarea>
+                {% endif %}
+            </div>
+
+            <div class="set-no-display keep-width">{{ petForm.obs }}</div>
         </div>
 
 
@@ -112,43 +155,63 @@
 
         <div class="field-container">
             <label for="name">Nombre: </label>
-            <div class="adjust-margin">{{ ownerFile.owner_name }}</div>
+            <div class="set-display adjust-margin">{{ ownerFile.owner_name }}</div>
+            <div class="set-no-display">{{ ownerForm.owner_name }}</div> 
         </div>
 
         <div class="field-container">
             <label for="name">Dirección: </label>
-            {% if ownerFile.address == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="adjust-margin">{{ ownerFile.address }}</div>
-            {% endif %}
+
+            <div class="set-display">
+                {% if ownerFile.address == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="adjust-margin">{{ ownerFile.address }}</div>
+                {% endif %}
+            </div>
+
+            <div class="set-no-display">{{ ownerForm.address }}</div>
         </div>
 
         <div class="field-container">
             <label for="name">Teléfono 1: </label>
-            {% if ownerFile.phone_number_1 == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="adjust-margin">{{ ownerFile.phone_number_1 }}</div>
-            {% endif %}
+            
+            <div class="set-display">
+                {% if ownerFile.phone_number_1 == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="adjust-margin">{{ ownerFile.phone_number_1 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="set-no-display">{{ ownerForm.phone_number_1 }}</div>
         </div>
 
         <div class="field-container">
             <label for="name">Teléfono 2: </label>
-            {% if ownerFile.phone_number_2 == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="adjust-margin">{{ ownerFile.phone_number_2 }}</div>
-            {% endif %}
+            <div class="set-display">
+                {% if ownerFile.phone_number_2 == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="adjust-margin">{{ ownerFile.phone_number_2 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="set-no-display">{{ ownerForm.phone_number_2 }}</div>
         </div>
 
         <div class="field-container">
             <label for="name">Teléfono 3: </label>
-            {% if ownerFile.phone_number_3 == "" %}
-                <div class="adjust-margin">Sin información</div>
-            {% else %}
-                <div class="adjust-margin">{{ ownerFile.phone_number_3 }}</div>
-            {% endif %}
+
+            <div class="set-display">
+                {% if ownerFile.phone_number_3 == "" %}
+                    <div class="adjust-margin">Sin información</div>
+                {% else %}
+                    <div class="adjust-margin">{{ ownerFile.phone_number_3 }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="set-no-display">{{ ownerForm.phone_number_3 }}</div>
         </div>
     </article>
 

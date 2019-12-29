@@ -120,7 +120,6 @@ textarea {
 	height: 20rem;
 	width: 100%;
 	resize: none;
-	font-size: 2rem;
 }
 .textarea-container {
 	display: flex;
@@ -129,9 +128,6 @@ textarea {
 }
 .textarea-container label {
 	margin-bottom: 1rem;
-}
-.img-container {
-	width: 70%;
 }
 .img-container {
 	width: 70%;

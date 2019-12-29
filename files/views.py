@@ -40,9 +40,13 @@ def petFiles_list_queryset(query=None):
 
 def pet_file_detail(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
+    petForm = PetForm(instance=petFile)
+    ownerForm = OwnerForm(instance=petFile.owner)
     context = {
         'petFile': petFile,
         'ownerFile': petFile.owner,
+        'petForm': petForm,
+        'ownerForm': ownerForm,
     }
     return render(request, 'files/pet_file_detail.html', context)
 
