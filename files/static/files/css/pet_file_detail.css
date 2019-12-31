@@ -84,6 +84,7 @@ article {
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid gainsboro;
+	overflow: hidden;
 }
 .textarea-container-row {
 	display: flex;
@@ -131,6 +132,7 @@ article {
 .field-container label {
 	margin-right: 2rem;
 	min-width: 35%;
+	max-width: 35%;
 }
 .field-container input {
 	height: 4rem;
@@ -179,6 +181,7 @@ input[type='checkbox'] {
 #id_sex li label {
 	display: flex;
 	width: 100%;
+	max-width: none;
 }
 #id_sex_1 {
 	margin-left: 30px;

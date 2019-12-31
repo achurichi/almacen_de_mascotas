@@ -10,4 +10,5 @@ urlpatterns = [
     path('add_pet/', views.add_pet, name='add_pet'),
     path('search_owners/', views.search_owners, name='search_owners'),
     path('<int:pk>/', views.pet_file_detail, name='detail'),
+    path('edit_file/', views.edit_file, name="edit_file"),
 ]

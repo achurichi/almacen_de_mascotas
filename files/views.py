@@ -38,6 +38,17 @@ def petFiles_list_queryset(query=None):
     return list(set(queryset))
 
 
+def delete_file(request):
+    pet_id = request.POST.get('pet_id', None)
+    owner_id = PetFile.objects.filter(id=pet_id)[0].owner.pk
+    PetFile.objects.filter(id=pet_id).delete()
+    # Si el dueño no tiene mas animales también debe eliminarse
+    if len(PetFile.objects.filter(owner_id=owner_id)) == 0:
+        Owner.objects.filter(id=owner_id).delete()
+
+    return JsonResponse({'pet_id': pet_id})
+
+
 def pet_file_detail(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     petForm = PetForm(instance=petFile)
@@ -51,15 +62,36 @@ def pet_file_detail(request, pk):
     return render(request, 'files/pet_file_detail.html', context)
 
 
-def delete_file(request):
-    pet_id = request.POST.get('pet_id', None)
-    owner_id = PetFile.objects.filter(id=pet_id)[0].owner.pk
-    PetFile.objects.filter(id=pet_id).delete()
-    # Si el dueño no tiene mas animales también debe eliminarse
-    if len(PetFile.objects.filter(owner_id=owner_id)) == 0:
-        Owner.objects.filter(id=owner_id).delete()
+def edit_file(request):
+    data = {
+        'reload': False
+    }
+    # if request.method == "POST":
+    #     print("se pidio post")
+    # if request.method == "FILES":
+    #     print("se pidio files")
+    # if request.POST.get('really_edit', None) == "True" or request.method == "FILES":
+    if request.POST.get('really_edit', None) == "True":
+        pet_id = request.POST.get('pet_id', None)
+        petFile = get_object_or_404(PetFile, id=pet_id)
+        petForm = PetForm(request.POST, request.FILES, instance=petFile)
+        if petForm.has_changed() and petForm.is_valid():
+            petForm.save()
+            data['reload'] = True
 
-    return JsonResponse({'pet_id': pet_id})
+        # pet_id = request.POST.get('pet_id', None)
+        # petFile = get_object_or_404(PetFile, id=pet_id)
+        # petForm = PetForm(request.FILES, instance=petFile)
+        # print(petForm.has_changed())
+
+        owner_id = request.POST.get('owner_id', None)
+        owner = get_object_or_404(Owner, id=owner_id)
+        ownerForm = OwnerForm(request.POST, instance=owner)
+        if ownerForm.has_changed() and ownerForm.is_valid():
+            ownerForm.save()
+            data['reload'] = True
+
+    return JsonResponse(data)
 
 
 def add_pet(request):

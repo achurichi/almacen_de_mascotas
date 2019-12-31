@@ -1,3 +1,5 @@
+var firstTime = true
+
 document.addEventListener('DOMContentLoaded', function() {
 	adjustCheckboxes()
 	resizeTextareas()
@@ -78,7 +80,7 @@ function configEditButton() {
 		)
 		var obs_textarea = document.getElementById('obs-textarea')
 
-		statusCheck = document.getElementById('status-check')
+		var statusCheck = document.getElementById('status-check')
 		if (statusCheck.classList.contains('set-display')) {
 			allergies_textarea.classList.remove('textarea-container-row')
 			description_textarea.classList.remove('textarea-container-row')
@@ -98,3 +100,44 @@ function configEditButton() {
 		}
 	})
 }
+
+$(function() {
+	$('#data-form').submit(function(e) {
+		var ans = 'False'
+		var statusCheck = document.getElementById('status-check')
+		if (statusCheck.classList.contains('set-no-display')) ans = 'True'
+
+		if (document.getElementById('really-edit')) {
+			document.getElementById('really-edit').value = ans
+			document.getElementById('pet-id').value = pet_id
+			document.getElementById('owner-id').value = owner_id
+		} else {
+			var reallyEdit = $('<input>')
+				.attr('type', 'hidden')
+				.attr('id', 'really-edit')
+				.attr('name', 'really_edit')
+				.val(ans)
+			$('#data-form').append(reallyEdit)
+
+			var petId = $('<input>')
+				.attr('type', 'hidden')
+				.attr('id', 'pet-id')
+				.attr('name', 'pet_id')
+				.val(pet_id)
+			$('#data-form').append(petId)
+
+			var ownerId = $('<input>')
+				.attr('type', 'hidden')
+				.attr('id', 'owner-id')
+				.attr('name', 'owner_id')
+				.val(owner_id)
+			$('#data-form').append(ownerId)
+		}
+
+		$.post('/files/edit_file/', $(this).serialize(), function(data) {
+			console.log(data['reload'])
+			if (data['reload'] == true) location.reload()
+		})
+		e.preventDefault()
+	})
+})
