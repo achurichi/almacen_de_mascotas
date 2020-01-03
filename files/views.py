@@ -14,7 +14,8 @@ def petFiles_list(request):
     if request.GET:
         query = request.GET['q']
 
-    petFiles = PetFile.objects.filter(Q(pet_name__icontains=query)).distinct()
+    petFiles = PetFile.objects.filter(
+        Q(pet_name__icontains=query)).distinct().order_by('-created_at')
     paginator = Paginator(petFiles, 6)
     page = request.GET.get('page')
     petFiles = paginator.get_page(page)
@@ -32,9 +33,7 @@ def petFiles_list_queryset(query=None):
     queryset = []
     queries = query.split(" ")
     for q in queries:
-        petFiles = PetFile.objects.filter(
-            Q(pet_name__icontains=q)
-        ).distinct()
+        petFiles = PetFile.objects.filter(Q(pet_name__icontains=q)).distinct()
 
         for petFile in petFiles:
             queryset.append(petFile)
@@ -73,7 +72,11 @@ def edit_file(request):
     if request.method == "POST":
         pet_id = request.POST.get('pet_id', None)
         petFile = get_object_or_404(PetFile, id=pet_id)
-        petForm = PetForm(request.POST, request.FILES, instance=petFile)
+        petForm = PetForm(data=request.POST,
+                          files=request.FILES, instance=petFile)
+        # petForm = PetForm(request.POST, request.FILES, instance=petFile)
+        # petForm.pet_img = request.FILES.get('pet_img', False)
+        # print(petForm.pet_img)
         if petForm.has_changed() and petForm.is_valid():
             petForm.save()
             data['reload'] = True

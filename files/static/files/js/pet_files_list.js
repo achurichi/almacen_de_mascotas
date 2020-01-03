@@ -15,8 +15,7 @@ $(function() {
 				},
 				dataType: 'json',
 				success: function deleteCard(data) {
-					var elem = document.getElementById('card-' + data['pet_id'])
-					elem.parentNode.removeChild(elem)
+					location.reload()
 				}
 			})
 		}

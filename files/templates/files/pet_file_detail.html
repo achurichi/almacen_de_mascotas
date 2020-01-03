@@ -10,7 +10,7 @@
 {% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
+    <form action="" method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
         <article class="container article-container">
             <div class ="icon-title-container">
                 <a class="back-icon-position" href={% url 'files:pets_list' %}>

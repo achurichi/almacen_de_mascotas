@@ -65,19 +65,19 @@
             <span class="step-text-links">
                 <div class="step-links">
                     {% if petFiles.has_previous %}
-                        <a href="?q={{ query }}&page=1">&laquo; primera</a>
+                        <a href="?q={{ query }}&page=1">primera</a>
                         <a href="?q={{ query }}&page={{ petFiles.previous_page_number }}">anterior</a>
                     {% endif %}
                 </div>
 
                 <span class="current">
-                    Página {{ petFiles.number }} de {{ petFiles.paginator.num_pages }}.
+                    Página {{ petFiles.number }} de {{ petFiles.paginator.num_pages }}
                 </span>
 
                 <div class="step-links">
                     {% if petFiles.has_next %}
                         <a href="?q={{ query }}&page={{ petFiles.next_page_number }}">siguiente</a>
-                        <a href="?q={{ query }}&page={{ petFiles.paginator.num_pages }}">última &raquo;</a>
+                        <a href="?q={{ query }}&page={{ petFiles.paginator.num_pages }}">última</a>
                     {% endif %}
                 </div>
             </span>
