@@ -103,22 +103,10 @@ function configEditButton() {
 
 $(function() {
 	$('#data-form').submit(function(e) {
-		var ans = 'False'
-		var statusCheck = document.getElementById('status-check')
-		if (statusCheck.classList.contains('set-no-display')) ans = 'True'
-
-		if (document.getElementById('really-edit')) {
-			document.getElementById('really-edit').value = ans
+		if (document.getElementById('pet-id')) {
 			document.getElementById('pet-id').value = pet_id
 			document.getElementById('owner-id').value = owner_id
 		} else {
-			var reallyEdit = $('<input>')
-				.attr('type', 'hidden')
-				.attr('id', 'really-edit')
-				.attr('name', 'really_edit')
-				.val(ans)
-			$('#data-form').append(reallyEdit)
-
 			var petId = $('<input>')
 				.attr('type', 'hidden')
 				.attr('id', 'pet-id')
@@ -135,7 +123,6 @@ $(function() {
 		}
 
 		$.post('/files/edit_file/', $(this).serialize(), function(data) {
-			console.log(data['reload'])
 			if (data['reload'] == true) location.reload()
 		})
 		e.preventDefault()

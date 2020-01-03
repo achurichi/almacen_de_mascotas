@@ -66,23 +66,14 @@ def edit_file(request):
     data = {
         'reload': False
     }
-    # if request.method == "POST":
-    #     print("se pidio post")
-    # if request.method == "FILES":
-    #     print("se pidio files")
-    # if request.POST.get('really_edit', None) == "True" or request.method == "FILES":
-    if request.POST.get('really_edit', None) == "True":
+
+    if request.method == "POST":
         pet_id = request.POST.get('pet_id', None)
         petFile = get_object_or_404(PetFile, id=pet_id)
         petForm = PetForm(request.POST, request.FILES, instance=petFile)
         if petForm.has_changed() and petForm.is_valid():
             petForm.save()
             data['reload'] = True
-
-        # pet_id = request.POST.get('pet_id', None)
-        # petFile = get_object_or_404(PetFile, id=pet_id)
-        # petForm = PetForm(request.FILES, instance=petFile)
-        # print(petForm.has_changed())
 
         owner_id = request.POST.get('owner_id', None)
         owner = get_object_or_404(Owner, id=owner_id)
