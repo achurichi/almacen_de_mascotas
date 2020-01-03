@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
@@ -13,7 +14,10 @@ def petFiles_list(request):
     if request.GET:
         query = request.GET['q']
 
-    petFiles = petFiles_list_queryset(query)
+    petFiles = PetFile.objects.filter(Q(pet_name__icontains=query)).distinct()
+    paginator = Paginator(petFiles, 6)
+    page = request.GET.get('page')
+    petFiles = paginator.get_page(page)
 
     context = {
         'query': str(query),
@@ -29,8 +33,7 @@ def petFiles_list_queryset(query=None):
     queries = query.split(" ")
     for q in queries:
         petFiles = PetFile.objects.filter(
-            Q(pet_name__icontains=q) |
-            Q(id__icontains=q)
+            Q(pet_name__icontains=q)
         ).distinct()
 
         for petFile in petFiles:
