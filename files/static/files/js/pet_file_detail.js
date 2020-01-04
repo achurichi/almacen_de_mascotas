@@ -40,9 +40,7 @@ function adjustImgContainer() {
 	var container = document.getElementById('change-img-container')
 	var div = document.createElement('div')
 	div.id = 'clear-img-container'
-
 	var input = document.getElementById('pet_img-clear_id')
-
 	var labels = document.getElementsByTagName('LABEL'),
 		lookup = {},
 		i,
@@ -53,7 +51,6 @@ function adjustImgContainer() {
 			lookup[label.htmlFor] = label
 		}
 	}
-
 	container.insertBefore(div, input)
 	div.appendChild(lookup[input.id])
 	div.appendChild(input)

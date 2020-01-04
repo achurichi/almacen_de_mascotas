@@ -36,7 +36,8 @@ function configEventListeners() {
 			document.getElementById('owner-search').style.display = 'none'
 			clearOwnerInputs()
 
-			document.getElementById('id_owner_name').readOnly = false
+			document.getElementById('id_owner_name').autocomplete = 'on'
+			document.getElementById('id_owner_name').spellcheck = true
 			document
 				.getElementById('id_owner_name')
 				.classList.remove('like-disabled')
@@ -68,7 +69,8 @@ function configEventListeners() {
 			document.getElementById('owner-search').style.display = 'block'
 			clearOwnerInputs()
 
-			document.getElementById('id_owner_name').readOnly = true
+			document.getElementById('id_owner_name').autocomplete = 'nope'
+			document.getElementById('id_owner_name').spellcheck = false
 			document
 				.getElementById('id_owner_name')
 				.classList.add('like-disabled')
@@ -98,6 +100,14 @@ function clearOwnerInputs() {
 	document.getElementById('id_phone_number_2').value = ''
 	document.getElementById('id_phone_number_3').value = ''
 }
+
+$(function() {
+	$('#id_owner_name').on('keydown paste', function(e) {
+		if (this.classList.contains('like-disabled')) {
+			e.preventDefault()
+		}
+	})
+})
 
 function autocomplete(inp) {
 	var currentFocus

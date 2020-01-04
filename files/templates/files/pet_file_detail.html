@@ -10,8 +10,8 @@
 {% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
 
 {% block content %}
-    <form action="" method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
-        <article class="container article-container">
+    <article class="container">
+        <form method="post" enctype="multipart/form-data" class="container  article-container" id="data-form"> {% csrf_token %}
             <div class ="icon-title-container">
                 <a class="back-icon-position" href={% url 'files:pets_list' %}>
                     <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
@@ -24,9 +24,9 @@
                 </button>  
             </div>
 
-            <img class="set-display keep-width pet-img" src="{{ petFile.pet_img.url}}" alt="foto-mascota">
+            <img class="set-display keep-width pet-img" src="{{ petFile.pet_img.url }}" alt="foto-mascota">
             <div id="status-check" class="set-no-display img-info-container">
-                <h3>Foto de Perfil:</h3>
+                <label for="pet_img">Foto de Perfil: </label>
                 <div id="change-img-container" class="img-container">{{ petForm.pet_img }}</div>
             </div>
 
@@ -214,9 +214,9 @@
                 </div>
                 
                 <div class="set-no-display">{{ ownerForm.phone_number_3 }}</div>
-            </div>
-        </article>
-    </form>
+            </div>        
+        </form>
+    </article>
 
     <script type="text/javascript">
         var castrated="{{ petFile.castrated|js }}";

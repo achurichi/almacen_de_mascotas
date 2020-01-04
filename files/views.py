@@ -69,15 +69,18 @@ def edit_file(request):
         'reload': False
     }
 
-    if request.method == "POST":
+    if request.method == "POST" or request.method == "FILES":
         pet_id = request.POST.get('pet_id', None)
         petFile = get_object_or_404(PetFile, id=pet_id)
-        petForm = PetForm(data=request.POST,
-                          files=request.FILES, instance=petFile)
+        petForm = PetForm(request.POST, request.FILES, instance=petFile)
         # petForm = PetForm(request.POST, request.FILES, instance=petFile)
         # petForm.pet_img = request.FILES.get('pet_img', False)
-        # print(petForm.pet_img)
+        # print(request.FILES)
+        # print(petForm.has_changed())
         if petForm.has_changed() and petForm.is_valid():
+            # petForm.pet_img = "images/dark-tree-sunset-landscape-art.jpg"
+            # print(request.FILES['pet_img'])
+            # print("hola")
             petForm.save()
             data['reload'] = True
 

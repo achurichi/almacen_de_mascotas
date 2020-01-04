@@ -180,8 +180,11 @@ textarea {
 	background-color: var(--disabled-gray);
 	outline: none;
 	cursor: default;
+	color: transparent;
+	text-shadow: 0 0 0 gray;
 }
 .autocomplete {
+	width: 75%;
 	position: relative;
 	display: inline-block;
 	margin-bottom: 2rem;
