@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'file_detail_layout.html' %}
 {% load static js %}
 
 {% block static %}
@@ -9,8 +9,8 @@
 
 {% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
 
-{% block content %}
-    <article class="container article-container">
+{% block file_content %}
+    <article class="article-container">
         <div class ="icon-title-container">
             <a class="back-icon-position" href={% url 'files:pets_list' %}>
                 <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
@@ -23,7 +23,9 @@
             </a>
         </div>
 
-        <img class="set-display keep-width pet-img" src="{{ petFile.pet_img.url }}" alt="foto-mascota">
+        {% if petFile.pet_img.url != "/media/images/no-image-found.jpg" %}
+            <img class="set-display keep-width pet-img" src="{{ petFile.pet_img.url }}" alt="foto-mascota">
+        {% endif %}
 
         <div class="field-container">
             <label>Nombre: </label>

@@ -42,13 +42,15 @@ class PetFile(models.Model):
     #     Vaccination_history, on_delete=models.CASCADE)
     # deworming_history = models.ForeignKey(
     #     Deworming_history, on_delete=models.CASCADE)
+    # internment_history = models.ForeignKey(
+    #     Internment, on_delete=models.CASCADE)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         try:
             this = PetFile.objects.get(id=self.id)
-            if this.pet_img != self.pet_img:
+            if this.pet_img != self.pet_img and this.pet_img != "images/no-image-found.jpg":
                 this.pet_img.delete(save=False)
         except:
             pass
@@ -68,9 +70,15 @@ def submission_delete(sender, instance, **kwargs):
 
 
 class ClinicHistory(models.Model):
-    clinic_signs = models.CharField(max_length=255)
-    treatments = models.CharField(max_length=255)
-    obs = models.TextField(default='')
+    date = models.DateField(default=datetime.date.today)
+    abstract = models.CharField(max_length=255)
+    history = models.TextField(default='', blank=True)
+    clinic_signs = models.TextField(default='', blank=True)
+    diagnosis = models.TextField(default='', blank=True)
+    treatments = models.TextField(default='', blank=True)
+    obs = models.TextField(default='', blank=True)
+    complementary_studies = models.TextField(default='', blank=True)
+    # Imágenes
     petFile = models.ForeignKey(PetFile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

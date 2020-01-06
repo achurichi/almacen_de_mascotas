@@ -91,6 +91,42 @@ def pet_edit_info(request, pk):
     return render(request, 'files/pet_edit_info.html', context)
 
 
+def pet_show_clinic_history(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    petForm = PetForm(instance=petFile)
+    context = {
+        'petFile': petFile,
+    }
+    return render(request, 'files/pet_show_clinic_history.html', context)
+
+
+def pet_show_vaccination_history(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    petForm = PetForm(instance=petFile)
+    context = {
+        'petFile': petFile,
+    }
+    return render(request, 'files/pet_show_vaccination_history.html', context)
+
+
+def pet_show_deworming_history(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    petForm = PetForm(instance=petFile)
+    context = {
+        'petFile': petFile,
+    }
+    return render(request, 'files/pet_show_deworming_history.html', context)
+
+
+def pet_show_internment_history(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    petForm = PetForm(instance=petFile)
+    context = {
+        'petFile': petFile,
+    }
+    return render(request, 'files/pet_show_internment_history.html', context)
+
+
 def add_pet(request):
     newOwner = None
     if request.method == "POST" or request.method == "FILES":

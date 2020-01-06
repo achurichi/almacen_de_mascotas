@@ -41,7 +41,13 @@
                         </div>
                         <div class="card-copy-text">
                             <p>Sexo: {{ petFile.sex }}</p>
-                            <p>Raza: {{ petFile.race }}</p>
+
+                            {% if petFile.race == ''%}
+                                <p>Raza: Sin información</p>
+                            {% else %}
+                                <p>Raza: {{ petFile.race }}</p>
+                            {% endif %}
+                            
                             <p>Edad: {{ petFile.age }}</p>
 
                             {% if petFile.castrated == True%}

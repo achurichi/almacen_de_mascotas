@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container sub-container">
+        <div class="section-nav-container">
+            <a href="{% url 'files:show_info' pk=petFile.pk %}" id="info-link">Información</a>
+            <a href="{% url 'files:show_clinic_history' pk=petFile.pk %}" id="clinic-history-link">Historial Clínico</a>
+            <a href="{% url 'files:show_vaccination_history' pk=petFile.pk %}" id="vaccination-history-link">Vacunas</a>
+            <a href="{% url 'files:show_deworming_history' pk=petFile.pk %}" id="deworming-history-link">Desparasitaciones</a>
+            <a href="{% url 'files:show_internment_history' pk=petFile.pk %}" id="internment-history-link">Internación</a>
+        </div>
+
+        {% block file_content %}{% endblock  %}
+    </div>
+
+    <style>
+        .sub-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .section-nav-container {
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .section-nav-container a {
+            background-color: var(--purple);
+            color: white;
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-right: 3px;
+            transition: ease-in-out 0.2s;
+        }
+        .section-nav-container a:last-of-type {
+            margin-right: 0;
+        }
+        .section-nav-container a:hover {
+            background-color: var(--purple-dark);
+        }
+        #current-tab {
+            background-color: var(--purple-dark);
+        }
+    </style>
+{% endblock %}

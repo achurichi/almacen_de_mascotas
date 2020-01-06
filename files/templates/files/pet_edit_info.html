@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'file_detail_layout.html' %}
 {% load static js %}
 
 {% block static %}
@@ -9,8 +9,8 @@
 
 {% block title %} Editar ficha de {{ petFile.pet_name }} {% endblock %}
 
-{% block content %}
-    <form method="post" enctype="multipart/form-data" class="container  article-container" id="data-form"> {% csrf_token %}
+{% block file_content %}
+    <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
         <div class ="icon-title-container">
             <a class="back-icon-position" href={% url 'files:pets_list' %}>
                 <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">

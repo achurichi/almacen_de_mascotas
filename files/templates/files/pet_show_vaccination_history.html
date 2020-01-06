@@ -1,0 +1,14 @@
+{% extends 'file_detail_layout.html' %}
+{% load static js %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_show_info.css' %}">
+    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'files/js/pet_show_info.js' %}"></script>
+{% endblock %}
+
+{% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
+
+{% block file_content %}
+
+{% endblock %}
