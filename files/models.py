@@ -26,8 +26,6 @@ class PetFile(models.Model):
                                   processors=[ResizeToFill(600, 400)],
                                   format='JPEG',
                                   default='images/no-image-found.jpg')
-    # pet_img = models.ImageField(
-    #     blank=True, upload_to='images/', default='images/no-image-found.png')
     sex = models.CharField(max_length=64)
     race = models.CharField(max_length=255, blank=True)
     age = models.IntegerField(default=0, blank=True)
@@ -46,6 +44,15 @@ class PetFile(models.Model):
     #     Deworming_history, on_delete=models.CASCADE)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        try:
+            this = PetFile.objects.get(id=self.id)
+            if this.pet_img != self.pet_img:
+                this.pet_img.delete(save=False)
+        except:
+            pass
+        super(PetFile, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.pet_name
