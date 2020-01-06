@@ -51,7 +51,34 @@ def delete_file(request):
     return JsonResponse({'pet_id': pet_id})
 
 
-def pet_file_detail(request, pk):
+def pet_show_info(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    petForm = PetForm(instance=petFile)
+    ownerForm = OwnerForm(instance=petFile.owner)
+    context = {
+        'petFile': petFile,
+        'ownerFile': petFile.owner,
+    }
+    return render(request, 'files/pet_show_info.html', context)
+
+
+def pet_edit_info(request, pk):
+    if request.method == "POST":
+        pet_id = request.POST.get('pet_id', None)
+        petFile = get_object_or_404(PetFile, id=pet_id)
+        petForm = PetForm(request.POST, request.FILES, instance=petFile)
+        if petForm.has_changed() and petForm.is_valid():
+            petForm.save()
+
+        owner_id = request.POST.get('owner_id', None)
+        owner = get_object_or_404(Owner, id=owner_id)
+        ownerForm = OwnerForm(request.POST, instance=owner)
+        if ownerForm.has_changed() and ownerForm.is_valid():
+            ownerForm.save()
+
+        url = reverse('files:show_info', kwargs={'pk': pet_id})
+        return HttpResponseRedirect(url)
+
     petFile = get_object_or_404(PetFile, pk=pk)
     petForm = PetForm(instance=petFile)
     ownerForm = OwnerForm(instance=petFile.owner)
@@ -61,37 +88,7 @@ def pet_file_detail(request, pk):
         'petForm': petForm,
         'ownerForm': ownerForm,
     }
-    return render(request, 'files/pet_file_detail.html', context)
-
-
-def edit_file(request):
-    data = {
-        'reload': False
-    }
-
-    if request.method == "POST" or request.method == "FILES":
-        pet_id = request.POST.get('pet_id', None)
-        petFile = get_object_or_404(PetFile, id=pet_id)
-        petForm = PetForm(request.POST, request.FILES, instance=petFile)
-        # petForm = PetForm(request.POST, request.FILES, instance=petFile)
-        # petForm.pet_img = request.FILES.get('pet_img', False)
-        # print(request.FILES)
-        # print(petForm.has_changed())
-        if petForm.has_changed() and petForm.is_valid():
-            # petForm.pet_img = "images/dark-tree-sunset-landscape-art.jpg"
-            # print(request.FILES['pet_img'])
-            # print("hola")
-            petForm.save()
-            data['reload'] = True
-
-        owner_id = request.POST.get('owner_id', None)
-        owner = get_object_or_404(Owner, id=owner_id)
-        ownerForm = OwnerForm(request.POST, instance=owner)
-        if ownerForm.has_changed() and ownerForm.is_valid():
-            ownerForm.save()
-            data['reload'] = True
-
-    return JsonResponse(data)
+    return render(request, 'files/pet_edit_info.html', context)
 
 
 def add_pet(request):

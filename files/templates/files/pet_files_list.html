@@ -28,7 +28,7 @@
             {% for petFile in petFiles %}
                 <div class="card" id="card-{{ petFile.pk }}">
                     <header>
-                        <a href="{% url 'files:detail' pk=petFile.pk %}">{{ petFile.pet_name }}</a>
+                        <a href="{% url 'files:show_info' pk=petFile.pk %}">{{ petFile.pet_name }}</a>
                         
                         <button class="delete-btn delete-icon-position" value="{{petFile.pk}}">
                             <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">

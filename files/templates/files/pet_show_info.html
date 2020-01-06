@@ -1,0 +1,170 @@
+{% extends 'layout.html' %}
+{% load static js %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_show_info.css' %}">
+    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'files/js/pet_show_info.js' %}"></script>
+{% endblock %}
+
+{% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
+
+{% block content %}
+    <article class="container article-container">
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href={% url 'files:pets_list' %}>
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+            
+            <h2 id="datos-mascota-title">Datos de la mascota</h2> 
+
+            <a class="edit-icon-position" href="{% url 'files:edit_info' pk=petFile.pk %}" %}>
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">
+            </a>
+        </div>
+
+        <img class="set-display keep-width pet-img" src="{{ petFile.pet_img.url }}" alt="foto-mascota">
+
+        <div class="field-container">
+            <label>Nombre: </label>
+            {{ petFile.pet_name }}
+        </div>
+
+        <div class="field-container">
+            <label>Sexo: </label>
+
+            {% if petFile.sex == "" %}
+                Sin información
+            {% else %}
+                {{ petFile.sex }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Raza: </label>
+            
+            {% if petFile.race == "" %}
+                Sin información
+            {% else %}
+                {{ petFile.race }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Edad: </label>
+            {{ petFile.age }}
+        </div>
+
+        <div class="field-container">
+            <label>Fecha de nacimiento: </label>
+            
+            {% if petFile.date_of_birth == None %}
+                Sin información
+            {% else %}
+                {{ petFile.date_of_birth }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Castrado: </label>
+            <input type="checkbox" id="checkbox-castrated" disabled></input>
+        </div>
+
+        <div class="field-container" id="castration-date-container">
+            <label>Fecha de castración: </label>
+
+            {% if petFile.castration_date == None %}
+                Sin información
+            {% else %}
+                {{ petFile.castration_date }}
+            {% endif %} 
+        </div>
+
+        <div class="field-container">
+            <label>Agresivo: </label>
+            <input type="checkbox" id="checkbox-aggressive" disabled></input>
+        </div>
+
+        <div class="field-container">
+            <label>Alergias: </label>
+            
+            {% if petFile.allergies == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ petFile.allergies }}</textarea>
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Descripción: </label>
+
+            {% if petFile.description == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ petFile.description }}</textarea>
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Observaciones: </label>
+            
+            {% if petFile.obs == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ petFile.obs }}</textarea>
+            {% endif %}
+        </div>
+
+
+        <h2>Datos del dueño</h2>
+
+        <div class="field-container">
+            <label>Nombre: </label>
+            {{ ownerFile.owner_name }}
+        </div>
+
+        <div class="field-container">
+            <label>Dirección: </label>
+
+            {% if ownerFile.address == "" %}
+                Sin información
+            {% else %}
+                {{ ownerFile.address }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Teléfono 1: </label>
+            
+            {% if ownerFile.phone_number_1 == "" %}
+                Sin información
+            {% else %}
+                {{ ownerFile.phone_number_1 }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Teléfono 2: </label>
+            {% if ownerFile.phone_number_2 == "" %}
+                Sin información
+            {% else %}
+                {{ ownerFile.phone_number_2 }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Teléfono 3: </label>
+
+            {% if ownerFile.phone_number_3 == "" %}
+                Sin información
+            {% else %}
+                {{ ownerFile.phone_number_3 }}
+            {% endif %}
+        </div>        
+    </article>
+
+    <script type="text/javascript">
+        var castrated="{{ petFile.castrated|js }}";
+        var aggressive="{{ petFile.aggressive|js }}";
+    </script>
+{% endblock %}

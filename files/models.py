@@ -25,7 +25,6 @@ class PetFile(models.Model):
     pet_img = ProcessedImageField(upload_to='images/',
                                   processors=[ResizeToFill(600, 400)],
                                   format='JPEG',
-                                  blank=True,
                                   default='images/no-image-found.jpg')
     # pet_img = models.ImageField(
     #     blank=True, upload_to='images/', default='images/no-image-found.png')
