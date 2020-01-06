@@ -5,7 +5,34 @@
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_show_clinic_history.css' %}">
 {% endblock %}
 
-{% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
+{% block title %} Historial Clínico de {{ petFile.pet_name }} {% endblock %}
 
 {% block file_content %}
+    <div class="files-container">
+        <a href="{% url 'files:new_clinic_history' pk=petFile.pk %}">Nuevo</a>    
+
+        <div class="cards"> {% comment %} poner la pk para saber cual borrar {% endcomment %}
+            {% for clinicHistory in clinicHistory_files %}
+                <div class="card">
+                    <header>
+                        <a href="#">{{ clinicHistory.date }}</a>
+                        
+                        {% comment %} <button class="delete-btn delete-icon-position" value="{{petFile.pk}}">
+                            <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                        </button> {% endcomment %}
+                    </header>
+                    
+                    <div class="card-copy">
+                        <div class="card-copy-text">
+                            {% if clinicHistory.abstract == ''%}
+                                <p>Raza: Sin información</p>
+                            {% else %}
+                                <p>clinicHistory.abstract</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

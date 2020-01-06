@@ -1,0 +1,248 @@
+h2 {
+	font-size: 2rem;
+	font-weight: 600;
+	width: 90%;
+	text-align: center;
+}
+h2:not(#title) {
+	padding: 2rem 0 1rem 0;
+	margin-bottom: 2rem;
+	border-bottom: 2px solid gainsboro;
+}
+
+form {
+	justify-content: center;
+}
+.icon-title-container {
+	width: 90%;
+	margin-bottom: 2rem;
+	padding: 2rem 0 1rem 0;
+	display: flex;
+	border-bottom: 2px solid gainsboro;
+}
+.icon-title-container h2 {
+	margin-bottom: 0;
+}
+.back-icon-position {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.4s;
+}
+.back-icon-position:hover {
+	transform: scale(1.2);
+}
+.back-icon-position img {
+	height: 4rem;
+	display: flex;
+	transition: all 0.4s;
+}
+.field-input-container {
+	width: 80%;
+	margin-bottom: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #f6f6f6;
+	border-radius: 0.3rem;
+	border: 0.1rem solid gainsboro;
+	box-shadow: 0 0.2rem 0.2rem #e6e6e6;
+	padding: 0 1.5rem 3rem 1.5rem;
+}
+.field-container {
+	width: 75%;
+	min-height: 5rem;
+	padding: 0.6rem;
+	margin-bottom: 1.4rem;
+	font-size: 2rem;
+	display: flex;
+	align-items: center;
+}
+.field-container label:not(.fill-all) {
+	margin-right: 2rem;
+	width: 30%;
+}
+.field-container input,
+textarea {
+	height: 4rem;
+	width: 70%;
+	padding: 1rem;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 1.7rem;
+}
+
+#id_sex {
+	display: flex;
+	justify-content: flex-start;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#id_sex li label {
+	display: flex;
+	width: 100%;
+}
+#id_sex_1 {
+	margin-left: 30px;
+	margin-right: 4px;
+}
+#id_sex_0 {
+	margin-left: 0;
+	margin-right: 4px;
+}
+.sex-radio-container input {
+	height: 2.3rem;
+}
+.checkbox-container,
+.select-date-container {
+	width: 70%;
+}
+.checkbox-container input {
+	margin: 0;
+	width: 2.6rem;
+	height: 2.6rem;
+}
+.select-date-container select {
+	height: 3rem;
+	width: 24%;
+	margin-right: 7px;
+	padding-left: 4px;
+	background-color: white;
+	border-radius: 0.4rem;
+	border: 0.1rem solid var(--border-gray);
+	font-size: 1.6rem;
+}
+#castration-date-container {
+	transition: all 0.2s ease-in;
+}
+.field-container textarea {
+	height: 20rem;
+	width: 100%;
+	resize: none;
+}
+.textarea-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.textarea-container label {
+	margin-bottom: 1rem;
+}
+.img-container {
+	width: 70%;
+}
+.img-container input {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	outline: none;
+	background: none;
+	padding-bottom: 36px;
+}
+
+.owner-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.owner-options {
+	display: flex;
+	justify-content: space-evenly;
+	width: 78%;
+	height: 4rem;
+	margin-bottom: 2rem;
+}
+.owner-options button {
+	width: 70%;
+	height: 4rem;
+	margin: 0 1rem;
+	border: none;
+	outline: none;
+	font-size: 2rem;
+	font-weight: 600;
+}
+.owner-options button:hover {
+	cursor: pointer;
+}
+.selected {
+	background-color: var(--purple);
+	color: white;
+}
+.not-selected {
+	background-color: var(--not-selected-gray);
+	color: var(--not-selected-gray-text);
+}
+.like-disabled {
+	background-color: var(--disabled-gray);
+	outline: none;
+	cursor: default;
+	color: transparent;
+	text-shadow: 0 0 0 gray;
+}
+.autocomplete {
+	width: 75%;
+	position: relative;
+	display: inline-block;
+	margin-bottom: 2rem;
+}
+#owner-search {
+	width: 100%;
+	height: 5rem;
+	border: 3px solid gainsboro;
+	border-radius: 5px;
+	padding: 0 1.3rem;
+	font-size: 1.4rem;
+	outline: none;
+}
+#owner-search:focus {
+	border-color: var(--purple);
+	border-radius: 5px;
+}
+.autocomplete-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+	font-size: 1.5rem;
+}
+.autocomplete-items div:hover {
+	background-color: #e9e9e9;
+}
+.autocomplete-active {
+	background-color: var(--light-purple) !important;
+	color: #ffffff;
+}
+.extra-info {
+	font-size: 1.4rem;
+}
+
+input[type='submit'] {
+	width: 73%;
+	border: none;
+	background-color: var(--purple);
+	height: 6rem;
+	margin-top: 2rem;
+	font-size: 2rem;
+	color: white;
+	font-weight: 600;
+}
+input[type='submit']:hover {
+	background-color: var(--purple-dark);
+	color: var(--hover-gray);
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+}

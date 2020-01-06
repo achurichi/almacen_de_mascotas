@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.db.models import Q
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from .models import PetFile, Owner
-from .forms import PetForm, OwnerForm
+from .models import PetFile, Owner, ClinicHistory
+from .forms import PetForm, OwnerForm, ClinicHistoryForm
 
 
 def petFiles_list(request):
@@ -93,11 +93,34 @@ def pet_edit_info(request, pk):
 
 def pet_show_clinic_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    petForm = PetForm(instance=petFile)
+    clinicHistory_files = ClinicHistory.objects.filter(petFile=pk)
     context = {
         'petFile': petFile,
+        'clinicHistory_files': clinicHistory_files,
     }
     return render(request, 'files/pet_show_clinic_history.html', context)
+
+
+def pet_new_clinic_history(request, pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+
+    if request.method == "POST" or request.method == "FILES":
+        clinicHistory = ClinicHistoryForm(request.POST, request.FILES)
+    else:
+        clinicHistory = ClinicHistoryForm()
+
+    if clinicHistory.is_valid():
+        clinicHistory.petFile_id = pk
+        petForm.save()
+        url = reverse('files:pet_show_clinic_history', kwargs={'pk': pk})
+        return HttpResponseRedirect(url)
+
+    context = {
+        'petFile': petFile,
+        'clinicHistory': clinicHistory
+    }
+
+    return render(request, 'files/pet_new_clinic_history.html', context)
 
 
 def pet_show_vaccination_history(request, pk):

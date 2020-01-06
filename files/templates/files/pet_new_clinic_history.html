@@ -1,0 +1,71 @@
+{% extends "file_detail_layout.html" %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+{% endblock %}
+
+{% block title %} Nuevo Reporte {% endblock %}
+
+{% block file_content %}
+    <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
+        <div class="field-input-container">
+            <div class ="icon-title-container">
+                <a class="back-icon-position" href="{% url 'files:show_clinic_history' pk=petFile.pk %}">
+                    <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+                </a>
+                
+                <h2 id="title">Complete el formulario para agregarlo a la Historia Clínica</h2>    
+            </div>
+
+            <div class="field-container">
+                <label for="date">Fecha: </label>
+                <div class="select-date-container">{{ clinicHistory.date }}</div>
+            </div>
+
+            <div class="field-container">
+                <label for="abstract">Resumen: </label>
+                {{ clinicHistory.abstract }}
+            </div>
+            
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="history">Anamnesis: </label>
+                {{ clinicHistory.history }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="clinics_signs">Signos Clínicos: </label>
+                {{ clinicHistory.clinic_signs }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="diagnosis">Diagnóstico: </label>
+                {{ clinicHistory.diagnosis }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="treatments">Tratamiento: </label>
+                {{ clinicHistory.treatments }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="obs">Observaciones: </label>
+                {{ clinicHistory.obs }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="complemetary_stuides">Estudios Complementarios: </label>
+                {{ clinicHistory.complementary_studies }}
+            </div>
+
+            <input type="submit" value="Agregar">
+        </div>
+    </form>
+
+    <style>
+        .field-input-container {
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
