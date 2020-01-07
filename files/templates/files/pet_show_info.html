@@ -87,35 +87,26 @@
             <input type="checkbox" id="checkbox-aggressive" disabled></input>
         </div>
 
-        <div class="field-container">
-            <label>Alergias: </label>
-            
-            {% if petFile.allergies == "" %}
-                Sin información
-            {% else %}
+        {% if petFile.allergies != "" %}
+            <div class="field-container">
+                <label>Alergias: </label>
                 <textarea readonly class="large-text">{{ petFile.allergies }}</textarea>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Descripción: </label>
-
-            {% if petFile.description == "" %}
-                Sin información
-            {% else %}
+        {% if petFile.description != "" %}
+            <div class="field-container">
+                <label>Descripción: </label>
                 <textarea readonly class="large-text">{{ petFile.description }}</textarea>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Observaciones: </label>
-            
-            {% if petFile.obs == "" %}
-                Sin información
-            {% else %}
+        {% if petFile.obs != "" %}
+            <div class="field-container">
+                <label>Observaciones: </label>
                 <textarea readonly class="large-text">{{ petFile.obs }}</textarea>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
 
         <h2>Datos del dueño</h2>
@@ -135,34 +126,26 @@
             {% endif %}
         </div>
 
-        <div class="field-container">
-            <label>Teléfono 1: </label>
-            
-            {% if ownerFile.phone_number_1 == "" %}
-                Sin información
-            {% else %}
+        {% if ownerFile.phone_number_1 != "" %}
+            <div class="field-container">
+                <label>Teléfono 1: </label>
                 {{ ownerFile.phone_number_1 }}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Teléfono 2: </label>
-            {% if ownerFile.phone_number_2 == "" %}
-                Sin información
-            {% else %}
+        {% if ownerFile.phone_number_2 != "" %}
+            <div class="field-container">
+                <label>Teléfono 2: </label>
                 {{ ownerFile.phone_number_2 }}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Teléfono 3: </label>
-
-            {% if ownerFile.phone_number_3 == "" %}
-                Sin información
-            {% else %}
+        {% if ownerFile.phone_number_3 != "" %}
+            <div class="field-container">
+                <label>Teléfono 3: </label>
                 {{ ownerFile.phone_number_3 }}
-            {% endif %}
-        </div>        
+            </div>
+        {% endif %}      
     </article>
 
     <script type="text/javascript">

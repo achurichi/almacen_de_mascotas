@@ -28,75 +28,54 @@
             {{ clinicHistory.date|date:"d/m/Y" }}
         </div>
 
-        <div class="field-container no-modify">
-            <label class="no-modify">Resumen: </label>
-            
-            {% if clinicHistory.abstract == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.abstract != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Resumen: </label>
                 {{ clinicHistory.abstract }}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Anamnesis: </label>
-            
-            {% if clinicHistory.history == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.history != "" %}
+            <div class="field-container">
+                <label>Anamnesis: </label>
                 <textarea readonly class="large-text">{{ clinicHistory.history }}</textarea>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Signos Clínicos: </label>
-
-            {% if clinicHistory.clinic_signs == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.clinic_signs != "" %}
+            <div class="field-container">
+                <label>Signos Clínicos: </label>
                 <textarea readonly class="large-text">{{ clinicHistory.clinic_signs }}</textarea>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="field-container">
-            <label>Diagnóstico: </label>
-            
-            {% if clinicHistory.diagnosis == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.diagnosis != "" %}
+            <div class="field-container">
+                <label>Diagnóstico: </label>
                 <textarea readonly class="large-text">{{ clinicHistory.diagnosis }}</textarea>
-            {% endif %}
-        </div> 
+            </div> 
+        {% endif %}
 
-        <div class="field-container">
-            <label>Tratamiento: </label>
-            
-            {% if clinicHistory.treatments == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.treatments != "" %}
+            <div class="field-container">
+                <label>Tratamiento: </label>
                 <textarea readonly class="large-text">{{ clinicHistory.treatments }}</textarea>
-            {% endif %}
-        </div> 
+            </div> 
+        {% endif %}
 
-        <div class="field-container">
-            <label>Observaciones: </label>
-            
-            {% if clinicHistory.obs == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.obs != "" %}
+            <div class="field-container">
+                <label>Observaciones: </label>
                 <textarea readonly class="large-text">{{ clinicHistory.obs }}</textarea>
-            {% endif %}
-        </div> 
+            </div> 
+        {% endif %}
 
-        <div class="field-container">
-            <label>Estudios Complementarios: </label>
-            
-            {% if clinicHistory.complementary_studies == "" %}
-                Sin información
-            {% else %}
+        {% if clinicHistory.complementary_studies != "" %}
+            <div class="field-container">
+                <label>Estudios Complementarios: </label>
                 <textarea readonly class="large-text">{{ clinicHistory.complementary_studies }}</textarea>
-            {% endif %}
-        </div> 
+            </div>
+        {% endif %}
     </article>
 
     <style>
@@ -104,6 +83,9 @@
             background-color: var(--purple-dark);
         }
 
+        .field-container{
+            width: 80%;
+        }
         .field-container:not(.no-modify) {
             flex-direction: column;
             align-items: flex-start;
