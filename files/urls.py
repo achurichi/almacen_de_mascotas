@@ -14,19 +14,19 @@ urlpatterns = [
     path('<int:pk>/show_info/', views.pet_show_info, name='show_info'),
     path('<int:pk>/edit_info/', views.pet_edit_info, name='edit_info'),
 
-    path('<int:pk>/show_clinic_history/',
-         views.pet_show_clinic_history, name='show_clinic_history'),
+    path('<int:pk>/clinic_history_list/',
+         views.clinic_history_list, name='clinic_history_list'),
     path('delete_clinic_history/', views.delete_clinic_history,
          name='delete_clinic_history'),
     path('<int:pk>/new_clinic_history/',
-         views.pet_new_clinic_history, name='new_clinic_history'),
+         views.new_clinic_history, name='new_clinic_history'),
 
     path('<int:pk>/show_vaccination_history/',
-         views.pet_show_vaccination_history, name='show_vaccination_history'),
+         views.show_vaccination_history, name='show_vaccination_history'),
 
     path('<int:pk>/show_deworming_history/',
-         views.pet_show_deworming_history, name='show_deworming_history'),
+         views.show_deworming_history, name='show_deworming_history'),
 
     path('<int:pk>/show_internment_history/',
-         views.pet_show_internment_history, name='show_internment_history'),
+         views.show_internment_history, name='show_internment_history'),
 ]

@@ -93,7 +93,7 @@ def pet_edit_info(request, pk):
     return render(request, 'files/pet_edit_info.html', context)
 
 
-def pet_show_clinic_history(request, pk):
+def clinic_history_list(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     clinicHistory_files = ClinicHistory.objects.filter(
         petFile=pk).order_by('-date')
@@ -106,7 +106,7 @@ def pet_show_clinic_history(request, pk):
         'petFile': petFile,
         'clinicHistory_files': clinicHistory_files,
     }
-    return render(request, 'files/pet_show_clinic_history.html', context)
+    return render(request, 'files/clinic_history_list.html', context)
 
 
 def delete_clinic_history(request):
@@ -115,7 +115,7 @@ def delete_clinic_history(request):
     return JsonResponse({})
 
 
-def pet_new_clinic_history(request, pk):
+def new_clinic_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
 
     if request.method == "POST" or request.method == "FILES":
@@ -130,7 +130,7 @@ def pet_new_clinic_history(request, pk):
         if clinicHistory.date == None:
             clinicHistory.date = datetime.date.today()
         clinicHistory.save()
-        url = reverse('files:show_clinic_history', kwargs={'pk': pk})
+        url = reverse('files:clinic_history_list', kwargs={'pk': pk})
         return HttpResponseRedirect(url)
 
     context = {
@@ -138,34 +138,34 @@ def pet_new_clinic_history(request, pk):
         'clinicHistory': clinicHistory
     }
 
-    return render(request, 'files/pet_new_clinic_history.html', context)
+    return render(request, 'files/new_clinic_history.html', context)
 
 
-def pet_show_vaccination_history(request, pk):
+def show_vaccination_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     petForm = PetForm(instance=petFile)
     context = {
         'petFile': petFile,
     }
-    return render(request, 'files/pet_show_vaccination_history.html', context)
+    return render(request, 'files/show_vaccination_history.html', context)
 
 
-def pet_show_deworming_history(request, pk):
+def show_deworming_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     petForm = PetForm(instance=petFile)
     context = {
         'petFile': petFile,
     }
-    return render(request, 'files/pet_show_deworming_history.html', context)
+    return render(request, 'files/show_deworming_history.html', context)
 
 
-def pet_show_internment_history(request, pk):
+def show_internment_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     petForm = PetForm(instance=petFile)
     context = {
         'petFile': petFile,
     }
-    return render(request, 'files/pet_show_internment_history.html', context)
+    return render(request, 'files/show_internment_history.html', context)
 
 
 def add_pet(request):
