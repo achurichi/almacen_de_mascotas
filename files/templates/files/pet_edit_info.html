@@ -2,8 +2,7 @@
 {% load static js %}
 
 {% block static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_edit_info.css' %}">
-    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script> 
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
     <script type="text/javascript" src="{% static 'files/js/pet_edit_info.js' %}"></script>
 {% endblock %}
 
@@ -18,7 +17,7 @@
             
             <h2 id="datos-mascota-title">Datos de la mascota</h2> 
 
-            <button id="edit-btn" class="edit-icon-button" type="submit">
+            <button class="edit-icon-button" type="submit">
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
             </button>  
         </div>
@@ -114,7 +113,11 @@
 
     <script type="text/javascript">
         var castrated="{{ petFile.castrated|js }}";
-        var pet_id={{ petFile.pk }}
-        var owner_id={{ ownerFile.pk }} 
     </script>
+
+    <style>
+        #info-link {
+            background-color: var(--purple-dark);
+        }
+    </style>
 {% endblock %}

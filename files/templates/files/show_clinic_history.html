@@ -1,0 +1,118 @@
+{% extends 'file_detail_layout.html' %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
+    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'files/js/show_clinic_history.js' %}"></script>
+{% endblock %}
+
+{% block title %} Ficha del {{ clinicHistory.date|date:"d/m/Y" }} {% endblock %}
+
+{% block file_content %}
+    <article class="article-container">
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href="{% url 'files:clinic_history_list' pk=petFile.pk %}">
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+            
+            <h2 id="datos-mascota-title">Datos de la Historia Clínica</h2> 
+
+            <a class="edit-icon-position" href="{% url 'files:edit_clinic_history' pk=petFile.pk clinic_history_pk=clinicHistory.pk %}" %}>
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">
+            </a>
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Fecha: </label>
+            {{ clinicHistory.date|date:"d/m/Y" }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Resumen: </label>
+            
+            {% if clinicHistory.abstract == "" %}
+                Sin información
+            {% else %}
+                {{ clinicHistory.abstract }}
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Anamnesis: </label>
+            
+            {% if clinicHistory.history == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ clinicHistory.history }}</textarea>
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Signos Clínicos: </label>
+
+            {% if clinicHistory.clinic_signs == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ clinicHistory.clinic_signs }}</textarea>
+            {% endif %}
+        </div>
+
+        <div class="field-container">
+            <label>Diagnóstico: </label>
+            
+            {% if clinicHistory.diagnosis == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ clinicHistory.diagnosis }}</textarea>
+            {% endif %}
+        </div> 
+
+        <div class="field-container">
+            <label>Tratamiento: </label>
+            
+            {% if clinicHistory.treatments == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ clinicHistory.treatments }}</textarea>
+            {% endif %}
+        </div> 
+
+        <div class="field-container">
+            <label>Observaciones: </label>
+            
+            {% if clinicHistory.obs == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ clinicHistory.obs }}</textarea>
+            {% endif %}
+        </div> 
+
+        <div class="field-container">
+            <label>Estudios Complementarios: </label>
+            
+            {% if clinicHistory.complementary_studies == "" %}
+                Sin información
+            {% else %}
+                <textarea readonly class="large-text">{{ clinicHistory.complementary_studies }}</textarea>
+            {% endif %}
+        </div> 
+    </article>
+
+    <style>
+        #clinic-history-link {
+            background-color: var(--purple-dark);
+        }
+
+        .field-container:not(.no-modify) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label:not(.no-modify) {
+            margin-bottom: 2rem;
+            max-width: 100%;
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}

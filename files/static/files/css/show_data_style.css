@@ -10,10 +10,6 @@ h2:not(#datos-mascota-title) {
 	border-bottom: 2px solid gainsboro;
 }
 
-#info-link {
-	background-color: var(--purple-dark);
-}
-
 article {
 	justify-content: center;
 	margin-top: 20px;

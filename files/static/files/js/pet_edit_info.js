@@ -14,26 +14,3 @@ function adjustCheckboxes() {
 		else divCheckbox.style.display = 'none'
 	})
 }
-
-$(function() {
-	$('#data-form').submit(function(e) {
-		if (document.getElementById('pet-id')) {
-			document.getElementById('pet-id').value = pet_id
-			document.getElementById('owner-id').value = owner_id
-		} else {
-			var petId = $('<input>')
-				.attr('type', 'hidden')
-				.attr('id', 'pet-id')
-				.attr('name', 'pet_id')
-				.val(pet_id)
-			$('#data-form').append(petId)
-
-			var ownerId = $('<input>')
-				.attr('type', 'hidden')
-				.attr('id', 'owner-id')
-				.attr('name', 'owner_id')
-				.val(owner_id)
-			$('#data-form').append(ownerId)
-		}
-	})
-})

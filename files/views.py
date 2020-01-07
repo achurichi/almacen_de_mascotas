@@ -55,8 +55,6 @@ def delete_file(request):
 
 def pet_show_info(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    petForm = PetForm(instance=petFile)
-    ownerForm = OwnerForm(instance=petFile.owner)
     context = {
         'petFile': petFile,
         'ownerFile': petFile.owner,
@@ -66,19 +64,18 @@ def pet_show_info(request, pk):
 
 def pet_edit_info(request, pk):
     if request.method == "POST":
-        pet_id = request.POST.get('pet_id', None)
-        petFile = get_object_or_404(PetFile, id=pet_id)
+        petFile = get_object_or_404(PetFile, id=pk)
         petForm = PetForm(request.POST, request.FILES, instance=petFile)
         if petForm.has_changed() and petForm.is_valid():
             petForm.save()
 
-        owner_id = request.POST.get('owner_id', None)
+        owner_id = PetFile.objects.filter(id=pk)[0].owner.pk
         owner = get_object_or_404(Owner, id=owner_id)
         ownerForm = OwnerForm(request.POST, instance=owner)
         if ownerForm.has_changed() and ownerForm.is_valid():
             ownerForm.save()
 
-        url = reverse('files:show_info', kwargs={'pk': pet_id})
+        url = reverse('files:show_info', kwargs={'pk': pk})
         return HttpResponseRedirect(url)
 
     petFile = get_object_or_404(PetFile, pk=pk)
@@ -139,6 +136,39 @@ def new_clinic_history(request, pk):
     }
 
     return render(request, 'files/new_clinic_history.html', context)
+
+
+def show_clinic_history(request, pk, clinic_history_pk):
+    petFile = get_object_or_404(PetFile, pk=pk)
+    clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
+    context = {
+        'petFile': petFile,
+        'clinicHistory': clinicHistory,
+    }
+    return render(request, 'files/show_clinic_history.html', context)
+
+
+def edit_clinic_history(request, pk, clinic_history_pk):
+    if request.method == "POST":
+        clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
+        clinicHistoryForm = ClinicHistoryForm(
+            request.POST, request.FILES, instance=clinicHistory)
+        if clinicHistoryForm.has_changed() and clinicHistoryForm.is_valid():
+            clinicHistoryForm.save()
+
+        url = reverse('files:show_clinic_history', kwargs={
+                      'pk': pk, 'clinic_history_pk': clinic_history_pk})
+        return HttpResponseRedirect(url)
+
+    petFile = get_object_or_404(PetFile, pk=pk)
+    clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
+    clinicHistoryForm = ClinicHistoryForm(instance=clinicHistory)
+    context = {
+        'petFile': petFile,
+        'clinicHistory': clinicHistory,
+        'clinicHistoryForm': clinicHistoryForm,
+    }
+    return render(request, 'files/edit_clinic_history.html', context)
 
 
 def show_vaccination_history(request, pk):

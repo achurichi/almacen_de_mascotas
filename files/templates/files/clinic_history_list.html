@@ -17,7 +17,7 @@
             {% for clinicHistory in clinicHistory_files %}
                 <div class="card" id="card-{{ clinicHistory.pk }}">
                     <header>
-                        <a href="#">{{ clinicHistory.date }}</a>
+                        <a href="{% url 'files:show_clinic_history' pk=petFile.pk clinic_history_pk=clinicHistory.pk %}">{{ clinicHistory.date|date:"d/m/Y" }}</a>
                         
                         <button class="delete-btn delete-icon-position" value="{{clinicHistory.pk}}">
                             <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">

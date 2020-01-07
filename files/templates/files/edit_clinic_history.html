@@ -1,0 +1,74 @@
+{% extends 'file_detail_layout.html' %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
+{% endblock %}
+
+{% block title %} Editar ficha de {{ petFile.pet_name }} {% endblock %}
+
+{% block file_content %}
+    <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href="{% url 'files:clinic_history_list' pk=petFile.pk %}">
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+            
+            <h2 id="datos-mascota-title">Datos de la Historia Clínica</h2> 
+
+            <button class="edit-icon-button" type="submit">
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
+            </button>  
+        </div>
+
+        <div class="field-container">
+            <label for="date">Fecha: </label>
+            <div class="full-display select-date-container">{{ clinicHistoryForm.date }}</div>
+        </div>
+
+        <div class="field-container">
+            <label for="name">Resumen: </label>
+            {{ clinicHistoryForm.abstract }}
+        </div>
+
+        <div id="allergies-textarea" class="field-container textarea-container">
+            <label for="history">Anamnesis: </label>
+            {{ clinicHistoryForm.history }}
+        </div>
+
+        <div id="allergies-textarea" class="field-container textarea-container">
+            <label for="clinic_signs">Signos Clínicos: </label>
+            {{ clinicHistoryForm.clinic_signs }}
+        </div>
+
+        <div id="allergies-textarea" class="field-container textarea-container">
+            <label for="diagnosis">Diagnóstico: </label>
+            {{ clinicHistoryForm.diagnosis }}
+        </div>
+
+        <div id="allergies-textarea" class="field-container textarea-container">
+            <label for="treatments">Tratamiento: </label>
+            {{ clinicHistoryForm.treatments }}
+        </div>
+
+        <div id="allergies-textarea" class="field-container textarea-container">
+            <label for="obs">Observaciones: </label>
+            {{ clinicHistoryForm.obs }}
+        </div>
+
+        <div id="allergies-textarea" class="field-container textarea-container">
+            <label for="complementary_studies">Estudios Complementarios: </label>
+            {{ clinicHistoryForm.complementary_studies }}
+        </div>
+    </form>
+
+    <style>
+        #clinic-history-link {
+            background-color: var(--purple-dark);
+        }
+
+        .field-container label {
+            max-width: 100%;
+        }
+    </style>
+{% endblock %}

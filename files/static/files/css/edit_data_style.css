@@ -10,10 +10,6 @@ h2:not(#datos-mascota-title) {
 	border-bottom: 2px solid gainsboro;
 }
 
-#info-link {
-	background-color: var(--purple-dark);
-}
-
 .icon-title-container {
 	width: 90%;
 	margin-bottom: 2rem;
@@ -129,9 +125,7 @@ h2:not(#datos-mascota-title) {
 	border: 0.1rem solid var(--border-gray);
 	font-size: 1.7rem;
 }
-#id_allergies,
-#id_description,
-#id_obs {
+textarea {
 	height: 20rem;
 	width: 100%;
 	resize: none;

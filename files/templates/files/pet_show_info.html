@@ -2,7 +2,7 @@
 {% load static js %}
 
 {% block static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_show_info.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
     <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script> 
     <script type="text/javascript" src="{% static 'files/js/pet_show_info.js' %}"></script>
 {% endblock %}
@@ -169,4 +169,10 @@
         var castrated="{{ petFile.castrated|js }}";
         var aggressive="{{ petFile.aggressive|js }}";
     </script>
+
+    <style>
+        #info-link {
+            background-color: var(--purple-dark);
+        }
+    </style>
 {% endblock %}
