@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('<int:pk>/show_clinic_history/',
          views.pet_show_clinic_history, name='show_clinic_history'),
+    path('delete_clinic_history/', views.delete_clinic_history,
+         name='delete_clinic_history'),
     path('<int:pk>/new_clinic_history/',
          views.pet_new_clinic_history, name='new_clinic_history'),
 

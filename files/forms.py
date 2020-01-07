@@ -3,6 +3,7 @@ from django import forms
 from .models import PetFile, Owner, ClinicHistory
 
 import datetime
+from django.utils import timezone
 
 SEX_CHOICES = [('Macho', 'Macho'), ('Hembra', 'Hembra')]
 

@@ -8,6 +8,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from .models import PetFile, Owner, ClinicHistory
 from .forms import PetForm, OwnerForm, ClinicHistoryForm
 
+import datetime
+
 
 def petFiles_list(request):
     query = ""
@@ -48,7 +50,7 @@ def delete_file(request):
     if len(PetFile.objects.filter(owner_id=owner_id)) == 0:
         Owner.objects.filter(id=owner_id).delete()
 
-    return JsonResponse({'pet_id': pet_id})
+    return JsonResponse({})
 
 
 def pet_show_info(request, pk):
@@ -93,12 +95,24 @@ def pet_edit_info(request, pk):
 
 def pet_show_clinic_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    clinicHistory_files = ClinicHistory.objects.filter(petFile=pk)
+    clinicHistory_files = ClinicHistory.objects.filter(
+        petFile=pk).order_by('-date')
+
+    paginator = Paginator(clinicHistory_files, 10)
+    page = request.GET.get('page')
+    clinicHistory_files = paginator.get_page(page)
+
     context = {
         'petFile': petFile,
         'clinicHistory_files': clinicHistory_files,
     }
     return render(request, 'files/pet_show_clinic_history.html', context)
+
+
+def delete_clinic_history(request):
+    clinicHistory_id = request.POST.get('clinicHistory_id', None)
+    ClinicHistory.objects.filter(id=clinicHistory_id).delete()
+    return JsonResponse({})
 
 
 def pet_new_clinic_history(request, pk):
@@ -110,9 +124,13 @@ def pet_new_clinic_history(request, pk):
         clinicHistory = ClinicHistoryForm()
 
     if clinicHistory.is_valid():
-        clinicHistory.petFile_id = pk
-        petForm.save()
-        url = reverse('files:pet_show_clinic_history', kwargs={'pk': pk})
+
+        clinicHistory = clinicHistory.save(commit=False)
+        clinicHistory.petFile = petFile
+        if clinicHistory.date == None:
+            clinicHistory.date = datetime.date.today()
+        clinicHistory.save()
+        url = reverse('files:show_clinic_history', kwargs={'pk': pk})
         return HttpResponseRedirect(url)
 
     context = {

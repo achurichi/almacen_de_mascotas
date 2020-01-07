@@ -3,36 +3,60 @@
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_show_clinic_history.css' %}">
+    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'files/js/pet_show_clinic_history.js' %}"></script>
 {% endblock %}
 
 {% block title %} Historial Clínico de {{ petFile.pet_name }} {% endblock %}
 
 {% block file_content %}
     <div class="files-container">
-        <a href="{% url 'files:new_clinic_history' pk=petFile.pk %}">Nuevo</a>    
+        <a id="new" href="{% url 'files:new_clinic_history' pk=petFile.pk %}">Nuevo</a>    
 
-        <div class="cards"> {% comment %} poner la pk para saber cual borrar {% endcomment %}
+        <div class="cards">
             {% for clinicHistory in clinicHistory_files %}
-                <div class="card">
+                <div class="card" id="card-{{ clinicHistory.pk }}">
                     <header>
                         <a href="#">{{ clinicHistory.date }}</a>
                         
-                        {% comment %} <button class="delete-btn delete-icon-position" value="{{petFile.pk}}">
+                        <button class="delete-btn delete-icon-position" value="{{clinicHistory.pk}}">
                             <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
-                        </button> {% endcomment %}
+                        </button>
                     </header>
                     
                     <div class="card-copy">
                         <div class="card-copy-text">
                             {% if clinicHistory.abstract == ''%}
-                                <p>Raza: Sin información</p>
+                                <p>Sin información</p>
                             {% else %}
-                                <p>clinicHistory.abstract</p>
+                                <p>{{ clinicHistory.abstract }}</p>
                             {% endif %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-text-links">
+                <div class="step-links">
+                    {% if clinicHistory_files.has_previous %}
+                        <a href="?page=1">primera</a>
+                        <a href="?page={{ clinicHistory_files.previous_page_number }}">anterior</a>
+                    {% endif %}
+                </div>
+
+                <span class="current">
+                    Página {{ clinicHistory_files.number }} de {{ clinicHistory_files.paginator.num_pages }}
+                </span>
+
+                <div class="step-links">
+                    {% if clinicHistory_files.has_next %}
+                        <a href="?page={{ clinicHistory_files.next_page_number }}">siguiente</a>
+                        <a href="?page={{ clinicHistory_files.paginator.num_pages }}">última</a>
+                    {% endif %}
+                </div>
+            </span>
         </div>
     </div>
 {% endblock %}
