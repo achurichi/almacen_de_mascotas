@@ -1,8 +1,12 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
     <div class="container sub-container">
         <div class="section-nav-container">
+            <a class="back-icon-position" href={% url 'files:pets_list' %}>
+                <img src={% static 'img/arrow-left-solid.svg' %} alt="back-icon">
+            </a>
             <a href="{% url 'files:show_info' pk=petFile.pk %}" id="info-link">Información</a>
             <a href="{% url 'files:clinic_history_list' pk=petFile.pk %}" id="clinic-history-link">Historial Clínico</a>
             <a href="{% url 'files:show_vaccination_history' pk=petFile.pk %}" id="vaccination-history-link">Vacunas</a>
@@ -22,11 +26,13 @@
         }
 
         .section-nav-container {
+            display: flex;
             justify-content: flex-start;
             align-items: center;
             margin-top: 1rem;
+            margin-right: 6rem;
         }
-        .section-nav-container a {
+        .section-nav-container a:not(.back-icon-position) {
             background-color: var(--purple);
             color: white;
             text-decoration: none;
@@ -37,14 +43,30 @@
             margin-right: 3px;
             transition: ease-in-out 0.2s;
         }
-        .section-nav-container a:last-of-type {
+        .section-nav-container a:last-of-type:not(.back-icon-position)  {
             margin-right: 0;
         }
-        .section-nav-container a:hover {
+        .section-nav-container a:hover:not(.back-icon-position)  {
             background-color: var(--purple-dark);
         }
         #current-tab {
             background-color: var(--purple-dark);
+        }
+
+        .back-icon-position {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 2rem;
+            transition: all 0.4s;
+        }
+        .back-icon-position:hover {
+            transform: scale(1.3);
+        }
+        .back-icon-position img {
+            width: 4rem;
+            display: flex;
+            transition: all 0.4s;
         }
     </style>
 {% endblock %}

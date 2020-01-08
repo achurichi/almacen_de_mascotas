@@ -11,10 +11,6 @@
 {% block file_content %}
     <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
         <div class ="icon-title-container">
-            <a class="back-icon-position" href={% url 'files:pets_list' %}>
-                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
-            </a>
-            
             <h2 id="datos-mascota-title">Datos de la mascota</h2> 
 
             <button class="edit-icon-button" type="submit">

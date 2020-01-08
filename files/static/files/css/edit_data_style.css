@@ -9,6 +9,9 @@ h2:not(#datos-mascota-title) {
 	margin-bottom: 2rem;
 	border-bottom: 2px solid gainsboro;
 }
+#datos-mascota-title {
+	margin-left: 4rem;
+}
 
 .icon-title-container {
 	width: 90%;

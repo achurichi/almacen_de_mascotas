@@ -121,7 +121,6 @@ def new_clinic_history(request, pk):
         clinicHistory = ClinicHistoryForm()
 
     if clinicHistory.is_valid():
-
         clinicHistory = clinicHistory.save(commit=False)
         clinicHistory.petFile = petFile
         if clinicHistory.date == None:
@@ -154,6 +153,8 @@ def edit_clinic_history(request, pk, clinic_history_pk):
         clinicHistoryForm = ClinicHistoryForm(
             request.POST, request.FILES, instance=clinicHistory)
         if clinicHistoryForm.has_changed() and clinicHistoryForm.is_valid():
+            if clinicHistory.date == None:
+                clinicHistory.date = datetime.date.today()
             clinicHistoryForm.save()
 
         url = reverse('files:show_clinic_history', kwargs={
