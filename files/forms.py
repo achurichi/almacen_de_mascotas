@@ -5,8 +5,6 @@ from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg
 
 import datetime
 
-from multiupload.fields import MultiImageField
-
 SEX_CHOICES = [('Macho', 'Macho'), ('Hembra', 'Hembra')]
 
 
@@ -102,8 +100,6 @@ class ClinicHistoryForm(forms.ModelForm):
 
 
 class ClinicHistoryImgForm(forms.ModelForm):
-    # image = forms.ProcessedImageField(required=False)
-
     class Meta:
         model = ClinicHistoryImg
         fields = ['image', ]

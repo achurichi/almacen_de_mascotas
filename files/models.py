@@ -24,7 +24,7 @@ class Owner(models.Model):
 class PetFile(models.Model):
     pet_name = models.CharField(max_length=255)
     pet_img = ProcessedImageField(upload_to='images/',
-                                  processors=[ResizeToFill(600, 400)],
+                                  processors=[ResizeToFill(900, 500)],
                                   format='JPEG',
                                   default='images/no-image-found.jpg')
     sex = models.CharField(max_length=64)
@@ -76,9 +76,8 @@ class ClinicHistory(models.Model):
 
 
 class ClinicHistoryImg(models.Model):
-    # image = ProcessedImageField(upload_to='images/',
-    #                             spec_id='logo_processor')
-    image = ProcessedImageField(upload_to='images/',
+    image = ProcessedImageField(verbose_name='Foto',
+                                upload_to='images/',
                                 processors=[ResizeToFit(
                                     1280, 720, mat_color=(32, 40, 41))],
                                 format='JPEG')

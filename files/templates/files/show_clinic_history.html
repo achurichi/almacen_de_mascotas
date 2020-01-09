@@ -4,6 +4,7 @@
 {% block static %}
     <script type="text/javascript" src="{% static 'files/js/show_clinic_history.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
 {% endblock %}
 
 {% block title %} Ficha del {{ clinicHistory.date|date:"d/m/Y" }} {% endblock %}
@@ -92,13 +93,13 @@
                 <div class="carousel-inner" style="max-width: 70rem;">
                     {% for img in clinicHistoryImg %}
                         {% if forloop.first %}
-                            <div class="carousel-item active">
+                            <a class="carousel-item active" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
                                 <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
-                            </div>
+                            </a>
                         {% else %}
-                            <div class="carousel-item">
+                            <a class="carousel-item" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
                                 <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
-                            </div>
+                            </a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -114,53 +115,24 @@
             </div>
         </div>
 
-        {% comment %} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+        <!-- Modals -->
+        {% for img in clinicHistoryImg %}
+            <div class="modal fade" id="modal-{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    {% comment %} <div class="modal-header custom-height-modal"> {% endcomment %}
+                        <div class="modal-content custom-height-modal">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <img class="custom-height-modal" src="{{ img.image.url }}" alt="foto-mascota">
+                        </div>
+                    {% comment %} </div> {% endcomment %}
                 </div>
             </div>
-        </div>
-    </article> {% endcomment %}
+        {% endfor %}
+    </article>
 
     <script>
         $('.carousel').carousel()
     </script>
-
-    <style>
-        #clinic-history-link {
-            background-color: var(--purple-dark);
-        }
-
-        .field-container{
-            width: 80%;
-        }
-        .field-container:not(.no-modify) {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        label:not(.no-modify) {
-            margin-bottom: 2rem;
-            max-width: 100%;
-            text-decoration: underline;
-        }
-    </style>
 {% endblock %}

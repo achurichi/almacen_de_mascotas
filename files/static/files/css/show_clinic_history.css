@@ -1,0 +1,68 @@
+#clinic-history-link {
+	background-color: var(--purple-dark);
+}
+
+.field-container {
+	width: 80%;
+}
+.field-container:not(.no-modify) {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+label:not(.no-modify) {
+	margin-bottom: 2rem;
+	max-width: 100%;
+	text-decoration: underline;
+}
+
+.carousel-item:hover {
+	cursor: pointer;
+}
+
+.modal {
+	width: 1024px;
+	height: 576px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -512px;
+	margin-top: -288px;
+}
+.modal-dialog {
+	margin: 0;
+	width: 1024px;
+	height: 576px;
+	max-width: none;
+	overflow: hidden;
+}
+.custom-height-modal {
+	width: 1024px;
+	height: 576px;
+}
+
+.modal img {
+	position: absolute;
+}
+.close {
+	position: relative;
+	z-index: 51;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	margin-right: 1.2rem;
+	font-size: 60px;
+	color: #fff;
+	text-shadow: none;
+	opacity: 0.4;
+	outline: none;
+}
+.close:hover {
+	color: #fff;
+}
+
+.close:active,
+.close:focus {
+	outline: 0;
+	border: none;
+}

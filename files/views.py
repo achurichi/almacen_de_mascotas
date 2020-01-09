@@ -116,15 +116,15 @@ def delete_clinic_history(request):
 
 def new_clinic_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    ImgForm = modelformset_factory(ClinicHistoryImg,
-                                   form=ClinicHistoryImgForm,
-                                   extra=3)  # que sea dinámico
+    ImgFormset = modelformset_factory(ClinicHistoryImg,
+                                      form=ClinicHistoryImgForm,
+                                      extra=1)
 
     if request.method == "POST":
         clinicHistoryForm = ClinicHistoryForm(request.POST)
-        imgForm = ImgForm(request.POST,
-                          request.FILES,
-                          queryset=ClinicHistoryImg.objects.none())
+        imgFormset = ImgFormset(request.POST,
+                                request.FILES,
+                                queryset=ClinicHistoryImg.objects.none())
 
         if clinicHistoryForm.is_valid():
             clinicHistoryForm = clinicHistoryForm.save(commit=False)
@@ -134,7 +134,7 @@ def new_clinic_history(request, pk):
             clinicHistoryForm.save()
 
             if request.FILES != {}:
-                for form in imgForm.cleaned_data:
+                for form in imgFormset.cleaned_data:
                     if form != {}:
                         photo = ClinicHistoryImg(
                             clinicHistory=clinicHistoryForm, image=form['image'])
@@ -144,12 +144,12 @@ def new_clinic_history(request, pk):
             return HttpResponseRedirect(url)
     else:
         clinicHistoryForm = ClinicHistoryForm()
-        imgForm = ImgForm(queryset=ClinicHistoryImg.objects.none())
+        imgFormset = ImgFormset(queryset=ClinicHistoryImg.objects.none())
 
     context = {
         'petFile': petFile,
         'clinicHistoryForm': clinicHistoryForm,
-        'imgForm': imgForm,
+        'imgFormset': imgFormset,
     }
 
     return render(request, 'files/new_clinic_history.html', context)

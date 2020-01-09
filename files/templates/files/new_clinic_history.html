@@ -3,6 +3,7 @@
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/new_clinic_history.css' %}">
 {% endblock %}
 
 {% block title %} Nuevo Reporte {% endblock %}
@@ -58,31 +59,42 @@
                 {{ clinicHistoryForm.complementary_studies }}
             </div>
 
-            <div class="field-container">
-                {% comment %} <label for="pet_img">Foto de perfil: </label> {% endcomment %}
-                <div class="img-container">{{ imgForm }}</div>
+            <div class="img-formset">
+                <button id="add_more" type="button">
+                    <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Foto">
+                </button> 
+
+                {{ imgFormset.management_form }}
+                
+                <div id="form_set">
+                    {% for form in imgFormset.forms %}
+                        {{form.non_field_errors}}
+                        {{form.errors}}
+                        <table class='no_error'>
+                            {{ form }}
+                        </table>
+                    {% endfor %}
+                </div>
+                
+                <div id="empty_form" style="display:none">
+                    <table class='no_error'>
+                        {{ imgFormset.empty_form }}
+                    </table>
+                </div>
+
+                
             </div>
 
             <input type="submit" value="Agregar">
         </div>
     </form>
 
-    <style>
-        .field-input-container {
-            margin-top: 20px;
-        }
-
-        #clinic-history-link {
-            background-color: var(--purple-dark);
-        }
-
-        .field-container label:not(.fill-all) {
-            min-width: 20%;
-            max-width: 20%;
-        }
-        .field-container input, textarea {
-            width: 80%;
-        }
-    </style>
+    <script>
+        $('#add_more').click(function() {
+            var form_idx = $('#id_form-TOTAL_FORMS').val();
+            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
 {% endblock %}
 
