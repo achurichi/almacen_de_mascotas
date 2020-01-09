@@ -20,42 +20,47 @@
 
             <div class="field-container">
                 <label for="date">Fecha: </label>
-                <div class="select-date-container">{{ clinicHistory.date }}</div>
+                <div class="select-date-container">{{ clinicHistoryForm.date }}</div>
             </div>
 
             <div class="field-container">
                 <label for="abstract">Resumen: </label>
-                {{ clinicHistory.abstract }}
+                {{ clinicHistoryForm.abstract }}
             </div>
             
             <div class="field-container textarea-container">
                 <label class="fill-all" for="history">Anamnesis: </label>
-                {{ clinicHistory.history }}
+                {{ clinicHistoryForm.history }}
             </div>
 
             <div class="field-container textarea-container">
                 <label class="fill-all" for="clinics_signs">Signos Clínicos: </label>
-                {{ clinicHistory.clinic_signs }}
+                {{ clinicHistoryForm.clinic_signs }}
             </div>
 
             <div class="field-container textarea-container">
                 <label class="fill-all" for="diagnosis">Diagnóstico: </label>
-                {{ clinicHistory.diagnosis }}
+                {{ clinicHistoryForm.diagnosis }}
             </div>
 
             <div class="field-container textarea-container">
                 <label class="fill-all" for="treatments">Tratamiento: </label>
-                {{ clinicHistory.treatments }}
+                {{ clinicHistoryForm.treatments }}
             </div>
 
             <div class="field-container textarea-container">
                 <label class="fill-all" for="obs">Observaciones: </label>
-                {{ clinicHistory.obs }}
+                {{ clinicHistoryForm.obs }}
             </div>
 
             <div class="field-container textarea-container">
                 <label class="fill-all" for="complemetary_stuides">Estudios Complementarios: </label>
-                {{ clinicHistory.complementary_studies }}
+                {{ clinicHistoryForm.complementary_studies }}
+            </div>
+
+            <div class="field-container">
+                {% comment %} <label for="pet_img">Foto de perfil: </label> {% endcomment %}
+                <div class="img-container">{{ imgForm }}</div>
             </div>
 
             <input type="submit" value="Agregar">

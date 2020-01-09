@@ -36,14 +36,6 @@ class PetFile(models.Model):
     description = models.TextField(default='', blank=True)
     obs = models.TextField(default='', blank=True)
     allergies = models.TextField(default='', blank=True)
-    # clinic_history = models.ForeignKey(
-    #     ClinicHistory, on_delete=models.CASCADE)
-    # vaccination_history = models.ForeignKey(
-    #     Vaccination_history, on_delete=models.CASCADE)
-    # deworming_history = models.ForeignKey(
-    #     Deworming_history, on_delete=models.CASCADE)
-    # internment_history = models.ForeignKey(
-    #     Internment, on_delete=models.CASCADE)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -78,9 +70,20 @@ class ClinicHistory(models.Model):
     treatments = models.TextField(default='', blank=True)
     obs = models.TextField(default='', blank=True)
     complementary_studies = models.TextField(default='', blank=True)
-    # Imágenes
     petFile = models.ForeignKey(PetFile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ClinicHistoryImg(models.Model):
+    image = ProcessedImageField(upload_to='images/',
+                                          processors=[ResizeToFill(1024, 768)],
+                                          format='JPEG')
+    clinicHistory = models.ForeignKey(ClinicHistory, on_delete=models.CASCADE)
+
+
+@receiver(post_delete, sender=ClinicHistoryImg)
+def submission_delete_ClinicHistoryImg(sender, instance, **kwargs):
+    instance.image.delete(False)
 
 
 class VaccinationHistory(models.Model):

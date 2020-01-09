@@ -1,9 +1,11 @@
 from django import forms
+from django.utils import timezone
 
-from .models import PetFile, Owner, ClinicHistory
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg
 
 import datetime
-from django.utils import timezone
+
+from multiupload.fields import MultiImageField
 
 SEX_CHOICES = [('Macho', 'Macho'), ('Hembra', 'Hembra')]
 
@@ -83,7 +85,6 @@ class ClinicHistoryForm(forms.ModelForm):
     obs = forms.CharField(required=False, widget=forms.Textarea)
     complementary_studies = forms.CharField(
         required=False, widget=forms.Textarea)
-    # Imágenes
 
     class Meta:
         model = ClinicHistory
@@ -98,3 +99,11 @@ class ClinicHistoryForm(forms.ModelForm):
             'obs',
             'complementary_studies',
         ]
+
+
+class ClinicHistoryImgForm(forms.ModelForm):
+    # image = forms.ProcessedImageField(required=False)
+
+    class Meta:
+        model = ClinicHistoryImg
+        fields = ['image', ]

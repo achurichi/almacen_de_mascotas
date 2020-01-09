@@ -4,9 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.forms import modelformset_factory
 
-from .models import PetFile, Owner, ClinicHistory
-from .forms import PetForm, OwnerForm, ClinicHistoryForm
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg
+from .forms import PetForm, OwnerForm, ClinicHistoryForm, ClinicHistoryImgForm
+
 
 import datetime
 
@@ -114,24 +116,40 @@ def delete_clinic_history(request):
 
 def new_clinic_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
+    ImgForm = modelformset_factory(ClinicHistoryImg,
+                                   form=ClinicHistoryImgForm,
+                                   extra=3)  # que sea dinámico
 
-    if request.method == "POST" or request.method == "FILES":
-        clinicHistory = ClinicHistoryForm(request.POST, request.FILES)
+    if request.method == "POST":
+        clinicHistoryForm = ClinicHistoryForm(request.POST)
+        imgForm = ImgForm(request.POST,
+                          request.FILES,
+                          queryset=ClinicHistoryImg.objects.none())
+
+        if clinicHistoryForm.is_valid():
+            clinicHistoryForm = clinicHistoryForm.save(commit=False)
+            clinicHistoryForm.petFile = petFile
+            if clinicHistoryForm.date == None:
+                clinicHistoryForm.date = datetime.date.today()
+            clinicHistoryForm.save()
+
+            if request.FILES != {}:
+                for form in imgForm.cleaned_data:
+                    if form != {}:
+                        photo = ClinicHistoryImg(
+                            clinicHistory=clinicHistoryForm, image=form['image'])
+                        photo.save()
+
+            url = reverse('files:clinic_history_list', kwargs={'pk': pk})
+            return HttpResponseRedirect(url)
     else:
-        clinicHistory = ClinicHistoryForm()
-
-    if clinicHistory.is_valid():
-        clinicHistory = clinicHistory.save(commit=False)
-        clinicHistory.petFile = petFile
-        if clinicHistory.date == None:
-            clinicHistory.date = datetime.date.today()
-        clinicHistory.save()
-        url = reverse('files:clinic_history_list', kwargs={'pk': pk})
-        return HttpResponseRedirect(url)
+        clinicHistoryForm = ClinicHistoryForm()
+        imgForm = ImgForm(queryset=ClinicHistoryImg.objects.none())
 
     context = {
         'petFile': petFile,
-        'clinicHistory': clinicHistory
+        'clinicHistoryForm': clinicHistoryForm,
+        'imgForm': imgForm,
     }
 
     return render(request, 'files/new_clinic_history.html', context)
@@ -140,9 +158,12 @@ def new_clinic_history(request, pk):
 def show_clinic_history(request, pk, clinic_history_pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
+    clinicHistoryImg = ClinicHistoryImg.objects.filter(
+        clinicHistory=clinicHistory)
     context = {
         'petFile': petFile,
         'clinicHistory': clinicHistory,
+        'clinicHistoryImg': clinicHistoryImg,
     }
     return render(request, 'files/show_clinic_history.html', context)
 

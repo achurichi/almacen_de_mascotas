@@ -3,6 +3,7 @@ h2 {
 	font-weight: 600;
 	width: 90%;
 	text-align: center;
+	margin-top: 1rem;
 }
 h2:not(#title) {
 	padding: 2rem 0 1rem 0;

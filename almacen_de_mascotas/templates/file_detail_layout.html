@@ -4,7 +4,7 @@
 {% block content %}
     <div class="container sub-container">
         <div class="section-nav-container">
-            <a class="back-icon-position" href={% url 'files:pets_list' %}>
+            <a id="nav-back-icon" href={% url 'files:pets_list' %}>
                 <img src={% static 'img/arrow-left-solid.svg' %} alt="back-icon">
             </a>
             <a href="{% url 'files:show_info' pk=petFile.pk %}" id="info-link">Información</a>
@@ -53,17 +53,19 @@
             background-color: var(--purple-dark);
         }
 
-        .back-icon-position {
+        #nav-back-icon {
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 0;
             margin-right: 2rem;
+            background: none;
             transition: all 0.4s;
         }
-        .back-icon-position:hover {
-            transform: scale(1.3);
+        #nav-back-icon:hover {
+            transform: scale(1.2);
         }
-        .back-icon-position img {
+        #nav-back-icon img {
             width: 4rem;
             display: flex;
             transition: all 0.4s;

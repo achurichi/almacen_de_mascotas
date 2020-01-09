@@ -3,7 +3,6 @@
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
-    <script src="{% static 'files/js/jquery-3.4.1.min.js' %}"></script> 
     <script type="text/javascript" src="{% static 'files/js/pet_show_info.js' %}"></script>
 {% endblock %}
 
@@ -12,7 +11,7 @@
 {% block file_content %}
     <article class="article-container">
         <div class ="icon-title-container">
-            <h2 id="datos-mascota-title">Datos de la mascota</h2> 
+            <h2 id="datos-mascota-title" class="add-margin-left">Datos de la mascota</h2> 
 
             <a class="edit-icon-position" href="{% url 'files:edit_info' pk=petFile.pk %}" %}>
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">
