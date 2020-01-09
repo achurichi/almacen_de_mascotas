@@ -7,7 +7,7 @@
 }
 
 .field-container label {
-	max-width: 100%;
+	max-width: 70%;
 }
 
 .img-formset {
@@ -48,10 +48,6 @@
 .no_error tbody tr:last-of-type {
 	display: flex;
 	margin-top: 1rem;
-}
-.no_error tbody tr td {
-	display: flex;
-	align-items: center;
 }
 .no_error label {
 	font-weight: 500;
