@@ -4,6 +4,7 @@
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/new_clinic_history.css' %}">
+    <script type="text/javascript" src="{% static 'files/js/new_clinic_history.js' %}"></script>
 {% endblock %}
 
 {% block title %} Nuevo Reporte {% endblock %}
@@ -68,31 +69,27 @@
                 
                 <div id="form_set">
                     {% for form in imgFormset.forms %}
-                        {{form.non_field_errors}}
-                        {{form.errors}}
-                        <table class='no_error'>
+                        <div id="form-0-row" class='no_error'>
                             {{ form }}
-                        </table>
+                            <button id="form-0-btn" class="delete-btn" type="button">
+                                <img src={% static 'img/times-solid.svg' %} alt="Agregar Foto">
+                            </button> 
+                        </div>
                     {% endfor %}
                 </div>
                 
                 <div id="empty_form" style="display:none">
-                    <table class='no_error'>
+                    <div id="form_id" class='no_error'>
                         {{ imgFormset.empty_form }}
-                    </table>
+                        <button id="btn_id" class="delete-btn" type="button">
+                            <img src={% static 'img/times-solid.svg' %} alt="Agregar Foto">
+                        </button> 
+                    </div>
                 </div>
             </div>
 
             <input type="submit" value="Agregar">
         </div>
     </form>
-
-    <script>
-        $('#add_more').click(function() {
-            var form_idx = $('#id_form-TOTAL_FORMS').val();
-            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-        });
-    </script>
 {% endblock %}
 

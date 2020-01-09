@@ -118,7 +118,7 @@ def new_clinic_history(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     ImgFormset = modelformset_factory(ClinicHistoryImg,
                                       form=ClinicHistoryImgForm,
-                                      extra=1)
+                                      extra=1,)
 
     if request.method == "POST":
         clinicHistoryForm = ClinicHistoryForm(request.POST)
@@ -133,7 +133,7 @@ def new_clinic_history(request, pk):
                 clinicHistoryForm.date = datetime.date.today()
             clinicHistoryForm.save()
 
-            if request.FILES != {}:
+            if request.FILES != {} and imgFormset.is_valid():
                 for form in imgFormset.cleaned_data:
                     if form != {}:
                         photo = ClinicHistoryImg(
@@ -171,7 +171,8 @@ def show_clinic_history(request, pk, clinic_history_pk):
 def edit_clinic_history(request, pk, clinic_history_pk):
     ImgFormset = modelformset_factory(ClinicHistoryImg,
                                       form=ClinicHistoryImgForm,
-                                      extra=1)
+                                      extra=1,
+                                      can_delete=True,)
 
     if request.method == "POST":
         clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
@@ -186,16 +187,22 @@ def edit_clinic_history(request, pk, clinic_history_pk):
                 clinicHistory.date = datetime.date.today()
             clinicHistoryForm.save()
 
-        if request.FILES != {}:
+        if imgFormset.is_valid():
             for form in imgFormset.cleaned_data:
-                if form != {}:
+                print(form)
+                if form == {} or form['id'] == None and form['DELETE'] == True:
+                    break
+                else:
                     if form['id'] == None:
                         photo = ClinicHistoryImg(
                             clinicHistory=clinicHistory, image=form['image'])
                         photo.save()
+                    elif form['DELETE'] == True:
+                        ClinicHistoryImg.objects.filter(
+                            id=form['id'].pk).delete()
                     else:
                         photo = ClinicHistoryImg.objects.filter(
-                            pk=form['id'].pk)[0]
+                            id=form['id'].pk)[0]
                         if photo.image != form['image']:
                             photo.image = form['image']
                             photo.save()

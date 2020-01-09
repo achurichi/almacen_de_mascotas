@@ -41,14 +41,18 @@
 	margin-top: 1rem;
 	border: 3px solid gainsboro;
 	display: flex;
-	/* justify-content: center; */
 	align-items: center;
 	padding: 1rem;
 	overflow: hidden;
 }
-/* .no_error tbody {
-	padding: 1rem;
-} */
+.no_error tbody tr:last-of-type {
+	display: flex;
+	margin-top: 1rem;
+}
+.no_error tbody tr td {
+	display: flex;
+	align-items: center;
+}
 .no_error label {
 	font-weight: 500;
 	margin: 0 1rem 0 0;

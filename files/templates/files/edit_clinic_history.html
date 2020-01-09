@@ -71,8 +71,8 @@
             
             <div id="form_set">
                 {% for form in imgFormset.forms %}
-                    {{form.non_field_errors}}
-                    {{form.errors}}
+                    {% comment %} {{form.non_field_errors}}
+                    {{form.errors}} {% endcomment %}
                     <table class='no_error'>
                         {{ form }}
                     </table>

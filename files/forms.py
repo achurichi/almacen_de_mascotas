@@ -69,9 +69,8 @@ class ClinicHistoryForm(forms.ModelForm):
     now = datetime.datetime.now()
 
     date = forms.DateField(
-        required=False,
+        initial=datetime.date.today,
         widget=forms.SelectDateWidget(
-            empty_label=("Año", "mes", "día"),
             years=range(now.year, now.year - 40, -1),
         )
     )

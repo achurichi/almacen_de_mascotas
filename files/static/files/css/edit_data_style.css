@@ -48,6 +48,11 @@ h2:not(#datos-mascota-title) {
 	align-items: center;
 	transition: all 0.4s;
 }
+.edit-icon-button:active,
+.edit-icon-button:focus {
+	outline: 0;
+	border: none;
+}
 .edit-icon-button:hover {
 	cursor: pointer;
 	border: none;

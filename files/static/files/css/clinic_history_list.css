@@ -92,6 +92,11 @@
 	align-items: center;
 	transition: transform 0.5s;
 }
+.delete-icon-position:active,
+.delete-icon-position:focus {
+	outline: 0;
+	border: none;
+}
 .delete-icon-position:hover {
 	cursor: pointer;
 	transform: scale(1.2);

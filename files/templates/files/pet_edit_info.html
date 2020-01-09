@@ -11,7 +11,7 @@
 {% block file_content %}
     <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
         <div class ="icon-title-container">
-            <h2 id="datos-mascota-title">Datos de la mascota</h2> 
+            <h2 id="datos-mascota-title" class="add-margin-left">Datos de la mascota</h2> 
 
             <button class="edit-icon-button" type="submit">
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
