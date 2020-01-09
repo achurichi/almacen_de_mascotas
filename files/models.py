@@ -4,6 +4,7 @@ from django.dispatch import receiver
 
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFit
 
 import datetime
 
@@ -75,9 +76,12 @@ class ClinicHistory(models.Model):
 
 
 class ClinicHistoryImg(models.Model):
+    # image = ProcessedImageField(upload_to='images/',
+    #                             spec_id='logo_processor')
     image = ProcessedImageField(upload_to='images/',
-                                          processors=[ResizeToFill(1024, 768)],
-                                          format='JPEG')
+                                processors=[ResizeToFit(
+                                    1280, 720, mat_color=(32, 40, 41))],
+                                format='JPEG')
     clinicHistory = models.ForeignKey(ClinicHistory, on_delete=models.CASCADE)
 
 
