@@ -169,14 +169,36 @@ def show_clinic_history(request, pk, clinic_history_pk):
 
 
 def edit_clinic_history(request, pk, clinic_history_pk):
+    ImgFormset = modelformset_factory(ClinicHistoryImg,
+                                      form=ClinicHistoryImgForm,
+                                      extra=1)
+
     if request.method == "POST":
         clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
         clinicHistoryForm = ClinicHistoryForm(
-            request.POST, request.FILES, instance=clinicHistory)
+            request.POST, instance=clinicHistory)
+        imgFormset = ImgFormset(request.POST,
+                                request.FILES,
+                                queryset=ClinicHistoryImg.objects.filter(
+                                    clinicHistory_id=clinic_history_pk))
         if clinicHistoryForm.has_changed() and clinicHistoryForm.is_valid():
             if clinicHistory.date == None:
                 clinicHistory.date = datetime.date.today()
             clinicHistoryForm.save()
+
+        if request.FILES != {}:
+            for form in imgFormset.cleaned_data:
+                if form != {}:
+                    if form['id'] == None:
+                        photo = ClinicHistoryImg(
+                            clinicHistory=clinicHistory, image=form['image'])
+                        photo.save()
+                    else:
+                        photo = ClinicHistoryImg.objects.filter(
+                            pk=form['id'].pk)[0]
+                        if photo.image != form['image']:
+                            photo.image = form['image']
+                            photo.save()
 
         url = reverse('files:show_clinic_history', kwargs={
                       'pk': pk, 'clinic_history_pk': clinic_history_pk})
@@ -185,11 +207,16 @@ def edit_clinic_history(request, pk, clinic_history_pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     clinicHistory = get_object_or_404(ClinicHistory, pk=clinic_history_pk)
     clinicHistoryForm = ClinicHistoryForm(instance=clinicHistory)
+    imgFormset = ImgFormset(queryset=ClinicHistoryImg.objects.filter(
+        clinicHistory_id=clinic_history_pk))
+
     context = {
         'petFile': petFile,
         'clinicHistory': clinicHistory,
         'clinicHistoryForm': clinicHistoryForm,
+        'imgFormset': imgFormset,
     }
+
     return render(request, 'files/edit_clinic_history.html', context)
 
 

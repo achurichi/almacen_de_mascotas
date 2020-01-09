@@ -83,6 +83,14 @@ class ClinicHistoryImg(models.Model):
                                 format='JPEG')
     clinicHistory = models.ForeignKey(ClinicHistory, on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        try:
+            this = ClinicHistoryImg.objects.get(id=self.id)
+            this.image.delete(save=False)
+        except:
+            pass
+        super(ClinicHistoryImg, self).save(*args, **kwargs)
+
 
 @receiver(post_delete, sender=ClinicHistoryImg)
 def submission_delete_ClinicHistoryImg(sender, instance, **kwargs):
