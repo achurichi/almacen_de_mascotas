@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
 {% endblock %}
 
-{% block title %} Ficha del {{ clinicHistory.date|date:"d/m/Y" }} {% endblock %}
+{% block title %} Consulta del {{ clinicHistory.date|date:"d/m/Y" }} {% endblock %}
 
 {% block file_content %}
     <article class="article-container">
@@ -16,7 +16,7 @@
                 <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
             </a>
             
-            <h2 id="datos-mascota-title">Datos de la Historia Clínica</h2> 
+            <h2 id="datos-mascota-title">Datos de la consulta</h2> 
 
             <a class="edit-icon-position" href="{% url 'files:edit_clinic_history' pk=petFile.pk clinic_history_pk=clinicHistory.pk %}" %}>
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">

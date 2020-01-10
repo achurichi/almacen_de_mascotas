@@ -7,7 +7,7 @@
     <script type="text/javascript" src="{% static 'files/js/new_clinic_history.js' %}"></script>
 {% endblock %}
 
-{% block title %} Nuevo Reporte {% endblock %}
+{% block title %} Nueva consulta {% endblock %}
 
 {% block file_content %}
     <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
@@ -17,7 +17,7 @@
                     <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
                 </a>
                 
-                <h2 id="title">Complete el formulario para agregarlo a la Historia Clínica</h2>    
+                <h2 id="title">Agregar una nueva consulta</h2>    
             </div>
 
             <div class="field-container">
