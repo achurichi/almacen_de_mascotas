@@ -1,0 +1,65 @@
+#vaccination-history-link {
+	background-color: var(--purple-dark);
+}
+
+.card-copy-text {
+	width: 100%;
+	margin-right: 20px;
+}
+
+.field-container {
+	width: 100%;
+}
+
+#new {
+	border: none;
+}
+
+h2 {
+	margin-left: 8.2rem;
+}
+h3 {
+	color: var(--purple);
+	margin-left: 5px;
+	font-weight: bold;
+	font-size: 2.5rem;
+	line-height: 1.5rem;
+}
+
+form {
+	padding: 0 !important;
+	width: 80% !important;
+	margin: 2rem 1rem 1.5rem 1rem !important;
+}
+
+.new-card {
+	margin: 0;
+}
+
+.icon-position {
+	background: none;
+	border: none;
+	outline: none;
+	padding: 0;
+	margin-right: 1.3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: transform 0.5s;
+}
+.icon-position:last-of-type {
+	margin-right: 0.5rem;
+}
+.icon-position:active,
+.icon-position:focus {
+	outline: 0;
+	border: none;
+}
+.icon-position:hover {
+	cursor: pointer;
+	transform: scale(1.2);
+}
+.icon-position img {
+	height: 3.2rem;
+	width: 3.2rem;
+}

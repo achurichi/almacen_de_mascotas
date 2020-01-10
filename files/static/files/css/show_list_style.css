@@ -1,7 +1,3 @@
-#clinic-history-link {
-	background-color: var(--purple-dark);
-}
-
 .files-container {
 	display: flex;
 	flex-direction: column;

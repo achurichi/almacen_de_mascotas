@@ -100,7 +100,7 @@ def submission_delete_ClinicHistoryImg(sender, instance, **kwargs):
 class VaccinationHistory(models.Model):
     vaccine_name = models.CharField(max_length=255)
     date = models.DateField(default=datetime.date.today)
-    next_date = models.DateField(default=datetime.date.today)
+    next_date = models.DateField(blank=True, null=True)
     petFile = models.ForeignKey(PetFile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

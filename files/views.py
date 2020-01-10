@@ -6,9 +6,8 @@ from django.db.models import Q
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.forms import modelformset_factory
 
-from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg
-from .forms import PetForm, OwnerForm, ClinicHistoryForm, ClinicHistoryImgForm
-
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory
+from .forms import PetForm, OwnerForm, ClinicHistoryForm, ClinicHistoryImgForm, VaccinationHistoryForm
 
 import datetime
 
@@ -53,6 +52,57 @@ def delete_file(request):
         Owner.objects.filter(id=owner_id).delete()
 
     return JsonResponse({})
+
+
+def add_pet(request):
+    newOwner = None
+    if request.method == "POST" or request.method == "FILES":
+        petForm = PetForm(request.POST, request.FILES)
+        ownerForm = OwnerForm(request.POST)
+        newOwner = request.POST.get('owner_option', None)
+    else:
+        petForm = PetForm(initial={'sex': 'Macho'})
+        ownerForm = OwnerForm()
+
+    if petForm.is_valid() and newOwner == "True":
+        savedOwner = ownerForm.save()
+        petForm = petForm.save(commit=False)
+        petForm.owner = savedOwner
+        petForm.save()
+        return HttpResponseRedirect(reverse('files:pets_list'))
+    elif petForm.is_valid() and newOwner == "False":
+        owner_id = request.POST.get('owner_id', None)
+        if owner_id != "":
+            existingOwner = Owner.objects.filter(id=owner_id)
+            petForm = petForm.save(commit=False)
+            petForm.owner = existingOwner[0]
+            petForm.save()
+            return HttpResponseRedirect(reverse('files:pets_list'))
+
+    context = {
+        'petForm': petForm,
+        'ownerForm': ownerForm,
+    }
+    return render(request, 'files/add_pet.html', context)
+
+
+def search_owners(request):
+    search_text = request.GET.get('search_text', None)
+    existingOwners = Owner.objects.filter(
+        owner_name__contains=search_text)[0:40]
+    data = dict()
+
+    for i, owner in enumerate(existingOwners):
+        data["owner"+str(i)] = {
+            'owner_name': owner.owner_name,
+            'address': owner.address,
+            'phone_number_1': owner.phone_number_1,
+            'phone_number_2': owner.phone_number_2,
+            'phone_number_3': owner.phone_number_3,
+            'id': owner.id,
+        }
+
+    return JsonResponse(data)
 
 
 def pet_show_info(request, pk):
@@ -227,13 +277,40 @@ def edit_clinic_history(request, pk, clinic_history_pk):
     return render(request, 'files/edit_clinic_history.html', context)
 
 
-def show_vaccination_history(request, pk):
+def vaccination_history_list(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    petForm = PetForm(instance=petFile)
+
+    if request.method == "POST":
+        vaccinationForm = VaccinationHistoryForm(request.POST)
+        if vaccinationForm.is_valid():
+            vaccinationForm = vaccinationForm.save(commit=False)
+            vaccinationForm.petFile = petFile
+            vaccinationForm.save()
+
+            url = reverse('files:vaccination_history_list', kwargs={'pk': pk})
+            return HttpResponseRedirect(url)
+
+    vaccinationHistory_list = VaccinationHistory.objects.filter(
+        petFile=pk).order_by('-date')
+    vaccinationForm = VaccinationHistoryForm()
+
+    paginator = Paginator(vaccinationHistory_list, 10)
+    page = request.GET.get('page')
+    vaccinationHistory_list = paginator.get_page(page)
+
     context = {
         'petFile': petFile,
+        'vaccinationHistory_list': vaccinationHistory_list,
+        'vaccinationForm': vaccinationForm,
     }
-    return render(request, 'files/show_vaccination_history.html', context)
+
+    return render(request, 'files/vaccination_history_list.html', context)
+
+
+def delete_vaccination_history(request):
+    vaccinationHistory_id = request.POST.get('vaccinationHistory_id', None)
+    VaccinationHistory.objects.filter(id=vaccinationHistory_id).delete()
+    return JsonResponse({})
 
 
 def show_deworming_history(request, pk):
@@ -252,54 +329,3 @@ def show_internment_history(request, pk):
         'petFile': petFile,
     }
     return render(request, 'files/show_internment_history.html', context)
-
-
-def add_pet(request):
-    newOwner = None
-    if request.method == "POST" or request.method == "FILES":
-        petForm = PetForm(request.POST, request.FILES)
-        ownerForm = OwnerForm(request.POST)
-        newOwner = request.POST.get('owner_option', None)
-    else:
-        petForm = PetForm(initial={'sex': 'Macho'})
-        ownerForm = OwnerForm()
-
-    if petForm.is_valid() and newOwner == "True":
-        savedOwner = ownerForm.save()
-        petForm = petForm.save(commit=False)
-        petForm.owner = savedOwner
-        petForm.save()
-        return HttpResponseRedirect(reverse('files:pets_list'))
-    elif petForm.is_valid() and newOwner == "False":
-        owner_id = request.POST.get('owner_id', None)
-        if owner_id != "":
-            existingOwner = Owner.objects.filter(id=owner_id)
-            petForm = petForm.save(commit=False)
-            petForm.owner = existingOwner[0]
-            petForm.save()
-            return HttpResponseRedirect(reverse('files:pets_list'))
-
-    context = {
-        'petForm': petForm,
-        'ownerForm': ownerForm,
-    }
-    return render(request, 'files/add_pet.html', context)
-
-
-def search_owners(request):
-    search_text = request.GET.get('search_text', None)
-    existingOwners = Owner.objects.filter(
-        owner_name__contains=search_text)[0:40]
-    data = dict()
-
-    for i, owner in enumerate(existingOwners):
-        data["owner"+str(i)] = {
-            'owner_name': owner.owner_name,
-            'address': owner.address,
-            'phone_number_1': owner.phone_number_1,
-            'phone_number_2': owner.phone_number_2,
-            'phone_number_3': owner.phone_number_3,
-            'id': owner.id,
-        }
-
-    return JsonResponse(data)

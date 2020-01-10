@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'files/css/clinic_history_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
     <script type="text/javascript" src="{% static 'files/js/clinic_history_list.js' %}"></script>
 {% endblock %}
 
@@ -58,4 +58,10 @@
             </span>
         </div>
     </div>
+
+    <style>
+        #clinic-history-link {
+            background-color: var(--purple-dark);
+        }
+    </style>
 {% endblock %}

@@ -25,8 +25,10 @@ urlpatterns = [
     path('<int:pk>/edit_clinic_history/<int:clinic_history_pk>/',
          views.edit_clinic_history, name='edit_clinic_history'),
 
-    path('<int:pk>/show_vaccination_history/',
-         views.show_vaccination_history, name='show_vaccination_history'),
+    path('<int:pk>/vaccination_history_list/',
+         views.vaccination_history_list, name='vaccination_history_list'),
+    path('delete_vaccination_history/', views.delete_vaccination_history,
+         name='delete_vaccination_history'),
 
     path('<int:pk>/show_deworming_history/',
          views.show_deworming_history, name='show_deworming_history'),

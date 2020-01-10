@@ -1,0 +1,108 @@
+{% extends 'file_detail_layout.html' %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/vaccination_history_list.css' %}">
+    <script type="text/javascript" src="{% static 'files/js/vaccination_history_list.js' %}"></script>
+{% endblock %}
+
+{% block title %} Vacunas de {{ petFile.pet_name }} {% endblock %}
+
+{% block file_content %}
+    <div class="files-container">
+        <button id="new">Nuevo</button>
+
+        <div class="cards">
+            <form method="post" enctype="multipart/form-data" class="container" id="data-form" style="display:none;"> {% csrf_token %}
+                <div class="card new-card">
+                    <header>
+                        <h2 id="title">Agregar Vacuna</h2>
+
+                        <button type="button" id="cancel-btn" class="icon-position">
+                            <img src={% static 'img/times-solid.svg' %} alt="eliminar-vacuna">
+                        </button>
+
+                        <button type="submit" id="create-btn" class="icon-position">
+                            <img src={% static 'img/check-solid.svg' %} alt="agregar-vacuna">
+                        </button>
+                    </header>
+                    
+                    <div class="card-copy">
+                        <div class="card-copy-text">
+                            <div id="date-container" class="field-container">
+                                <label for="castration_date">Fecha:</label>
+                                <div class="select-date-container">{{ vaccinationForm.date }}</div>
+                            </div>
+
+                            <div class="field-container">
+                                <label for="name">Vacuna: </label>
+                                {{ vaccinationForm.vaccine_name }}
+                            </div>
+
+                            <div id="next-date-container" class="field-container">
+                                <label for="castration_date">Proxima fecha: </label>
+                                <div class="select-date-container">{{ vaccinationForm.next_date }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {% for vaccinationHistory in vaccinationHistory_list %}
+                <div class="card" id="card-{{ vaccinationHistory.pk }}">
+                    <header>
+                        <h3>{{ vaccinationHistory.date|date:"d/m/Y" }}</h3>
+                        
+                        <button class="delete-btn delete-icon-position" value="{{vaccinationHistory.pk}}">
+                            <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                        </button>
+                    </header>
+                    
+                    <div class="card-copy">
+                        <div class="card-copy-text">
+                            {% if vaccinationHistory.vaccine_name == ''%}
+                                <p>Vacuna: Sin información</p>
+                            {% else %}
+                                <p>Vacuna: {{ vaccinationHistory.vaccine_name }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="card-copy">
+                        <div class="card-copy-text">
+                            {% if vaccinationHistory.next_date == None%}
+                                <p>Próxima: Sin información</p>
+                            {% else %}
+                                <p>Próxima: {{ vaccinationHistory.next_date|date:"d/m/Y" }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-text-links">
+                <div class="step-links">
+                    {% if vaccinationHistory_list.has_previous %}
+                        <a href="?page=1">primera</a>
+                        <a href="?page={{ vaccinationHistory_list.previous_page_number }}">anterior</a>
+                    {% endif %}
+                </div>
+
+                <span class="current">
+                    Página {{ vaccinationHistory_list.number }} de {{ vaccinationHistory_list.paginator.num_pages }}
+                </span>
+
+                <div class="step-links">
+                    {% if vaccinationHistory_list.has_next %}
+                        <a href="?page={{ vaccinationHistory_list.next_page_number }}">siguiente</a>
+                        <a href="?page={{ vaccinationHistory_list.paginator.num_pages }}">última</a>
+                    {% endif %}
+                </div>
+            </span>
+        </div>
+    </div>
+{% endblock %}

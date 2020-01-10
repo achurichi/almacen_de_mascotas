@@ -1,7 +1,7 @@
 from django import forms
 from django.utils import timezone
 
-from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory
 
 import datetime
 
@@ -102,3 +102,31 @@ class ClinicHistoryImgForm(forms.ModelForm):
     class Meta:
         model = ClinicHistoryImg
         fields = ['image', ]
+
+
+class VaccinationHistoryForm(forms.ModelForm):
+    now = datetime.datetime.now()
+
+    vaccine_name = forms.CharField(required=False)
+    date = forms.DateField(
+        initial=datetime.date.today,
+        widget=forms.SelectDateWidget(
+            years=range(now.year, now.year - 40, -1),
+        )
+    )
+    next_date = forms.DateField(
+        required=False,
+        widget=forms.SelectDateWidget(
+            empty_label=("Año", "mes", "día"),
+            years=range(now.year, now.year - 40, -1),
+        )
+    )
+
+    class Meta:
+        model = VaccinationHistory
+
+        fields = [
+            'vaccine_name',
+            'date',
+            'next_date',
+        ]
