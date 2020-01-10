@@ -24,7 +24,10 @@ function configEventListeners() {
 	checkbox.addEventListener('click', function() {
 		var divCheckbox = document.getElementById('castration-date-container')
 		if (this.checked) divCheckbox.style.display = 'flex'
-		else divCheckbox.style.display = 'none'
+		else {
+			divCheckbox.style.display = 'none'
+			// $('.date-picker').datepicker('setDate', '') hay que poner en blanco el datepick cuando se deselecciona el checkbox
+		}
 	})
 
 	newButton.addEventListener('click', function() {

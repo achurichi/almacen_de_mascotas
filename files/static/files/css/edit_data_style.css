@@ -85,7 +85,7 @@ h2:not(#datos-mascota-title) {
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid gainsboro;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 .textarea-container {
 	display: flex;
@@ -177,23 +177,15 @@ input[type='checkbox'] {
 	margin-block-start: 1px;
 	margin-block-end: 1px;
 }
-.select-date-container select {
-	height: 3rem;
-	width: 100%;
-	margin-right: 7px;
-	padding-left: 4px;
-	background-color: white;
-	border-radius: 0.4rem;
-	border: 0.1rem solid var(--border-gray);
-	font-size: 1.6rem;
-}
-.select-date-container select:last-of-type {
-	margin-right: 0;
-}
 
 .full-display {
 	display: flex;
 }
 .full-display:not(.keep-width) {
 	width: 65%;
+}
+
+.bootstrap-datetimepicker-widget {
+	font-size: 80%;
+	width: auto !important;
 }

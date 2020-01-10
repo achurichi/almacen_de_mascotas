@@ -64,8 +64,12 @@ form {
 }
 .field-container label:not(.fill-all) {
 	margin-right: 2rem;
-	width: 30%;
+	min-width: 30%;
+	max-width: 30%;
 }
+/* .field-container label:not(.sex-input-container) {
+	max-width: 30%;
+} */
 .field-container input,
 textarea {
 	height: 4rem;
@@ -99,8 +103,7 @@ textarea {
 .sex-radio-container input {
 	height: 2.3rem;
 }
-.checkbox-container,
-.select-date-container {
+.checkbox-container {
 	display: flex;
 	width: 70%;
 }
@@ -108,16 +111,6 @@ textarea {
 	margin: 0;
 	width: 2.6rem;
 	height: 2.6rem;
-}
-.select-date-container select {
-	height: 3rem;
-	width: 24%;
-	margin-right: 7px;
-	padding-left: 4px;
-	background-color: white;
-	border-radius: 0.4rem;
-	border: 0.1rem solid var(--border-gray);
-	font-size: 1.6rem;
 }
 #castration-date-container {
 	transition: all 0.2s ease-in;
@@ -251,4 +244,9 @@ input[type='submit']:hover {
 	color: var(--hover-gray);
 	cursor: pointer;
 	transition: all 0.2s ease-in;
+}
+
+.bootstrap-datetimepicker-widget {
+	font-size: 80%;
+	width: auto !important;
 }

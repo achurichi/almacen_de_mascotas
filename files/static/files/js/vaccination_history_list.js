@@ -22,6 +22,18 @@ function configEventListeners() {
 	})
 }
 
+// $(function() {
+// 	$(document).ready(function() {
+// 		$.fn.datepicker.default.language = 'it'
+// 	})
+// })
+
+// $(function() {
+// 	$(document).ready(function() {
+// 		$('.datepicker').datepicker()
+// 	})
+// })
+
 $(function() {
 	$('.delete-btn').on('click', function() {
 		var csrftoken = getCookie('csrftoken')

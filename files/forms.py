@@ -1,7 +1,8 @@
 from django import forms
-from django.utils import timezone
 
 from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory
+
+from tempus_dominus.widgets import DatePicker
 
 import datetime
 
@@ -9,8 +10,6 @@ SEX_CHOICES = [('Macho', 'Macho'), ('Hembra', 'Hembra')]
 
 
 class PetForm(forms.ModelForm):
-    now = datetime.datetime.now()
-
     sex = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=([('Macho', 'Macho'), ('Hembra', 'Hembra'), ]),
@@ -18,10 +17,11 @@ class PetForm(forms.ModelForm):
     race = forms.CharField(required=False)
     date_of_birth = castration_date = forms.DateField(
         required=False,
-        widget=forms.SelectDateWidget(
-            empty_label=("Año", "mes", "día"),
-            years=range(now.year, now.year - 40, -1),
-        )
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
     )
     castrated = forms.BooleanField(required=False)
     aggressive = forms.BooleanField(required=False)
@@ -66,13 +66,13 @@ class OwnerForm(forms.ModelForm):
 
 
 class ClinicHistoryForm(forms.ModelForm):
-    now = datetime.datetime.now()
-
     date = forms.DateField(
         initial=datetime.date.today,
-        widget=forms.SelectDateWidget(
-            years=range(now.year, now.year - 40, -1),
-        )
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
     )
     abstract = forms.CharField(required=False)
     history = forms.CharField(required=False, widget=forms.Textarea)
@@ -105,21 +105,22 @@ class ClinicHistoryImgForm(forms.ModelForm):
 
 
 class VaccinationHistoryForm(forms.ModelForm):
-    now = datetime.datetime.now()
-
     vaccine_name = forms.CharField(required=False)
     date = forms.DateField(
         initial=datetime.date.today,
-        widget=forms.SelectDateWidget(
-            years=range(now.year, now.year - 40, -1),
-        )
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
     )
     next_date = forms.DateField(
         required=False,
-        widget=forms.SelectDateWidget(
-            empty_label=("Año", "mes", "día"),
-            years=range(now.year, now.year - 40, -1),
-        )
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
     )
 
     class Meta:

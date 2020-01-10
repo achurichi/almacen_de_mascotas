@@ -58,7 +58,7 @@
             {% if petFile.date_of_birth == None %}
                 Sin información
             {% else %}
-                {{ petFile.date_of_birth }}
+                {{ petFile.date_of_birth|date:"d/m/Y" }}
             {% endif %}
         </div>
 
@@ -73,7 +73,7 @@
             {% if petFile.castration_date == None %}
                 Sin información
             {% else %}
-                {{ petFile.castration_date }}
+                {{ petFile.castration_date|date:"d/m/Y" }}
             {% endif %} 
         </div>
 

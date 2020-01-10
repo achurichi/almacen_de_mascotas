@@ -31,20 +31,31 @@
                     
                     <div class="card-copy">
                         <div class="card-copy-text">
-                            <div id="date-container" class="field-container">
-                                <label for="castration_date">Fecha:</label>
-                                <div class="select-date-container">{{ vaccinationForm.date }}</div>
+                            <div class="field-container">
+                                <label for="castration_date">Fecha: </label>
+                                {{ vaccinationForm.date }}
                             </div>
+
 
                             <div class="field-container">
                                 <label for="name">Vacuna: </label>
                                 {{ vaccinationForm.vaccine_name }}
                             </div>
 
-                            <div id="next-date-container" class="field-container">
+                            <div class="field-container">
                                 <label for="castration_date">Proxima fecha: </label>
-                                <div class="select-date-container">{{ vaccinationForm.next_date }}</div>
+                                {{ vaccinationForm.next_date }}
                             </div>
+
+                            {% comment %} <div id="next-date-container" class="field-container">
+                                <label for="castration_date">Proxima fecha: </label>
+                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                    {{ vaccinationForm.next_date }}
+                                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                 </div>
