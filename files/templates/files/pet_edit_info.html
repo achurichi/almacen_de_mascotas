@@ -10,6 +10,8 @@
 
 {% block file_content %}
     <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
+        {{ petForm.media }}
+        
         <div class ="icon-title-container">
             <h2 id="datos-mascota-title" class="add-margin-left">Datos de la mascota</h2> 
 

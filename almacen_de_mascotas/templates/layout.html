@@ -9,9 +9,6 @@
     <!-- Normalize -->
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,800&display=swap" rel="stylesheet">
-
     <!-- JQuery -->
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script> 
     
@@ -28,12 +25,41 @@
     <!-- Moment -->
     <script type="text/javascript" src="{% static 'js/moment-with-locales.min.js' %}"></script>
 
-    <!-- Tempus Dominus Bootstrap 4 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
-    
     <!-- layout.css -->
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+
+    <style>
+        @font-face { 
+            font-family: 'Poppins';
+            src: url('{% static 'fonts/poppins/Poppins-Regular.ttf' %}') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face { 
+            font-family: 'Poppins';
+            src: url('{% static 'fonts/poppins/Poppins-Medium.ttf' %}') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face { 
+            font-family: 'Poppins';
+            src: url('{% static 'fonts/poppins/Poppins-SemiBold.ttf' %}') format('truetype');
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face { 
+            font-family: 'Poppins';
+            src: url('{% static 'fonts/poppins/Poppins-Bold.ttf' %}') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face { 
+            font-family: 'Poppins';
+            src: url('{% static 'fonts/poppins/Poppins-ExtraBold.ttf' %}') format('truetype');
+            font-weight: 800;
+            font-style: normal;
+        }
+    </style>
     
     {% block static %}{% endblock %}
 </head>

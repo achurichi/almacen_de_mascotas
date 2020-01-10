@@ -11,6 +11,8 @@
 
 {% block file_content %}
     <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
+        {{ clinicHistoryForm.media }}
+
         <div class="field-input-container">
             <div class ="icon-title-container">
                 <a class="back-icon-position" href="{% url 'files:clinic_history_list' pk=petFile.pk %}">
