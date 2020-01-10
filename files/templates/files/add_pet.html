@@ -10,8 +10,6 @@
 
 {% block content %}
     <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
-        {{ petForm.media }}
-
         <div class="field-input-container">
             <div class ="icon-title-container">
                 <a class="back-icon-position" href={% url 'files:pets_list' %}>
@@ -27,7 +25,6 @@
             </div>
 
             <div class="field-container">
-                {% comment %} arreglar {% endcomment %}
                 <label for="sex">Sexo: </label>
                 <div class="sex-radio-container">{{ petForm.sex }}</div>
             </div>
@@ -35,11 +32,6 @@
             <div class="field-container">
                 <label for="race">Raza: </label>
                 {{ petForm.race }}
-            </div>
-
-            <div class="field-container">
-                <label for="age">Edad: </label>
-                {{ petForm.age }}
             </div>
 
             <div class="field-container">

@@ -1,5 +1,5 @@
 {% extends 'file_detail_layout.html' %}
-{% load static js %}
+{% load static js calculate_age %}
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
@@ -47,10 +47,12 @@
             {% endif %}
         </div>
 
-        <div class="field-container">
-            <label>Edad: </label>
-            {{ petFile.age }}
-        </div>
+        {% if petFile.date_of_birth != None and petFile.date_of_birth|age > 0%}
+            <div class="field-container">
+                <label>Edad: </label>
+                {{ petFile.date_of_birth|age }}
+            </div>
+        {% endif %}
 
         <div class="field-container">
             <label>Fecha de nacimiento: </label>

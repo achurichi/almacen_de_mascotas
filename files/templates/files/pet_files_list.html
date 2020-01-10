@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load static %}
+{% load static calculate_age %}
 
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
@@ -48,8 +48,10 @@
                                 <p>Raza: {{ petFile.race }}</p>
                             {% endif %}
                             
-                            <p>Edad: {{ petFile.age }}</p>
-
+                            {% if petFile.date_of_birth != None and petFile.date_of_birth|age > 0 %}
+                                <p>Edad: {{ petFile.date_of_birth|age }}</p>
+                            {% endif %}
+                            
                             {% if petFile.castrated == True%}
                                 <p>Castrado: Si</p>
                             {% else %}

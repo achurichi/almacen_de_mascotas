@@ -36,7 +36,6 @@ class PetForm(forms.ModelForm):
             'pet_img',
             'sex',
             'race',
-            'age',
             'date_of_birth',
             'castrated',
             'castration_date',
