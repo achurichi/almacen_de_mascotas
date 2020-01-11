@@ -30,8 +30,11 @@ urlpatterns = [
     path('delete_vaccination_history/', views.delete_vaccination_history,
          name='delete_vaccination_history'),
 
-    path('<int:pk>/show_deworming_history/',
-         views.show_deworming_history, name='show_deworming_history'),
+    path('<int:pk>/deworming_history_list/',
+         views.deworming_history_list, name='deworming_history_list'),
+    path('delete_deworming_history/', views.delete_deworming_history,
+         name='delete_deworming_history'),
+
 
     path('<int:pk>/show_internment_history/',
          views.show_internment_history, name='show_internment_history'),

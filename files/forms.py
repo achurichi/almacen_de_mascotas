@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory, DewormingHistory
 
 from tempus_dominus.widgets import DatePicker
 
@@ -127,6 +127,35 @@ class VaccinationHistoryForm(forms.ModelForm):
 
         fields = [
             'vaccine_name',
+            'date',
+            'next_date',
+        ]
+
+
+class DewormingHistoryForm(forms.ModelForm):
+    antiparasitic_name = forms.CharField(required=False)
+    date = forms.DateField(
+        initial=datetime.date.today,
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
+    )
+    next_date = forms.DateField(
+        required=False,
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
+    )
+
+    class Meta:
+        model = DewormingHistory
+
+        fields = [
+            'antiparasitic_name',
             'date',
             'next_date',
         ]

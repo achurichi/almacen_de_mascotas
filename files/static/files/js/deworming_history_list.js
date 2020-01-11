@@ -25,12 +25,12 @@ function configEventListeners() {
 $(function() {
 	$('.delete-btn').on('click', function() {
 		var csrftoken = getCookie('csrftoken')
-		if (confirm('¿Desea eliminar esta vacuna?') == true) {
+		if (confirm('¿Desea eliminar esta desparasitación?') == true) {
 			$.ajax({
 				type: 'POST',
-				url: '/files/delete_vaccination_history/',
+				url: '/files/delete_deworming_history/',
 				data: {
-					vaccinationHistory_id: $(this).val(),
+					dewormingHistory_id: $(this).val(),
 					csrfmiddlewaretoken: csrftoken
 				},
 				dataType: 'json',

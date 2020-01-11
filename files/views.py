@@ -1,3 +1,4 @@
+import datetime
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -6,10 +7,8 @@ from django.db.models import Q
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.forms import modelformset_factory
 
-from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory
-from .forms import PetForm, OwnerForm, ClinicHistoryForm, ClinicHistoryImgForm, VaccinationHistoryForm
-
-import datetime
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory, DewormingHistory
+from .forms import PetForm, OwnerForm, ClinicHistoryForm, ClinicHistoryImgForm, VaccinationHistoryForm, DewormingHistoryForm
 
 
 def petFiles_list(request):
@@ -313,13 +312,40 @@ def delete_vaccination_history(request):
     return JsonResponse({})
 
 
-def show_deworming_history(request, pk):
+def deworming_history_list(request, pk):
     petFile = get_object_or_404(PetFile, pk=pk)
-    petForm = PetForm(instance=petFile)
+
+    if request.method == "POST":
+        dewormingForm = DewormingHistoryForm(request.POST)
+        if dewormingForm.is_valid():
+            dewormingForm = dewormingForm.save(commit=False)
+            dewormingForm.petFile = petFile
+            dewormingForm.save()
+
+            url = reverse('files:deworming_history_list', kwargs={'pk': pk})
+            return HttpResponseRedirect(url)
+
+    dewormingHistory_list = DewormingHistory.objects.filter(
+        petFile=pk).order_by('-date')
+    dewormingForm = DewormingHistoryForm()
+
+    paginator = Paginator(dewormingHistory_list, 10)
+    page = request.GET.get('page')
+    dewormingHistory_list = paginator.get_page(page)
+
     context = {
         'petFile': petFile,
+        'dewormingHistory_list': dewormingHistory_list,
+        'dewormingForm': dewormingForm,
     }
-    return render(request, 'files/show_deworming_history.html', context)
+
+    return render(request, 'files/deworming_history_list.html', context)
+
+
+def delete_deworming_history(request):
+    dewormingHistory_id = request.POST.get('dewormingHistory_id', None)
+    DewormingHistory.objects.filter(id=dewormingHistory_id).delete()
+    return JsonResponse({})
 
 
 def show_internment_history(request, pk):

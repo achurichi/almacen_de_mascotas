@@ -5,10 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/vaccination_deworming_list.css' %}">
-    <script type="text/javascript" src="{% static 'files/js/vaccination_history_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'files/js/deworming_history_list.js' %}"></script>
 {% endblock %}
 
-{% block title %} Vacunas de {{ petFile.pet_name }} {% endblock %}
+{% block title %} Desparasitaciones de {{ petFile.pet_name }} {% endblock %}
 
 {% block file_content %}
     <div class="files-container">
@@ -18,14 +18,14 @@
             <form method="post" enctype="multipart/form-data" class="container" id="data-form" style="display:none;"> {% csrf_token %}
                 <div class="card new-card">
                     <header>
-                        <h2 id="title">Agregar Vacuna</h2>
+                        <h2 id="title">Agregar Desparasitación</h2>
 
                         <button type="button" id="cancel-btn" class="icon-position">
-                            <img src={% static 'img/times-solid.svg' %} alt="eliminar-vacuna">
+                            <img src={% static 'img/times-solid.svg' %} alt="eliminar-desparasitacion">
                         </button>
 
                         <button type="submit" id="create-btn" class="icon-position">
-                            <img src={% static 'img/check-solid.svg' %} alt="agregar-vacuna">
+                            <img src={% static 'img/check-solid.svg' %} alt="agregar-desparasitacion">
                         </button>
                     </header>
                     
@@ -33,50 +33,50 @@
                         <div class="card-copy-text">
                             <div class="field-container">
                                 <label for="castration_date">Fecha: </label>
-                                {{ vaccinationForm.date }}
+                                {{ dewormingForm.date }}
                             </div>
 
 
                             <div class="field-container">
-                                <label for="name">Vacuna: </label>
-                                {{ vaccinationForm.vaccine_name }}
+                                <label for="name">Antiparasitario: </label>
+                                {{ dewormingForm.antiparasitic_name }}
                             </div>
 
                             <div class="field-container">
                                 <label for="castration_date">Proxima fecha: </label>
-                                {{ vaccinationForm.next_date }}
+                                {{ dewormingForm.next_date }}
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
 
-            {% for vaccinationHistory in vaccinationHistory_list %}
-                <div class="card" id="card-{{ vaccinationHistory.pk }}">
+            {% for dewormingHistory in dewormingHistory_list %}
+                <div class="card" id="card-{{ dewormingHistory.pk }}">
                     <header>
-                        <h3>{{ vaccinationHistory.date|date:"d/m/Y" }}</h3>
+                        <h3>{{ dewormingHistory.date|date:"d/m/Y" }}</h3>
                         
-                        <button class="delete-btn delete-icon-position" value="{{vaccinationHistory.pk}}">
+                        <button class="delete-btn delete-icon-position" value="{{dewormingHistory.pk}}">
                             <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
                         </button>
                     </header>
                     
                     <div class="card-copy">
                         <div class="card-copy-text">
-                            {% if vaccinationHistory.vaccine_name == ''%}
-                                <p>Vacuna: Sin información</p>
+                            {% if dewormingHistory.antiparasitic_name == ''%}
+                                <p>Antiparasitario: Sin información</p>
                             {% else %}
-                                <p>Vacuna: {{ vaccinationHistory.vaccine_name }}</p>
+                                <p>Antiparasitario: {{ dewormingHistory.antiparasitic_name }}</p>
                             {% endif %}
                         </div>
                     </div>
 
                     <div class="card-copy">
                         <div class="card-copy-text">
-                            {% if vaccinationHistory.next_date == None%}
+                            {% if dewormingHistory.next_date == None%}
                                 <p>Próxima: Sin información</p>
                             {% else %}
-                                <p>Próxima: {{ vaccinationHistory.next_date|date:"d/m/Y" }}</p>
+                                <p>Próxima: {{ dewormingHistory.next_date|date:"d/m/Y" }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -87,20 +87,20 @@
         <div class="pagination">
             <span class="step-text-links">
                 <div class="step-links">
-                    {% if vaccinationHistory_list.has_previous %}
+                    {% if dewormingHistory_list.has_previous %}
                         <a href="?page=1">primera</a>
-                        <a href="?page={{ vaccinationHistory_list.previous_page_number }}">anterior</a>
+                        <a href="?page={{ dewormingHistory_list.previous_page_number }}">anterior</a>
                     {% endif %}
                 </div>
 
                 <span class="current">
-                    Página {{ vaccinationHistory_list.number }} de {{ vaccinationHistory_list.paginator.num_pages }}
+                    Página {{ dewormingHistory_list.number }} de {{ dewormingHistory_list.paginator.num_pages }}
                 </span>
 
                 <div class="step-links">
-                    {% if vaccinationHistory_list.has_next %}
-                        <a href="?page={{ vaccinationHistory_list.next_page_number }}">siguiente</a>
-                        <a href="?page={{ vaccinationHistory_list.paginator.num_pages }}">última</a>
+                    {% if dewormingHistory_list.has_next %}
+                        <a href="?page={{ dewormingHistory_list.next_page_number }}">siguiente</a>
+                        <a href="?page={{ dewormingHistory_list.paginator.num_pages }}">última</a>
                     {% endif %}
                 </div>
             </span>
@@ -108,7 +108,7 @@
     </div>
 
     <style>
-        #vaccination-history-link {
+        #deworming-history-link {
             background-color: var(--purple-dark);
         }
     </style>
