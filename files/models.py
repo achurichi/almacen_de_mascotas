@@ -24,7 +24,7 @@ class Owner(models.Model):
 class PetFile(models.Model):
     pet_name = models.CharField(max_length=255)
     pet_img = ProcessedImageField(upload_to='images/',
-                                  processors=[ResizeToFill(900, 500)],
+                                  processors=[ResizeToFill(800, 500)],
                                   format='JPEG',
                                   default='images/no-image-found.jpg')
     sex = models.CharField(max_length=64)
