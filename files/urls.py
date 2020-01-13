@@ -36,6 +36,14 @@ urlpatterns = [
          name='delete_deworming_history'),
 
 
-    path('<int:pk>/show_internment_history/',
+    path('<int:pk>/internment_history_list/',
+         views.internment_history_list, name='internment_history_list'),
+    path('delete_internment_history/', views.delete_internment_history,
+         name='delete_internment_history'),
+    path('<int:pk>/new_internment_history/',
+         views.new_internment_history, name='new_internment_history'),
+    path('<int:pk>/show_internment_history/<int:internment_history_pk>/',
          views.show_internment_history, name='show_internment_history'),
+    path('<int:pk>/edit_internment_history/<int:internment_history_pk>/',
+         views.edit_internment_history, name='edit_internment_history'),
 ]

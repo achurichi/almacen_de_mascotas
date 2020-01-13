@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory, DewormingHistory
+from .models import PetFile, Owner, ClinicHistory, ClinicHistoryImg, VaccinationHistory, DewormingHistory, InternmentHistory, InternmentDay, InternmentTreatment, InternmentDayImg
 
 from tempus_dominus.widgets import DatePicker
 
@@ -159,3 +159,83 @@ class DewormingHistoryForm(forms.ModelForm):
             'date',
             'next_date',
         ]
+
+
+class InternmentHistoryForm(forms.ModelForm):
+    entry_date = forms.DateField(
+        initial=datetime.date.today,
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
+    )
+    exit_date = forms.DateField(
+        required=False,
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
+    )
+    is_interned = forms.BooleanField(initial=True, required=False)
+
+    class Meta:
+        model = InternmentHistory
+
+        fields = [
+            'entry_date',
+            'exit_date',
+            'is_interned',
+        ]
+
+
+class InternmentDayForm(forms.ModelForm):
+    date = forms.DateField(
+        initial=datetime.date.today,
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
+    )
+    clinic_signs = forms.CharField(required=False, widget=forms.Textarea)
+    treatments = forms.CharField(required=False, widget=forms.Textarea)
+    obs = forms.CharField(required=False, widget=forms.Textarea)
+
+    class Meta:
+        model = InternmentDay
+
+        fields = [
+            'date',
+            'clinic_signs',
+            'treatments',
+            'obs',
+        ]
+
+
+class InternmentTreatmentForm(forms.ModelForm):
+    drug_hour = forms.DateField(
+        initial=datetime.date.today,
+        widget=DatePicker(
+            options={
+                'format': 'DD/MM/YYYY',
+                'locale': 'es',
+            }),
+    )
+    be_notified = forms.BooleanField(required=False)
+
+    class Meta:
+        model = InternmentTreatment
+
+        fields = [
+            'drug',
+            'drug_hour',
+            'be_notified',
+        ]
+
+
+class InternmentDayImgForm(forms.ModelForm):
+    class Meta:
+        model = InternmentDayImg
+        fields = ['image', ]

@@ -1,0 +1,98 @@
+{% extends 'file_detail_layout.html' %}
+{% load static %}
+
+{% block static %}
+    {% comment %} <script type="text/javascript" src="{% static 'files/js/show_clinic_history.js' %}"></script> {% endcomment %}
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_internment_history.css' %}">
+{% endblock %}
+
+{% block title %} Editar internación del {{ internmentHistory.entry_date|date:"d/m/Y" }} {% endblock %}
+
+{% block file_content %}
+    <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href="{% url 'files:internment_history_list' pk=petFile.pk %}">
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+            
+            <h2 id="datos-mascota-title">Datos de la internación</h2> 
+
+            <button class="edit-icon-button" type="submit">
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
+            </button>  
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Fecha de entrada: </label>
+            {{ internmentHistoryForm.entry_date }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Fecha de salida: </label>
+            {{ internmentHistoryForm.exit_date }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Nombre: </label>
+            {{ petFile.pet_name }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Dueño: </label>
+            {{ ownerFile.owner_name }}
+        </div>
+
+        {% if ownerFile.phone_number_1 != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Teléfono 1: </label>
+                {{ ownerFile.phone_number_1 }}
+            </div>
+        {% endif %}
+
+        {% if ownerFile.phone_number_2 != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Teléfono 2: </label>
+                {{ ownerFile.phone_number_2 }}
+            </div>
+        {% endif %}
+
+        {% if ownerFile.phone_number_3 != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Teléfono 3: </label>
+                {{ ownerFile.phone_number_3 }}
+            </div>
+        {% endif %}
+
+        <div class="internment-day-formset">
+            <button id="add_more" type="button">
+                <img src={% static 'img/plus-square-solid.svg' %} alt="agregar-internacion">
+            </button> 
+
+            {{ internmentDayFormset.management_form }}
+            
+            <div id="form_set">
+                {% for form in internmentDayFormset.forms %}
+                    <table class='no_error'>
+                        {{ form }}
+                    </table>
+                {% endfor %}
+            </div>
+            
+            <div id="empty_form" style="display:none">
+                <table class='no_error'>
+                    {{ internmentDayFormset.empty_form }}
+                </table>
+            </div>
+        </div>        
+    </form>
+
+    <script>
+        $('#add_more').click(function() {
+            var form_idx = $('#id_form-TOTAL_FORMS').val();
+            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
+{% endblock %}

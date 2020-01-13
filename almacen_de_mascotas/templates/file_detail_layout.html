@@ -11,7 +11,7 @@
             <a href="{% url 'files:clinic_history_list' pk=petFile.pk %}" id="clinic-history-link">Historial Clínico</a>
             <a href="{% url 'files:vaccination_history_list' pk=petFile.pk %}" id="vaccination-history-link">Vacunas</a>
             <a href="{% url 'files:deworming_history_list' pk=petFile.pk %}" id="deworming-history-link">Desparasitaciones</a>
-            <a href="{% url 'files:show_internment_history' pk=petFile.pk %}" id="internment-history-link">Internación</a>
+            <a href="{% url 'files:internment_history_list' pk=petFile.pk %}" id="internment-history-link">Internación</a>
         </div>
 
         {% block file_content %}{% endblock  %}

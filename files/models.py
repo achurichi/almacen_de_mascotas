@@ -81,6 +81,7 @@ class ClinicHistoryImg(models.Model):
                                     1280, 720, mat_color=(32, 40, 41))],
                                 format='JPEG')
     clinicHistory = models.ForeignKey(ClinicHistory, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         try:
@@ -110,3 +111,52 @@ class DewormingHistory(models.Model):
     next_date = models.DateField(blank=True, null=True)
     petFile = models.ForeignKey(PetFile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class InternmentHistory(models.Model):
+    entry_date = models.DateField(default=datetime.date.today)
+    exit_date = models.DateField(blank=True, null=True)
+    is_interned = models.BooleanField(default=True)
+    petFile = models.ForeignKey(PetFile, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class InternmentDay(models.Model):
+    date = models.DateField(default=datetime.date.today)
+    clinic_signs = models.TextField(default='', blank=True)
+    treatment = models.TextField(default='', blank=True)
+    obs = models.TextField(default='', blank=True)
+    internmentHistory = models.ForeignKey(
+        InternmentHistory, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class InternmentTreatment(models.Model):
+    drug = models.CharField(max_length=255)
+    drug_hour = models.TimeField(blank=True, null=True)
+    be_notified = models.BooleanField(default=True)
+    internmentDay = models.ForeignKey(InternmentDay, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class InternmentDayImg(models.Model):
+    image = ProcessedImageField(verbose_name='Foto',
+                                upload_to='images/',
+                                processors=[ResizeToFit(
+                                    1280, 720, mat_color=(32, 40, 41))],
+                                format='JPEG')
+    internmentDay = models.ForeignKey(InternmentDay, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        try:
+            this = InternmentDayImg.objects.get(id=self.id)
+            this.image.delete(save=False)
+        except:
+            pass
+        super(InternmentDayImg, self).save(*args, **kwargs)
+
+
+@receiver(post_delete, sender=InternmentDayImg)
+def submission_delete_InternmentDayImg(sender, instance, **kwargs):
+    instance.image.delete(False)

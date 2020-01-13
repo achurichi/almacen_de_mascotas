@@ -4,7 +4,7 @@
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'files/css/vaccination_deworming_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/file_content_list.css' %}">
     <script type="text/javascript" src="{% static 'files/js/deworming_history_list.js' %}"></script>
 {% endblock %}
 
@@ -32,18 +32,17 @@
                     <div class="card-copy">
                         <div class="card-copy-text">
                             <div class="field-container">
-                                <label for="castration_date">Fecha: </label>
+                                <label for="date">Fecha: </label>
                                 {{ dewormingForm.date }}
                             </div>
 
-
                             <div class="field-container">
-                                <label for="name">Antiparasitario: </label>
+                                <label for="antiparasitic_name">Antiparasitario: </label>
                                 {{ dewormingForm.antiparasitic_name }}
                             </div>
 
                             <div class="field-container">
-                                <label for="castration_date">Proxima fecha: </label>
+                                <label for="next_date">Proxima fecha: </label>
                                 {{ dewormingForm.next_date }}
                             </div>
                         </div>

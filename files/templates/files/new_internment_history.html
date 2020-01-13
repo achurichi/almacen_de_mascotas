@@ -1,0 +1,95 @@
+{% extends "file_detail_layout.html" %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/new_clinic_history.css' %}">
+    <script type="text/javascript" src="{% static 'files/js/new_clinic_history.js' %}"></script>
+{% endblock %}
+
+{% block title %} Nueva consulta {% endblock %}
+
+{% block file_content %}
+    <form method="post" enctype="multipart/form-data" class="container" id="data-form"> {% csrf_token %}
+        <div class="field-input-container">
+            <div class ="icon-title-container">
+                <a class="back-icon-position" href="{% url 'files:clinic_history_list' pk=petFile.pk %}">
+                    <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+                </a>
+                
+                <h2 id="title">Agregar una nueva consulta</h2>    
+            </div>
+
+            <div class="field-container">
+                <label for="date">Fecha: </label>
+                {{ clinicHistoryForm.date }}
+            </div>
+
+            <div class="field-container">
+                <label for="abstract">Resumen: </label>
+                {{ clinicHistoryForm.abstract }}
+            </div>
+            
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="history">Anamnesis: </label>
+                {{ clinicHistoryForm.history }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="clinics_signs">Signos Clínicos: </label>
+                {{ clinicHistoryForm.clinic_signs }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="diagnosis">Diagnóstico: </label>
+                {{ clinicHistoryForm.diagnosis }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="treatments">Tratamiento: </label>
+                {{ clinicHistoryForm.treatments }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="obs">Observaciones: </label>
+                {{ clinicHistoryForm.obs }}
+            </div>
+
+            <div class="field-container textarea-container">
+                <label class="fill-all" for="complemetary_stuides">Estudios Complementarios: </label>
+                {{ clinicHistoryForm.complementary_studies }}
+            </div>
+
+            <div class="img-formset">
+                <button id="add_more" type="button">
+                    <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Foto">
+                </button> 
+
+                {{ imgFormset.management_form }}
+                
+                <div id="form_set">
+                    {% for form in imgFormset.forms %}
+                        <div id="form-0-row" class='no_error'>
+                            {{ form }}
+                            <button id="form-0-btn" class="delete-btn" type="button">
+                                <img src={% static 'img/times-solid.svg' %} alt="Agregar Foto">
+                            </button> 
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div id="empty_form" style="display:none">
+                    <div id="form_id" class='no_error'>
+                        {{ imgFormset.empty_form }}
+                        <button id="btn_id" class="delete-btn" type="button">
+                            <img src={% static 'img/times-solid.svg' %} alt="Agregar Foto">
+                        </button> 
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="Agregar">
+        </div>
+    </form>
+{% endblock %}
+

@@ -1,12 +1,122 @@
 {% extends 'file_detail_layout.html' %}
-{% load static js %}
+{% load static %}
 
 {% block static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'files/css/pet_show_info.css' %}">
-    <script type="text/javascript" src="{% static 'files/js/pet_show_info.js' %}"></script>
+    <script type="text/javascript" src="{% static 'files/js/show_clinic_history.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
 {% endblock %}
 
-{% block title %} Ficha de {{ petFile.pet_name }} {% endblock %}
+{% block title %} Internación del {{ internmentHistory.entry_date|date:"d/m/Y" }} {% endblock %}
 
 {% block file_content %}
+    <article class="article-container">
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href="{% url 'files:internment_history_list' pk=petFile.pk %}">
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+            
+            <h2 id="datos-mascota-title">Datos de la internación</h2> 
+
+            <a class="edit-icon-position" href="{% url 'files:edit_internment_history' pk=petFile.pk internment_history_pk=internmentHistory.pk %}" %}>
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">
+            </a>
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Fecha: </label>
+            {% if internmentHistory.is_interned == True %}
+                {{ internmentHistory.entry_date|date:"d/m/Y" }} - En curso
+            {% else %}
+                {{ internmentHistory.entry_date|date:"d/m/Y" }} - {{ internmentHistory.exit_date|date:"d/m/Y" }}
+            {% endif %}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Nombre: </label>
+            {{ petFile.pet_name }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Dueño: </label>
+            {{ ownerFile.owner_name }}
+        </div>
+
+        {% if ownerFile.phone_number_1 != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Teléfono 1: </label>
+                {{ ownerFile.phone_number_1 }}
+            </div>
+        {% endif %}
+
+        {% if ownerFile.phone_number_2 != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Teléfono 2: </label>
+                {{ ownerFile.phone_number_2 }}
+            </div>
+        {% endif %}
+
+        {% if ownerFile.phone_number_3 != "" %}
+            <div class="field-container no-modify">
+                <label class="no-modify">Teléfono 3: </label>
+                {{ ownerFile.phone_number_3 }}
+            </div>
+        {% endif %}
+
+        <div class="field-container">
+            <label>Fotos: </label>
+            <div id="imageCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                <ol class="carousel-indicators">
+                    {% for i in clinicHistoryImg %}
+                        {% if forloop.first %}
+                            <li data-target="#imageCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                        {% else %}
+                            <li data-target="#imageCarousel" data-slide-to="{{ forloop.counter0 }}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+
+                <div class="carousel-inner" style="max-width: 70rem;">
+                    {% for img in clinicHistoryImg %}
+                        {% if forloop.first %}
+                            <a class="carousel-item active" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
+                                <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
+                            </a>
+                        {% else %}
+                            <a class="carousel-item" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
+                                <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        {% for img in clinicHistoryImg %}
+            <div class="modal fade" id="modal-{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content custom-height-modal">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <img class="custom-height-modal" src="{{ img.image.url }}" alt="foto-mascota">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </article>
+
+    <script>
+        $('.carousel').carousel()
+    </script>
 {% endblock %}
