@@ -30,18 +30,6 @@ def petFiles_list(request):
     return render(request, 'files/pet_files_list.html', context)
 
 
-def petFiles_list_queryset(query=None):
-    """Función para obtener una lista con las fichas filtradas"""
-    queryset = []
-    queries = query.split(" ")
-    for q in queries:
-        petFiles = PetFile.objects.filter(Q(pet_name__icontains=q)).distinct()
-
-        for petFile in petFiles:
-            queryset.append(petFile)
-    return list(set(queryset))
-
-
 def delete_file(request):
     pet_id = request.POST.get('pet_id', None)
     owner_id = PetFile.objects.filter(id=pet_id)[0].owner.pk

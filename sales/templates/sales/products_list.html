@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sales/css/products_list.css' %}">
+    <script type="text/javascript" src="{% static 'sales/js/products_list.js' %}"></script>
+{% endblock %}
+
+{% block title %} Todos los productos {% endblock %}
+
+{% block content %}
+    <div class="files-container">
+        <div class="files-nav">
+            <form class="searchbar-container" method="get">
+                <input type="text" id="file-search" name="q" placeholder="Buscar..." value={{ query }} >
+                <a class="cancel-icon-position" href={% url 'sales:products_list' %}>
+                    <img src={% static 'img/times-circle-solid.svg' %} alt="limpiar-buscador">
+                </a>
+            </form>
+
+            <button id="new-product" class="add-icon-position">
+                <img src={% static 'img/plus-square-solid.svg' %} alt="agregar-producto">
+            </button>
+        </div>
+
+        <div class="cards">
+            <form method="post" enctype="multipart/form-data" class="container" id="data-form" style="display:none;"> {% csrf_token %}
+                <div class="card new-card">
+                    <header>
+                        <h2 id="title">Agregar producto</h2>
+
+                        <button type="button" id="cancel-btn" class="icon-position">
+                            <img src={% static 'img/times-solid.svg' %} alt="cancelar">
+                        </button>
+
+                        <button type="submit" id="create-btn" class="icon-position">
+                            <img src={% static 'img/check-solid.svg' %} alt="agregar">
+                        </button>
+                    </header>
+                    
+                    <div class="card-copy">
+                        <div class="card-copy-text card-new">
+                            <div class="field-container">
+                                <label for="product_id">ID: </label>
+                                {{ productForm.product_id }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="product_type">Categoría: </label>
+                                {{ productForm.product_type }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="brand">Marca: </label>
+                                {{ productForm.brand }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="description">Descripción: </label>
+                                {{ productForm.description }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="purchase_price">Precio de compra: </label>
+                                {{ productForm.purchase_price }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="sale_price">Precio de venta: </label>
+                                {{ productForm.sale_price }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="last_purchase">Última compra: </label>
+                                {{ productForm.last_purchase }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="quantity">Cantidad: </label>
+                                {{ productForm.quantity }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="obs">Observaciones: </label>
+                                {{ productForm.obs }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {% for product in products %}
+                <div class="card" id="card-{{ product.pk }}">
+                    <header>
+                        {% if product.product_id == "" %}
+                            <a href="{% url 'sales:show_product' pk=product.pk %}">Sin código</a>
+                        {% else %}
+                            <a href="{% url 'sales:show_product' pk=product.pk %}">Código: {{ product.product_id }}</a>
+                        {% endif %}
+                        
+                        <button class="delete-btn delete-icon-position" value="{{ product.pk }}">
+                            <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                        </button>
+                    </header>
+                    
+                    <div class="card-copy">
+                        <div class="card-copy-text card-copy-info">
+                            {% if product.sale_price == None %}
+                                <p style="font-size: 2.5rem;">
+                                    <strong>Sin precio</strong>
+                                </p>
+                            {% else %}
+                                <p style="font-size: 2.5rem;">
+                                    <strong>$ {{ product.sale_price }}</strong>
+                                </p>
+                            {% endif %}
+                            
+                            {% if product.description == "" %}
+                                 <p>Sin información sobre el producto</p>
+                            {% else %}
+                                <p>{{ product.description }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-copy-text card-copy-info">
+                            {% if product.product_type == "" %}
+                                <p>Categoría: Sin información</p>
+                            {% else %}
+                                <p>Categoría: {{ product.product_type }}</p>
+                            {% endif %}
+
+                            {% if product.brand == "" %}
+                                <p>Marca: Sin información</p>
+                            {% else %}
+                                <p>Marca: {{ product.brand }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-text-links">
+                <div class="step-links">
+                    {% if products.has_previous %}
+                        <a href="?q={{ query }}&page=1">primera</a>
+                        <a href="?q={{ query }}&page={{ products.previous_page_number }}">anterior</a>
+                    {% endif %}
+                </div>
+
+                <span class="current">
+                    Página {{ products.number }} de {{ products.paginator.num_pages }}
+                </span>
+
+                <div class="step-links">
+                    {% if products.has_next %}
+                        <a href="?q={{ query }}&page={{ products.next_page_number }}">siguiente</a>
+                        <a href="?q={{ query }}&page={{ products.paginator.num_pages }}">última</a>
+                    {% endif %}
+                </div>
+            </span>
+        </div>
+    </div>
+{% endblock %}

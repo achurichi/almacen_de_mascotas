@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'imagekit',
     'tempus_dominus',
     'files',
+    'sales',
 ]
 
 MIDDLEWARE = [

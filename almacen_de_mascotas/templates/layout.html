@@ -82,7 +82,7 @@
             <nav>
                 <a href="#">Notificaciones</a>
                 <a href="{% url 'files:pets_list' %}">Fichas</a>
-                <a href="#">Ventas</a>
+                <a href="{% url 'sales:products_list' %}">Ventas</a>
                 <a href="#">Turnos</a>
                 <a href="#">Internación</a>
             </nav>
@@ -90,20 +90,8 @@
     </header>
 
     <div class="container">
-        <nav>
-          {% comment %} <a href="{% url 'home' %}">Almacén de Mascotas</a> {% endcomment %}
-          {% comment %} <a href="{% url 'courses:list' %}">Cursos</a> {% endcomment %}
-        </nav>
-
-        {% comment %} {% last_course as lc %}
-        <p>No te pierdas nuestro último curso:
-          <a href="{% url 'courses:detail' pk=lc.pk %}">{{ lc }}</a>
-        </p> {% endcomment %}
-      
         {% block content %}{% endblock %}
     </div>
-
-    
 </body>
 
 </html>

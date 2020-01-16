@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
+{% endblock %}
+
+{% block title %} Editar producto {{ product.product_id }} {% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href="{% url 'sales:products_list' %}">
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+
+            <h2 id="datos-mascota-title">Datos del artículo</h2> 
+
+            <button class="edit-icon-button" type="submit">
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
+            </button>  
+        </div>
+
+        <div class="field-container">
+            <label for="product_id">Código: </label>
+            {{ productForm.product_id }}
+        </div>
+
+        <div class="field-container">
+            <label for="description">Descripción: </label>
+            {{ productForm.description }}
+        </div>
+
+        <div class="field-container">
+            <label for="product_type">Categoría: </label>
+            {{ productForm.product_type }}
+        </div>
+
+        <div class="field-container">
+            <label for="brand">Marca: </label>
+            {{ productForm.brand }}
+        </div>
+
+        <div class="field-container">
+            <label for="purchase_price">Precio de compra: </label>
+            {{ productForm.purchase_price }}
+        </div>
+
+        <div class="field-container">
+            <label for="sale_price">Precio de venta: </label>
+            {{ productForm.sale_price }}
+        </div>
+
+        <div class="field-container">
+            <label for="last_purchase">Última compra: </label>
+            {{ productForm.last_purchase }}
+        </div>
+
+        <div class="field-container">
+            <label for="quantity">Cantidad: </label>
+            {{ productForm.quantity }}
+        </div>
+
+        <div class="field-container textarea-container">
+            <label for="obs">Observaciones: </label>
+            {{ productForm.obs }}
+        </div>
+    </form>
+
+    <style>
+        .container {
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
