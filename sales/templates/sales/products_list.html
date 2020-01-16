@@ -48,6 +48,16 @@
                             </div>
 
                             <div class="field-container">
+                                <label for="description">Descripción: </label>
+                                {{ productForm.description }}
+                            </div>
+
+                            <div class="field-container">
+                                <label for="sale_price">Precio de venta: </label>
+                                {{ productForm.sale_price }}
+                            </div>
+
+                            <div class="field-container">
                                 <label for="product_type">Categoría: </label>
                                 {{ productForm.product_type }}
                             </div>
@@ -58,18 +68,8 @@
                             </div>
 
                             <div class="field-container">
-                                <label for="description">Descripción: </label>
-                                {{ productForm.description }}
-                            </div>
-
-                            <div class="field-container">
                                 <label for="purchase_price">Precio de compra: </label>
                                 {{ productForm.purchase_price }}
-                            </div>
-
-                            <div class="field-container">
-                                <label for="sale_price">Precio de venta: </label>
-                                {{ productForm.sale_price }}
                             </div>
 
                             <div class="field-container">
@@ -93,38 +93,34 @@
 
             {% for product in products %}
                 <div class="card" id="card-{{ product.pk }}">
-                    <header>
-                        {% if product.product_id == "" %}
-                            <a href="{% url 'sales:show_product' pk=product.pk %}">Sin código</a>
-                        {% else %}
-                            <a href="{% url 'sales:show_product' pk=product.pk %}">Código: {{ product.product_id }}</a>
-                        {% endif %}
-                        
-                        <button class="delete-btn delete-icon-position" value="{{ product.pk }}">
-                            <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
-                        </button>
-                    </header>
-                    
                     <div class="card-copy">
                         <div class="card-copy-text card-copy-info">
-                            {% if product.sale_price == None %}
-                                <p style="font-size: 2.5rem;">
-                                    <strong>Sin precio</strong>
-                                </p>
-                            {% else %}
-                                <p style="font-size: 2.5rem;">
-                                    <strong>$ {{ product.sale_price }}</strong>
-                                </p>
-                            {% endif %}
-                            
+                            <p class="principal big">
+                                <strong>
+                                    {% if product.product_id == "" %}
+                                        Sin código
+                                    {% else %}
+                                        {{ product.product_id }}
+                                    {% endif %}
+                                </strong>
+                            </p>
+
                             {% if product.description == "" %}
                                  <p>Sin información sobre el producto</p>
                             {% else %}
                                 <p>{{ product.description }}</p>
                             {% endif %}
-                        </div>
-
-                        <div class="card-copy-text card-copy-info">
+                            
+                            <p class="big">
+                                <strong>
+                                    {% if product.sale_price == None %}
+                                        Sin precio
+                                    {% else %}
+                                        $ {{ product.sale_price|floatformat }}
+                                    {% endif %}
+                                </strong>
+                            </p>
+                            
                             {% if product.product_type == "" %}
                                 <p>Categoría: Sin información</p>
                             {% else %}
@@ -136,6 +132,14 @@
                             {% else %}
                                 <p>Marca: {{ product.brand }}</p>
                             {% endif %}
+                        </div>
+
+                        <div class="card-copy-text card-copy-options">
+                            <a class="link" href="{% url 'sales:show_product' pk=product.pk %}">Ver más</a>
+                            
+                            <button class="delete-btn delete-icon-position" value="{{ product.pk }}">
+                                <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                            </button>
                         </div>
                     </div>
                 </div>

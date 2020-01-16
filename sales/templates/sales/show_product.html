@@ -29,17 +29,17 @@
             </div>
         {% endif %}
 
-        {% if product.sale_price != None %}
-            <div class="field-container">
-                <label>Precio de venta: </label>
-                <strong>$ {{ product.sale_price }}</strong>
-            </div>
-        {% endif %}
-
         {% if product.description != "" %}
             <div class="field-container">
                 <label>Descripción: </label>
                 {{ product.description }}
+            </div>
+        {% endif %}
+
+        {% if product.sale_price != None %}
+            <div class="field-container">
+                <label>Precio de venta: </label>
+                <strong>$ {{ product.sale_price|floatformat }}</strong>
             </div>
         {% endif %}
 
@@ -60,7 +60,7 @@
         {% if product.purchase_price != None %}
             <div class="field-container">
                 <label>Precio de compra: </label>
-                $ {{ product.purchase_price }}
+                $ {{ product.purchase_price|floatformat }}
             </div>
         {% endif %}
 

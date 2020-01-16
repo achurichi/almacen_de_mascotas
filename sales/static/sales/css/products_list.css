@@ -69,6 +69,10 @@
 	align-items: center;
 }
 
+#title {
+	margin-left: 8.2rem;
+}
+
 .field-container {
 	width: 90%;
 }
@@ -111,10 +115,31 @@
 	width: 100%;
 }
 
-.card header {
-	padding: 0.7rem 1rem;
+.card-copy {
+	align-items: flex-start !important;
 }
-
 .card-copy-info {
 	max-width: 50%;
+}
+.card-copy-options {
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.principal {
+	color: var(--purple);
+}
+
+.big {
+	font-size: 2.5rem;
+}
+
+.link {
+	color: var(--purple);
+	font-weight: 600;
+	margin-right: 20px;
+}
+.link:hover {
+	color: var(--purple);
 }
