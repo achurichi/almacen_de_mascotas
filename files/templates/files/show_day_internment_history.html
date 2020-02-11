@@ -4,78 +4,53 @@
 {% block static %}
     <script type="text/javascript" src="{% static 'files/js/show_clinic_history.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
+    <script type="text/javascript" src="{% static 'files/js/show_internment_history.js' %}"></script>
 {% endblock %}
 
-{% block title %} Consulta del {{ clinicHistory.date|date:"d/m/Y" }} {% endblock %}
+{% block title %} Internación día {{ internmentDay.date|date:"d/m/Y" }} {% endblock %}
 
 {% block file_content %}
     <article class="article-container">
         <div class ="icon-title-container">
-            <a class="back-icon-position" href="{% url 'files:clinic_history_list' pk=petFile.pk %}">
+            <a class="back-icon-position" href="{% url 'files:show_internment_history' pk=petFile.pk internment_history_pk=internmentDay.internmentHistory.pk%}">
                 <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
             </a>
             
-            <h2 id="datos-mascota-title">Datos de la consulta</h2> 
+            <h2 id="datos-mascota-title">Datos del día</h2> 
 
-            <a class="edit-icon-position" href="{% url 'files:edit_clinic_history' pk=petFile.pk clinic_history_pk=clinicHistory.pk %}" %}>
+            <a class="edit-icon-position" href="{% url 'files:edit_internment_history' pk=petFile.pk internment_history_pk=internmentHistory.pk %}" %}>
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">
             </a>
         </div>
 
         <div class="field-container no-modify">
             <label class="no-modify">Fecha: </label>
-            {{ clinicHistory.date|date:"d/m/Y" }}
+            {{ internmentDay.date|date:"d/m/Y" }}
         </div>
 
-        {% if clinicHistory.abstract != "" %}
-            <div class="field-container no-modify">
-                <label class="no-modify">Resumen: </label>
-                {{ clinicHistory.abstract }}
-            </div>
-        {% endif %}
+        <div class="field-container no-modify">
+            <label class="no-modify">Signlos clínicos: </label>
+            {% if internmentDay.clinic_signs != "" %}
+                {{ internmentDay.clinic_signs }}
+            {% endif %}
+        </div>
 
-        {% if clinicHistory.history != "" %}
-            <div class="field-container">
-                <label>Anamnesis: </label>
-                <textarea readonly class="large-text">{{ clinicHistory.history }}</textarea>
-            </div>
-        {% endif %}
+        <div class="field-container no-modify">
+            <label class="no-modify">Tratamiento: </label>
+            {% if internmentDay.treatment != "" %}
+                {{ internmentDay.treatment }}
+            {% endif %}
+        </div>
 
-        {% if clinicHistory.clinic_signs != "" %}
-            <div class="field-container">
-                <label>Signos Clínicos: </label>
-                <textarea readonly class="large-text">{{ clinicHistory.clinic_signs }}</textarea>
-            </div>
-        {% endif %}
-
-        {% if clinicHistory.diagnosis != "" %}
-            <div class="field-container">
-                <label>Diagnóstico: </label>
-                <textarea readonly class="large-text">{{ clinicHistory.diagnosis }}</textarea>
-            </div> 
-        {% endif %}
-
-        {% if clinicHistory.treatments != "" %}
-            <div class="field-container">
-                <label>Tratamiento: </label>
-                <textarea readonly class="large-text">{{ clinicHistory.treatments }}</textarea>
-            </div> 
-        {% endif %}
-
-        {% if clinicHistory.obs != "" %}
-            <div class="field-container">
-                <label>Observaciones: </label>
-                <textarea readonly class="large-text">{{ clinicHistory.obs }}</textarea>
-            </div> 
-        {% endif %}
-
-        {% if clinicHistory.complementary_studies != "" %}
-            <div class="field-container">
-                <label>Estudios Complementarios: </label>
-                <textarea readonly class="large-text">{{ clinicHistory.complementary_studies }}</textarea>
-            </div>
-        {% endif %}
+        <div class="field-container no-modify">
+            <label class="no-modify">Observaciones: </label>
+            {% if internmentDay.obs != "" %}
+                {{ internmentDay.obs }}
+            {% endif %}
+        </div>
 
         <div class="field-container">
             <label>Fotos: </label>
@@ -133,4 +108,14 @@
     <script>
         $('.carousel').carousel()
     </script>
+    
+    <style>
+        #clinic-history-link {
+            background-color: var(--purple);
+        }
+
+        #internment-history-link {
+            background-color: var(--purple-dark);
+        }
+    </style>
 {% endblock %}

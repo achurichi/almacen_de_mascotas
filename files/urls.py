@@ -44,6 +44,12 @@ urlpatterns = [
          views.new_internment_history, name='new_internment_history'),
     path('<int:pk>/show_internment_history/<int:internment_history_pk>/',
          views.show_internment_history, name='show_internment_history'),
+    path('delete_day_internment_history/', views.delete_day_internment_history,
+         name='delete_day_internment_history'),
+    path('add_day_internment_history/', views.add_day_internment_history,
+         name='add_day_internment_history'),
+    path('<int:pk>/show_day_internment_history/<int:internment_day_pk>/',
+         views.show_day_internment_history, name='show_day_internment_history'),
     path('<int:pk>/edit_internment_history/<int:internment_history_pk>/',
          views.edit_internment_history, name='edit_internment_history'),
 ]

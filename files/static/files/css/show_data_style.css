@@ -5,11 +5,15 @@ h2 {
 	text-align: center;
 	margin-top: 1rem;
 }
-h2:not(#datos-mascota-title) {
+h2:not(#datos-mascota-title, .card-title) {
 	padding: 2rem 0 1rem 0;
 	margin-bottom: 2rem;
 	border-bottom: 2px solid gainsboro;
 }
+.second-title {
+	margin-top: 3rem;
+}
+
 .add-margin-left {
 	margin-left: 4rem;
 }

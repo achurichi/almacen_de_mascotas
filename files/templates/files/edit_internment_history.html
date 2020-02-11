@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block static %}
-    {% comment %} <script type="text/javascript" src="{% static 'files/js/show_clinic_history.js' %}"></script> {% endcomment %}
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}"> {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_internment_history.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
+    <script type="text/javascript" src="{% static 'files/js/show_internment_history.js' %}"></script>
 {% endblock %}
 
 {% block title %} Editar internación del {{ internmentHistory.entry_date|date:"d/m/Y" }} {% endblock %}
@@ -17,7 +18,7 @@
                 <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
             </a>
             
-            <h2 id="datos-mascota-title">Datos de la internación</h2> 
+            <h2 id="datos-mascota-title">Datos de internación</h2> 
 
             <button class="edit-icon-button" type="submit">
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
@@ -25,12 +26,12 @@
         </div>
 
         <div class="field-container no-modify">
-            <label class="no-modify">Fecha de entrada: </label>
+            <label class="no-modify">Fecha de ingreso: </label>
             {{ internmentHistoryForm.entry_date }}
         </div>
 
         <div class="field-container no-modify">
-            <label class="no-modify">Fecha de salida: </label>
+            <label class="no-modify">Fecha de alta: </label>
             {{ internmentHistoryForm.exit_date }}
         </div>
 
@@ -63,30 +64,48 @@
                 <label class="no-modify">Teléfono 3: </label>
                 {{ ownerFile.phone_number_3 }}
             </div>
-        {% endif %}
-
-        <div class="internment-day-formset">
-            <button id="add_more" type="button">
-                <img src={% static 'img/plus-square-solid.svg' %} alt="agregar-internacion">
-            </button> 
-
-            {{ internmentDayFormset.management_form }}
-            
-            <div id="form_set">
-                {% for form in internmentDayFormset.forms %}
-                    <table class='no_error'>
-                        {{ form }}
-                    </table>
-                {% endfor %}
-            </div>
-            
-            <div id="empty_form" style="display:none">
-                <table class='no_error'>
-                    {{ internmentDayFormset.empty_form }}
-                </table>
-            </div>
-        </div>        
+        {% endif %}       
     </form>
+
+    <div class="files-container">
+        <button id="new" class="new-day-btn" name="{{ internmentHistory.pk }}">Agregar día</button>
+    </div>
+
+    {% for internmentDay in internmentDay_list %}
+        <div class="card card-list" id="card-{{ internmentDay.pk }}">
+            <header class="no-bottom-line">
+                 <a href="{% url 'files:show_day_internment_history' pk=petFile.pk internment_day_pk=internmentDay.pk%}">
+                    {{ internmentDay.date|date:"d/m/Y" }}
+                </a>
+                
+                <button class="delete-btn delete-icon-position" value="{{internmentDay.pk}}">
+                    <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                </button>
+            </header>
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-text-links">
+            <div class="step-links">
+                {% if internmentDay_list.has_previous %}
+                    <a href="?page=1">primera</a>
+                    <a href="?page={{ internmentDay_list.previous_page_number }}">anterior</a>
+                {% endif %}
+            </div>
+
+            <span class="current">
+                Página {{ internmentDay_list.number }} de {{ internmentDay_list.paginator.num_pages }}
+            </span>
+
+            <div class="step-links">
+                {% if internmentDay_list.has_next %}
+                    <a href="?page={{ internmentDay_list.next_page_number }}">siguiente</a>
+                    <a href="?page={{ internmentDay_list.paginator.num_pages }}">última</a>
+                {% endif %}
+            </div>
+        </span>
+    </div>
 
     <script>
         $('#add_more').click(function() {
@@ -95,4 +114,14 @@
             $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
         });
     </script>
+
+    <style>
+        #clinic-history-link {
+            background-color: var(--purple);
+        }
+
+        #internment-history-link {
+            background-color: var(--purple-dark);
+        }
+    </style>
 {% endblock %}

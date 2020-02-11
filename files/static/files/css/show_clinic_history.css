@@ -66,3 +66,59 @@ label:not(.no-modify) {
 	outline: 0;
 	border: none;
 }
+
+.files-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+#new {
+	width: 80%;
+	border: none;
+	outline: none;
+	background-color: var(--green);
+	color: white;
+	text-decoration: none;
+	font-size: 2rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 1.5rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 4px;
+	transition: ease-in-out 0.2s;
+}
+#new:hover {
+	background-color: var(--green-dark);
+}
+
+.card {
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+}
+
+.new-card {
+	margin: 0;
+	width: 97%;
+}
+
+/* .margin-left {
+	margin-left: 8.2rem !important;
+} */
+
+/* header {
+    display: flex;
+    flex-direction: ;
+} */
+
+.article-container {
+	margin-bottom: 0;
+}
+
+.no-bottom-line {
+	border-bottom: none !important;
+	margin-bottom: 0 !important;
+}
