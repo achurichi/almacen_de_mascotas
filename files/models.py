@@ -124,7 +124,6 @@ class InternmentHistory(models.Model):
 class InternmentDay(models.Model):
     date = models.DateField(default=datetime.date.today)
     clinic_signs = models.TextField(default='', blank=True)
-    treatment = models.TextField(default='', blank=True)
     obs = models.TextField(default='', blank=True)
     internmentHistory = models.ForeignKey(
         InternmentHistory, on_delete=models.CASCADE)

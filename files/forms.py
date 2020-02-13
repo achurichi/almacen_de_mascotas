@@ -200,7 +200,6 @@ class InternmentDayForm(forms.ModelForm):
             }),
     )
     clinic_signs = forms.CharField(required=False, widget=forms.Textarea)
-    treatments = forms.CharField(required=False, widget=forms.Textarea)
     obs = forms.CharField(required=False, widget=forms.Textarea)
 
     class Meta:
@@ -209,7 +208,6 @@ class InternmentDayForm(forms.ModelForm):
         fields = [
             'date',
             'clinic_signs',
-            'treatments',
             'obs',
         ]
 
