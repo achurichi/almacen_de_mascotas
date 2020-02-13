@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
-    <script type="text/javascript" src="{% static 'files/js/show_internment_history.js' %}"></script>
+    <script type="text/javascript" src="{% static 'files/js/show_day_internment_history.js' %}"></script>
 {% endblock %}
 
 {% block title %} Internación día {{ internmentDay.date|date:"d/m/Y" }} {% endblock %}
@@ -15,13 +15,13 @@
 {% block file_content %}
     <article class="article-container">
         <div class ="icon-title-container">
-            <a class="back-icon-position" href="{% url 'files:show_internment_history' pk=petFile.pk internment_history_pk=internmentDay.internmentHistory.pk%}">
+            <a class="back-icon-position" href="{% url 'files:show_internment_history' pk=petFile.pk internment_history_pk=internmentHistory.pk %}">
                 <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
             </a>
             
             <h2 id="datos-mascota-title">Datos del día</h2> 
 
-            <a class="edit-icon-position" href="{% url 'files:edit_internment_history' pk=petFile.pk internment_history_pk=internmentHistory.pk %}" %}>
+            <a class="edit-icon-position" href="{% url 'files:edit_day_internment_history' pk=petFile.pk internment_day_pk=internmentDay.pk%}" %}>
                 <img src={% static 'img/pencil-alt-solid.svg' %} alt="edit-icon">
             </a>
         </div>
@@ -34,29 +34,24 @@
         <div class="field-container no-modify">
             <label class="no-modify">Signlos clínicos: </label>
             {% if internmentDay.clinic_signs != "" %}
-                {{ internmentDay.clinic_signs }}
-            {% endif %}
-        </div>
-
-        <div class="field-container no-modify">
-            <label class="no-modify">Tratamiento: </label>
-            {% if internmentDay.treatment != "" %}
-                {{ internmentDay.treatment }}
+                <textarea readonly class="large-text">{{ internmentDay.clinic_signs }}</textarea>
             {% endif %}
         </div>
 
         <div class="field-container no-modify">
             <label class="no-modify">Observaciones: </label>
             {% if internmentDay.obs != "" %}
-                {{ internmentDay.obs }}
+                <textarea readonly class="large-text">{{ internmentDay.obs }}</textarea>
             {% endif %}
         </div>
 
         <div class="field-container">
-            <label>Fotos: </label>
+            {% comment %} {% if internmentDayImg|length > 1 %} {% endcomment %}
+                <label>Fotos: </label>
+            {% comment %} {% elif %} {% endcomment %}
             <div id="imageCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                 <ol class="carousel-indicators">
-                    {% for i in clinicHistoryImg %}
+                    {% for i in internmentDayImg %}
                         {% if forloop.first %}
                             <li data-target="#imageCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
@@ -66,7 +61,7 @@
                 </ol>
 
                 <div class="carousel-inner" style="max-width: 70rem;">
-                    {% for img in clinicHistoryImg %}
+                    {% for img in internmentDayImg %}
                         {% if forloop.first %}
                             <a class="carousel-item active" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
                                 <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
@@ -91,7 +86,7 @@
         </div>
 
         <!-- Modals -->
-        {% for img in clinicHistoryImg %}
+        {% for img in internmentDayImg %}
             <div class="modal fade" id="modal-{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content custom-height-modal">
@@ -116,6 +111,15 @@
 
         #internment-history-link {
             background-color: var(--purple-dark);
+        }
+
+        .field-container {
+            margin-bottom: 0;
+            padding: 1.4rem 0;
+        }
+
+        label {
+            text-decoration: none !important;
         }
     </style>
 {% endblock %}

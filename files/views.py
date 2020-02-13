@@ -227,7 +227,7 @@ def edit_clinic_history(request, pk, clinic_history_pk):
         if imgFormset.is_valid():
             for form in imgFormset.cleaned_data:
                 if form == {} or form['id'] == None and form['DELETE'] == True:
-                    break
+                    continue
                 else:
                     if form['id'] == None:
                         photo = ClinicHistoryImg(
@@ -494,10 +494,75 @@ def edit_internment_history(request, pk, internment_history_pk):
 def show_day_internment_history(request, pk, internment_day_pk):
     petFile = get_object_or_404(PetFile, pk=pk)
     internmentDay = get_object_or_404(InternmentDay, pk=internment_day_pk)
+    internmentDayImg = InternmentDayImg.objects.filter(
+        internmentDay=internmentDay)
+    print(internmentDayImg.count() == 0)
+    # print(QuerySet())
 
     context = {
         'petFile': petFile,
         'internmentHistory': internmentDay.internmentHistory,
         'internmentDay': internmentDay,
+        'internmentDayImg': internmentDayImg,
     }
     return render(request, 'files/show_day_internment_history.html', context)
+
+
+def edit_day_internment_history(request, pk, internment_day_pk):
+    ImgFormset = modelformset_factory(InternmentDayImg,
+                                      form=InternmentDayImgForm,
+                                      extra=1,
+                                      can_delete=True,)
+
+    if request.method == "POST":
+        internmentDay = get_object_or_404(InternmentDay, pk=internment_day_pk)
+        internmentDayForm = InternmentDayForm(
+            request.POST, instance=internmentDay)
+        imgFormset = ImgFormset(request.POST,
+                                request.FILES,
+                                queryset=InternmentDayImg.objects.filter(
+                                    internmentDay_id=internment_day_pk))
+
+        if internmentDayForm.has_changed() and internmentDayForm.is_valid():
+            if internmentDay.date == None:
+                internmentDay.date = datetime.date.today()
+            internmentDayForm.save()
+
+        if imgFormset.is_valid():
+            for form in imgFormset.cleaned_data:
+                if form == {} or form['id'] == None and form['DELETE'] == True:
+                    continue
+                else:
+                    if form['id'] == None:
+                        photo = InternmentDayImg(
+                            internmentDay=internmentDay, image=form['image'])
+                        photo.save()
+                    elif form['DELETE'] == True:
+                        InternmentDayImg.objects.filter(
+                            id=form['id'].pk).delete()
+                    else:
+                        photo = InternmentDayImg.objects.filter(
+                            id=form['id'].pk)[0]
+                        if photo.image != form['image']:
+                            photo.image = form['image']
+                            photo.save()
+
+        url = reverse('files:show_day_internment_history', kwargs={
+                      'pk': pk, 'internment_day_pk': internment_day_pk})
+        return HttpResponseRedirect(url)
+
+    petFile = get_object_or_404(PetFile, pk=pk)
+    internmentDay = get_object_or_404(InternmentDay, pk=internment_day_pk)
+    internmentDayForm = InternmentDayForm(instance=internmentDay)
+    imgFormset = ImgFormset(queryset=InternmentDayImg.objects.filter(
+        internmentDay_id=internment_day_pk))
+
+    context = {
+        'petFile': petFile,
+        'internmentHistory': internmentDay.internmentHistory,
+        'internmentDay': internmentDay,
+        'internmentDayForm': internmentDayForm,
+        'imgFormset': imgFormset,
+    }
+
+    return render(request, 'files/edit_day_internment_history.html', context)

@@ -1,0 +1,100 @@
+{% extends 'file_detail_layout.html' %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_clinic_history.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_clinic_history.css' %}">
+{% endblock %}
+
+{% block title %} Internación día {{ internmentDay.date|date:"d/m/Y" }} {% endblock %}
+
+{% block file_content %}
+    <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
+        <div class ="icon-title-container">
+            <a class="back-icon-position" href="{% url 'files:show_internment_history' pk=petFile.pk internment_history_pk=internmentHistory.pk %}">
+                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
+            </a>
+            
+            <h2 id="datos-mascota-title">Datos del día</h2> 
+
+            <button class="edit-icon-button" type="submit">
+                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
+            </button>
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Fecha: </label>
+            {{ internmentDayForm.date }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Signlos clínicos: </label>
+            {{ internmentDayForm.clinic_signs }}
+        </div>
+
+        <div class="field-container no-modify">
+            <label class="no-modify">Observaciones: </label>
+            {{ internmentDayForm.obs }}
+        </div>
+
+        <div class="field-container border-correction">
+            <label>Fotos: </label>
+            <div class="img-formset">
+                <button id="add_more" type="button">
+                    <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Foto">
+                </button> 
+
+                {{ imgFormset.management_form }}
+                
+                <div id="form_set">
+                    {% for form in imgFormset.forms %}
+                        <table class='no_error'>
+                            {{ form }}
+                        </table>
+                    {% endfor %}
+                </div>
+                
+                <div id="empty_form" style="display:none">
+                    <table class='no_error'>
+                        {{ imgFormset.empty_form }}
+                    </table>
+                </div>
+            </div>        
+        </div>
+    </form>
+
+    <script>
+        $('#add_more').click(function() {
+            var form_idx = $('#id_form-TOTAL_FORMS').val();
+            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
+    
+    <style>
+        #clinic-history-link {
+            background-color: var(--purple);
+        }
+
+        #internment-history-link {
+            background-color: var(--purple-dark);
+        }
+
+        .img-formset {
+            width: 100%;
+        }
+
+        .border-correction input:not([type="checkbox"]) {
+            height: 100%;
+            width: auto;
+            padding: 0;
+            border: none;
+        }
+
+        label {
+            margin-bottom: 0 !important;
+            text-decoration: none !important;
+        }
+    </style>
+{% endblock %}
