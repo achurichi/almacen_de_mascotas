@@ -10,6 +10,7 @@ SEX_CHOICES = [('Macho', 'Macho'), ('Hembra', 'Hembra')]
 
 
 class PetForm(forms.ModelForm):
+    species = forms.CharField(required=False)
     sex = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=([('Macho', 'Macho'), ('Hembra', 'Hembra'), ]),
@@ -34,6 +35,7 @@ class PetForm(forms.ModelForm):
         fields = [
             'pet_name',
             'pet_img',
+            'species',
             'sex',
             'race',
             'date_of_birth',

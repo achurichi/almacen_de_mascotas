@@ -27,6 +27,13 @@
             {{ petFile.pet_name }}
         </div>
 
+        {% if petFile.species != "" %}
+            <div class="field-container">
+                <label>Especie: </label>
+                {{ petFile.species }}
+            </div>
+        {% endif %}
+
         <div class="field-container">
             <label>Sexo: </label>
 

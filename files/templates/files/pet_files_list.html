@@ -15,7 +15,7 @@
             <form class="searchbar-container" method="get">
                 <input type="text" id="file-search" name="q" placeholder="Buscar..." value={{ query }} >
                 <a class="cancel-icon-position" href={% url 'files:pets_list' %}>
-                    <img src={% static 'img/times-circle-solid.svg' %} alt="Agregar Ficha">
+                    <img src={% static 'img/times-circle-solid.svg' %} alt="Borrar Búsqueda">
                 </a>
             </form>
 
@@ -40,6 +40,8 @@
                             <img src="{{ petFile.pet_img.url }}" alt="foto-mascota">
                         </div>
                         <div class="card-copy-text">
+                            <p>ID: {{ petFile.id|stringformat:"07d" }}</p> 
+
                             <p>Sexo: {{ petFile.sex }}</p>
 
                             {% if petFile.race == ''%}

@@ -28,6 +28,7 @@ class PetFile(models.Model):
                                   format='JPEG',
                                   default='images/no-image-found.jpg')
     sex = models.CharField(max_length=64)
+    species = models.CharField(max_length=64, default='', blank=True)
     race = models.CharField(max_length=255, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     castrated = models.BooleanField(default=False)

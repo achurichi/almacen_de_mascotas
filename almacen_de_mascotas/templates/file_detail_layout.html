@@ -4,9 +4,10 @@
 {% block content %}
     <div class="container sub-container">
         <div class="section-nav-container">
-            <a id="nav-back-icon" href={% url 'files:pets_list' %}>
+            {% comment %} <a id="nav-back-icon" href={% url 'files:pets_list' %}>
                 <img src={% static 'img/arrow-left-solid.svg' %} alt="back-icon">
-            </a>
+            </a> {% endcomment %}
+            <a href="{% url 'files:pets_list' %}" id="nav-back">Todas la Fichas</a>
             <a href="{% url 'files:show_info' pk=petFile.pk %}" id="info-link">Información</a>
             <a href="{% url 'files:clinic_history_list' pk=petFile.pk %}" id="clinic-history-link">Historial Clínico</a>
             <a href="{% url 'files:vaccination_history_list' pk=petFile.pk %}" id="vaccination-history-link">Vacunas</a>
@@ -52,8 +53,14 @@
         #current-tab {
             background-color: var(--purple-dark);
         }
+        #nav-back {
+            background-color: var(--light-gray);
+        }
+        #nav-back:hover {
+            background-color: var(--gray);
+        }
 
-        #nav-back-icon {
+        {% comment %} #nav-back-icon {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -69,6 +76,6 @@
             width: 3rem;
             display: flex;
             transition: all 0.4s;
-        }
+        } {% endcomment %}
     </style>
 {% endblock %}

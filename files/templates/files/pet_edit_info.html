@@ -1,114 +1,127 @@
-{% extends 'file_detail_layout.html' %}
-{% load static js %}
+{% extends 'file_detail_layout.html' %} {% load static js %} {% block static %}
+<link
+	rel="stylesheet"
+	type="text/css"
+	href="{% static 'files/css/edit_data_style.css' %}"
+/>
+<script
+	type="text/javascript"
+	src="{% static 'files/js/pet_edit_info.js' %}"
+></script>
+{% endblock %} {% block title %} Editar ficha de {{ petFile.pet_name }}
+{%endblock %} {% block file_content %}
+<form
+	method="post"
+	enctype="multipart/form-data"
+	class="article-container"
+	id="data-form"
+>
+	{% csrf_token %}
+	<div class="icon-title-container">
+		<h2 id="datos-mascota-title" class="add-margin-left">
+			Datos de la mascota
+		</h2>
 
-{% block static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
-    <script type="text/javascript" src="{% static 'files/js/pet_edit_info.js' %}"></script>
-{% endblock %}
+		<button class="edit-icon-button" type="submit">
+			<img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
+		</button>
+	</div>
 
-{% block title %} Editar ficha de {{ petFile.pet_name }} {% endblock %}
+	<div id="status-check" class="full-display img-info-container">
+		<label for="pet_img">Foto de Perfil: </label>
+		<div class="img-container">{{ petForm.pet_img }}</div>
+	</div>
 
-{% block file_content %}
-    <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
-        <div class ="icon-title-container">
-            <h2 id="datos-mascota-title" class="add-margin-left">Datos de la mascota</h2> 
+	<div class="field-container">
+		<label for="name">Nombre: </label>
+		{{ petForm.pet_name }}
+	</div>
 
-            <button class="edit-icon-button" type="submit">
-                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
-            </button>  
-        </div>
+	<div class="field-container">
+		<label for="name">Especie: </label>
+		{{ petForm.species }}
+	</div>
 
-        <div id="status-check" class="full-display img-info-container">
-            <label for="pet_img">Foto de Perfil: </label>
-            <div class="img-container">{{ petForm.pet_img }}</div>
-        </div>
+	<div class="field-container">
+		<label for="sex">Sexo: </label>
+		{{ petForm.sex }}
+	</div>
 
-        <div class="field-container">
-            <label for="name">Nombre: </label>
-            {{ petForm.pet_name }}
-        </div>
+	<div class="field-container">
+		<label for="race">Raza: </label>
+		{{ petForm.race }}
+	</div>
 
-        <div class="field-container">
-            <label for="sex">Sexo: </label>
-            {{ petForm.sex }}
-        </div>
+	<div class="field-container">
+		<label for="date_of_birth">Fecha de nacimiento: </label>
+		{{ petForm.date_of_birth }}
+	</div>
 
-        <div class="field-container">
-            <label for="race">Raza: </label>
-            {{ petForm.race }}
-        </div>
+	<div class="field-container">
+		<label for="castrated">Castrado: </label>
+		<div class="full-display">{{ petForm.castrated }}</div>
+	</div>
 
-        <div class="field-container">
-            <label for="date_of_birth">Fecha de nacimiento: </label>
-            {{ petForm.date_of_birth }}
-        </div>
+	<div class="field-container" id="castration-date-container">
+		<label for="castration_date">Fecha de castración: </label>
+		{{ petForm.castration_date }}
+	</div>
 
-        <div class="field-container">
-            <label for="castrated">Castrado: </label>
-            <div class="full-display">{{ petForm.castrated }}</div>
-        </div>
+	<div class="field-container">
+		<label for="aggressive">Agresivo: </label>
+		<div class="full-display">{{ petForm.aggressive }}</div>
+	</div>
 
-        <div class="field-container" id="castration-date-container">
-            <label for="castration_date">Fecha de castración: </label>
-            {{ petForm.castration_date }}
-        </div>
+	<div id="allergies-textarea" class="field-container textarea-container">
+		<label for="allergies">Alergias: </label>
+		{{ petForm.allergies }}
+	</div>
 
-        <div class="field-container">
-            <label for="aggressive">Agresivo: </label>
-            <div class="full-display">{{ petForm.aggressive }}</div>
-        </div>
+	<div id="description-textarea" class="field-container textarea-container">
+		<label for="description">Descripción: </label>
+		{{ petForm.description }}
+	</div>
 
-        <div id="allergies-textarea" class="field-container textarea-container">
-            <label for="allergies">Alergias: </label>
-            {{ petForm.allergies }}
-        </div>
+	<div id="obs-textarea" class="field-container textarea-container">
+		<label for="obs">Observaciones: </label>
+		{{ petForm.obs }}
+	</div>
 
-        <div id="description-textarea" class="field-container textarea-container">
-            <label for="description">Descripción: </label>
-            {{ petForm.description }}
-        </div>
+	<h2>Datos del dueño</h2>
 
-        <div id="obs-textarea" class="field-container textarea-container">
-            <label for="obs">Observaciones: </label>
-            {{ petForm.obs }}
-        </div>
+	<div class="field-container">
+		<label for="name">Nombre: </label>
+		{{ ownerForm.owner_name }}
+	</div>
 
+	<div class="field-container">
+		<label for="name">Dirección: </label>
+		{{ ownerForm.address }}
+	</div>
 
-        <h2>Datos del dueño</h2>
+	<div class="field-container">
+		<label for="name">Teléfono 1: </label>
+		{{ ownerForm.phone_number_1 }}
+	</div>
 
-        <div class="field-container">
-            <label for="name">Nombre: </label>
-            {{ ownerForm.owner_name }}
-        </div>
+	<div class="field-container">
+		<label for="name">Teléfono 2: </label>
+		{{ ownerForm.phone_number_2 }}
+	</div>
 
-        <div class="field-container">
-            <label for="name">Dirección: </label>
-            {{ ownerForm.address }}
-        </div>
+	<div class="field-container">
+		<label for="name">Teléfono 3: </label>
+		{{ ownerForm.phone_number_3 }}
+	</div>
+</form>
 
-        <div class="field-container">
-            <label for="name">Teléfono 1: </label>
-            {{ ownerForm.phone_number_1 }}
-        </div>
+<script type="text/javascript">
+	var castrated = '{{ petFile.castrated|js }}'
+</script>
 
-        <div class="field-container">
-            <label for="name">Teléfono 2: </label>
-            {{ ownerForm.phone_number_2 }}
-        </div>
-
-        <div class="field-container">
-            <label for="name">Teléfono 3: </label>
-            {{ ownerForm.phone_number_3 }}
-        </div>        
-    </form>
-
-    <script type="text/javascript">
-        var castrated="{{ petFile.castrated|js }}";
-    </script>
-
-    <style>
-        #info-link {
-            background-color: var(--purple-dark);
-        }
-    </style>
+<style>
+	#info-link {
+		background-color: var(--purple-dark);
+	}
+</style>
 {% endblock %}
