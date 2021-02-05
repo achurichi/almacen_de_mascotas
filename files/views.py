@@ -351,7 +351,7 @@ def internment_history_list(request, pk):
             return HttpResponseRedirect(url)
 
     internmentHistory_list = InternmentHistory.objects.filter(
-        petFile=pk).order_by('-created_at')
+        petFile=pk).order_by('-entry_date')
     internmentForm = InternmentHistoryForm()
 
     paginator = Paginator(internmentHistory_list, 10)

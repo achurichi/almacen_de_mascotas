@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'tempus_dominus',
     'files',
     'sales',
+    'internment',
 ]
 
 MIDDLEWARE = [

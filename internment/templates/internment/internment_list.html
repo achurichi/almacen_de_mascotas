@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% load petFile_templatetags %}
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/form_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_list_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/file_content_list.css' %}">
+    <script type="text/javascript" src="{% static 'internment/js/internment_list.js' %}"></script>
+{% endblock %}
+
+{% block title %} Todas las internaciones {% endblock %}
+
+{% block content %}
+    <div class="files-container">
+        <div class="cards">
+            {% for internment in internments %}
+                <div class="card card-list" id="card-{{ internment.pk }}">
+                    <header>
+                        <a href="{% url 'files:show_internment_history' pk=internment.petFile_id internment_history_pk=internment.pk %}">
+                            {% attr_from_petFile internment.petFile_id "pet_name" %}
+                            <br>
+                            <br>
+                            {{ internment.entry_date|date:"d/m/Y" }} - En curso
+                        </a>
+                        
+                        <button class="delete-btn delete-icon-position" value="{{internment.pk}}">
+                            <img src={% static 'img/times-circle-regular.svg' %} alt="eliminar-ficha">
+                        </button>
+                    </header>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-text-links">
+                <div class="step-links">
+                    {% if internments.has_previous %}
+                        <a href="?page=1">primera</a>
+                        <a href="?page={{ internments.previous_page_number }}">anterior</a>
+                    {% endif %}
+                </div>
+
+                <span class="current">
+                    Página {{ internments.number }} de {{ internments.paginator.num_pages }}
+                </span>
+
+                <div class="step-links">
+                    {% if internments.has_next %}
+                        <a href="?page={{ internments.next_page_number }}">siguiente</a>
+                        <a href="?page={{ internments.paginator.num_pages }}">última</a>
+                    {% endif %}
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <style>
+        #internment-history-link {
+            background-color: var(--purple-dark);
+        }
+
+        .card-list header {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .files-container {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
