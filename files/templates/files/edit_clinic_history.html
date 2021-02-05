@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/file_content_list.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_clinic_history.css' %}">
 {% endblock %}
@@ -11,15 +12,16 @@
 {% block file_content %}
     <form method="post" enctype="multipart/form-data" class="article-container" id="data-form"> {% csrf_token %}
         <div class ="icon-title-container">
-            <a class="back-icon-position" href="{% url 'files:clinic_history_list' pk=petFile.pk %}">
-                <img src={% static 'img/arrow-circle-left-solid.svg' %} alt="back-icon">
-            </a>
-            
-            <h2 id="datos-mascota-title">Datos de la Historia Clínica</h2> 
+            <h2 id="datos-mascota-title">Editar datos de la consulta</h2> 
 
-            <button class="edit-icon-button" type="submit">
-                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
-            </button>  
+            {% comment %} TODO arreglar el boton de back {% endcomment %}
+            <button type="button" class="icon-position" onclick="javascript:history.back();">
+			    <img src={% static 'img/times-solid.svg' %} alt="cancelar-edicion">
+		    </button>
+
+            <button type="submit" id="save-btn" class="icon-position">
+                <img src={% static 'img/check-solid.svg' %} alt="guardar-edicion">
+            </button>
         </div>
 
         <div class="field-container">

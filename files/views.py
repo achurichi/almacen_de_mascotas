@@ -17,7 +17,8 @@ def petFiles_list(request):
         query = request.GET['q']
 
     petFiles = PetFile.objects.filter(
-        Q(pet_name__icontains=query)).distinct().order_by('-created_at')
+        Q(pet_name__icontains=query) | Q(id__icontains=query)
+    ).distinct().order_by('-created_at')
     paginator = Paginator(petFiles, 6)
     page = request.GET.get('page')
     petFiles = paginator.get_page(page)
