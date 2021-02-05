@@ -11,14 +11,13 @@
 }
 
 .img-formset {
-	width: 75%;
+	width: 80%;
 	min-height: 5rem;
 	padding: 0.6rem;
 	margin-bottom: 1.4rem;
 	font-size: 2rem;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 }
 #add_more {
 	padding: 0;
