@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/file_content_list.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
 {% endblock %}
 
@@ -16,9 +17,13 @@
 
             <h2 id="datos-mascota-title">Datos del artículo</h2> 
 
-            <button class="edit-icon-button" type="submit">
-                <img src={% static 'img/pencil-alt-solid.svg' %} alt="back-icon">
-            </button>  
+            <button type="button" class="icon-position" onclick="javascript:history.back();">
+			    <img src={% static 'img/times-solid.svg' %} alt="cancelar-edicion">
+		    </button>
+
+            <button type="submit" id="save-btn" class="icon-position">
+                <img src={% static 'img/check-solid.svg' %} alt="guardar-edicion">
+            </button> 
         </div>
 
         <div class="field-container">
