@@ -18,11 +18,16 @@ class PetForm(forms.ModelForm):
     race = forms.CharField(required=False)
     date_of_birth = castration_date = forms.DateField(
         required=False,
+        
         widget=DatePicker(
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     castrated = forms.BooleanField(required=False)
     aggressive = forms.BooleanField(required=False)
@@ -73,7 +78,11 @@ class ClinicHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     abstract = forms.CharField(required=False)
     history = forms.CharField(required=False, widget=forms.Textarea)
@@ -113,7 +122,11 @@ class VaccinationHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     next_date = forms.DateField(
         required=False,
@@ -121,7 +134,11 @@ class VaccinationHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
 
     class Meta:
@@ -142,7 +159,11 @@ class DewormingHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     next_date = forms.DateField(
         required=False,
@@ -150,7 +171,11 @@ class DewormingHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
 
     class Meta:
@@ -170,7 +195,11 @@ class InternmentHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     exit_date = forms.DateField(
         required=False,
@@ -178,7 +207,11 @@ class InternmentHistoryForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     is_interned = forms.BooleanField(initial=True, required=False)
 
@@ -199,7 +232,11 @@ class InternmentDayForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     clinic_signs = forms.CharField(required=False, widget=forms.Textarea)
     obs = forms.CharField(required=False, widget=forms.Textarea)
@@ -221,7 +258,11 @@ class InternmentTreatmentForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     be_notified = forms.BooleanField(required=False)
 
