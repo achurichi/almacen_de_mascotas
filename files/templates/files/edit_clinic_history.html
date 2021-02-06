@@ -14,10 +14,9 @@
         <div class ="icon-title-container">
             <h2 id="datos-mascota-title">Editar datos de la consulta</h2> 
 
-            {% comment %} TODO arreglar el boton de back {% endcomment %}
-            <button type="button" class="icon-position" onclick="javascript:history.back();">
-			    <img src={% static 'img/times-solid.svg' %} alt="cancelar-edicion">
-		    </button>
+            <a class="icon-position" style="margin-right: 1.3rem;" href="{% url 'files:show_clinic_history' pk=petFile.pk clinic_history_pk=clinicHistory.pk %}"> 
+                <img src={% static 'img/times-solid.svg' %} alt="cancelar-edicion">
+            </a>
 
             <button type="submit" id="save-btn" class="icon-position">
                 <img src={% static 'img/check-solid.svg' %} alt="guardar-edicion">
