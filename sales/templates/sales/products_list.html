@@ -86,6 +86,34 @@
                                 <label for="obs">Observaciones: </label>
                                 {{ productForm.obs }}
                             </div>
+
+                            <div class="img-formset">
+                                <button id="add_more" type="button">
+                                    <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Foto">
+                                </button> 
+
+                                {{ imgFormset.management_form }}
+                                
+                                <div id="form_set">
+                                    {% for form in imgFormset.forms %}
+                                        <div id="form-0-row" class='no_error'>
+                                            {{ form }}
+                                            <button id="form-0-btn" class="delete-img-btn" type="button">
+                                                <img src={% static 'img/times-solid.svg' %} alt="Agregar Foto">
+                                            </button> 
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <div id="empty_form" style="display:none">
+                                    <div id="form_id" class='no_error'>
+                                        {{ imgFormset.empty_form }}
+                                        <button id="btn_id" class="delete-img-btn" type="button">
+                                            <img src={% static 'img/times-solid.svg' %} alt="Agregar Foto">
+                                        </button> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

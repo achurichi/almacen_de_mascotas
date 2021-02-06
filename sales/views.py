@@ -4,22 +4,41 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.forms import modelformset_factory
 
-from .models import Product
-from .forms import ProductForm
+from .models import Product, ProductImg
+from .forms import ProductForm, ProductImgForm
 
 
 def products_list(request):
     query = ""
     if request.GET:
         query = request.GET['q']
+    
+    ImgFormset = modelformset_factory(ProductImg,
+                                      form=ProductImgForm,
+                                      extra=1,)
 
     if request.method == "POST":
         productForm = ProductForm(request.POST)
+        imgFormset = ImgFormset(request.POST,
+                                request.FILES,
+                                queryset=ProductImg.objects.none())
+
         if productForm.is_valid():
-            productForm.save()
+            savedProduct = productForm.save()
+
+            if request.FILES != {} and imgFormset.is_valid():
+                for form in imgFormset.cleaned_data:
+                    if form != {}:
+                        photo = ProductImg(
+                            product=savedProduct, image=form['image'])
+                        photo.save()
 
         return HttpResponseRedirect(reverse('sales:products_list'))
+    else:
+        productForm = ProductForm()
+        imgFormset = ImgFormset(queryset=ProductImg.objects.none())
 
     products = Product.objects.filter(
         Q(product_id__icontains=query) |
@@ -33,6 +52,7 @@ def products_list(request):
         'query': str(query),
         'products': products,
         'productForm': productForm,
+        'imgFormset': imgFormset,
     }
 
     return render(request, 'sales/products_list.html', context)

@@ -25,3 +25,25 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['created_at']
+
+class ProductImg(models.Model):
+    image = ProcessedImageField(verbose_name='Foto',
+                                upload_to='images/',
+                                processors=[ResizeToFit(
+                                    1280, 720, mat_color=(32, 40, 41))],
+                                format='JPEG')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        try:
+            this = ProductImg.objects.get(id=self.id)
+            this.image.delete(save=False)
+        except:
+            pass
+        super(ProductImg, self).save(*args, **kwargs)
+
+
+@receiver(post_delete, sender=ProductImg)
+def submission_delete_ProductImg(sender, instance, **kwargs):
+    instance.image.delete(False)

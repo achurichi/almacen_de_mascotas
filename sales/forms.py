@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product
+from .models import Product, ProductImg
 
 from tempus_dominus.widgets import DatePicker
 
@@ -37,3 +37,8 @@ class ProductForm(forms.ModelForm):
             'obs',
             'image',
         ]
+
+class ProductImgForm(forms.ModelForm):
+    class Meta:
+        model = ProductImg
+        fields = ['image', ]
