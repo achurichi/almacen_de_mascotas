@@ -39,7 +39,6 @@ class ProductForm(forms.ModelForm):
             'last_purchase',
             'quantity',
             'obs',
-            'image',
         ]
 
 class ProductImgForm(forms.ModelForm):

@@ -31,7 +31,7 @@
     transform: scale(1.15);
 }
 .no_error {
-    width: 80%;
+    width: 90%;
     margin: 1rem auto;
     border: 3px solid gainsboro;
     display: flex;

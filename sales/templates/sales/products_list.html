@@ -119,9 +119,13 @@
                 </div>
             </form>
 
-            {% for product in products %}
+            {% for product, productImg in productsWithImg %}
                 <div class="card" id="card-{{ product.pk }}">
                     <div class="card-copy">
+                        <div class="card-copy-img">
+                            <img src="{{ productImg.image.url }}" alt="foto-mascota">
+                        </div>
+
                         <div class="card-copy-text card-copy-info">
                             <p class="principal big">
                                 <strong>

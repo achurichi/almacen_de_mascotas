@@ -17,10 +17,6 @@ class Product(models.Model):
     last_purchase = models.DateField(blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
     obs = models.TextField(default='', blank=True)
-    image = ProcessedImageField(upload_to='images/',
-                                processors=[ResizeToFill(800, 500)],
-                                format='JPEG',
-                                default='images/no-image-found.jpg')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

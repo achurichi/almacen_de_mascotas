@@ -43,6 +43,18 @@ def products_list(request):
     products = Product.objects.filter(
         Q(product_id__icontains=query) |
         Q(description__icontains=query)).distinct().order_by('-created_at')
+
+    product_img_list = []
+    noImgObject = ProductImg(image='images/no-image-found.jpg')
+    for product in products:
+        productImg = ProductImg.objects.filter(product=product).first()
+        if productImg:
+            product_img_list.append(productImg)
+        else:
+            product_img_list.append(noImgObject)
+        
+    print(product_img_list)
+
     paginator = Paginator(products, 15)
     page = request.GET.get('page')
     products = paginator.get_page(page)
@@ -53,6 +65,7 @@ def products_list(request):
         'products': products,
         'productForm': productForm,
         'imgFormset': imgFormset,
+        'productsWithImg': zip(products, product_img_list),
     }
 
     return render(request, 'sales/products_list.html', context)

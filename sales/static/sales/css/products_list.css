@@ -49,8 +49,6 @@
 	background: none;
 	border: none;
 	padding: 0;
-	/* height: auto; */
-	/* width: auto; */
 }
 #new-product:active,
 #new-product:focus {
@@ -58,7 +56,7 @@
 	border: none;
 }
 
-/* Nueva ficha */
+/* Nuevo artículo */
 
 .container {
 	width: 85%;
@@ -176,7 +174,7 @@ input {
 	transform: scale(1.15);
 }
 
-/* Fichas */
+/* Artículos */
 
 .files-container {
 	width: 100%;
@@ -184,6 +182,14 @@ input {
 
 .card-copy {
 	align-items: flex-start !important;
+}
+.card-copy-img {
+    width: 55%;
+    height: 100%;
+}
+.card-copy-img img {
+    height: 100%;
+    object-fit: cover;
 }
 .card-copy-info {
 	max-width: 50%;

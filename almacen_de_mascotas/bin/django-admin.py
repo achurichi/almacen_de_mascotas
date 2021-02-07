@@ -1,4 +1,4 @@
-#!/home/alan/Documentos/repos/almacen_de_mascotas/almacen_de_mascotas/bin/python
+#!/home/alan/Documentos/repos/almacen_de_mascotas/almacen_de_mascotas/bin/python3
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

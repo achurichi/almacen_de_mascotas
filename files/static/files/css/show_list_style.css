@@ -172,3 +172,7 @@ article .steps h3 + p {
 .current {
 	margin: 0 10px;
 }
+
+p {
+    line-height: 2rem;
+}
