@@ -1,5 +1,6 @@
-#clinic-history-link {
-	background-color: var(--purple-dark);
+
+.container {
+    justify-content: center;
 }
 
 .field-container {
@@ -113,3 +114,23 @@ label:not(.no-modify) {
 	border-bottom: none !important;
 	margin-bottom: 0 !important;
 }
+
+
+
+/* #photos-column {
+    flex-direction: column;
+    align-items: start;
+}
+label:not(.no-modify) {
+    margin-bottom: 2rem;
+    max-width: 100%;
+    text-decoration: underline;
+}
+
+.modal img {
+    position: absolute;
+}
+.custom-height-modal {
+    width: 1024px;
+    height: 576px;
+} */

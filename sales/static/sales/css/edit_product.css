@@ -1,0 +1,52 @@
+.container {
+    justify-content: center;
+}
+
+.field-container {
+    width: 80%;
+}
+
+.img-formset {
+    min-height: 5rem;
+    padding: 0.6rem;
+    margin-bottom: 1.4rem;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+#add_more {
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+    margin-top: 1.3rem;
+}
+#add_more img {
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    transition: ease-in-out 0.4s;
+}
+#add_more img:hover {
+    transform: scale(1.15);
+}
+.no_error {
+    width: 80%;
+    margin: 1rem auto;
+    border: 3px solid gainsboro;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    overflow: hidden;
+}
+.no_error tbody tr:last-of-type {
+    display: flex;
+    margin-top: 1rem;
+}
+.no_error label {
+    font-weight: 500;
+    margin: 0 1rem 0 0;
+}
+.img-formset input {
+    outline: none;
+}

@@ -4,6 +4,7 @@
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/show_data_style.css' %}">
     <script type="text/javascript" src="{% static 'sales/js/show_product.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'sales/css/show_product.css' %}">
 {% endblock %}
 
 {% block title %} Producto {{ product.product_id }} {% endblock %}
@@ -23,72 +24,118 @@
         </div>
 
         {% if product.product_id != "" %}
-            <div class="field-container">
-                <label>Código: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Código: </label>
                 {{ product.product_id }}
             </div>
         {% endif %}
 
         {% if product.description != "" %}
-            <div class="field-container">
-                <label>Descripción: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Descripción: </label>
                 {{ product.description }}
             </div>
         {% endif %}
 
         {% if product.sale_price != None %}
-            <div class="field-container">
-                <label>Precio de venta: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Precio de venta: </label>
                 <strong>$ {{ product.sale_price|floatformat }}</strong>
             </div>
         {% endif %}
 
         {% if product.product_type != "" %}
-            <div class="field-container">
-                <label>Categoría: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Categoría: </label>
                 {{ product.product_type }}
             </div>
         {% endif %}
 
         {% if product.brand != "" %}
-            <div class="field-container">
-                <label>Marca: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Marca: </label>
                 {{ product.brand }}
             </div>
         {% endif %}
 
         {% if product.purchase_price != None %}
-            <div class="field-container">
-                <label>Precio de compra: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Precio de compra: </label>
                 $ {{ product.purchase_price|floatformat }}
             </div>
         {% endif %}
 
         {% if product.last_purchase != None %}
-            <div class="field-container">
-                <label>Última compra: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Última compra: </label>
                 {{ product.last_purchase|date:"d/m/Y" }}
             </div>
         {% endif %}
 
         {% if product.quantity != None %}
-            <div class="field-container">
-                <label>Cantidad: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Cantidad: </label>
                 {{ product.quantity }}
             </div>
         {% endif %}
 
         {% if product.obs != "" %}
-            <div class="field-container">
-                <label>Observaciones: </label>
+            <div class="field-container no-modify">
+                <label class="no-modify">Observaciones: </label>
                 <textarea readonly class="large-text">{{ product.obs }}</textarea>
             </div>
         {% endif %}
-    </article>
 
-    <style>
-        .container {
-            justify-content: center;
-        }
-    </style>
+        <div class="field-container">
+            <label>Fotos: </label>
+            <div id="imageCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                <ol class="carousel-indicators">
+                    {% for i in productImg %}
+                        {% if forloop.first %}
+                            <li data-target="#imageCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                        {% else %}
+                            <li data-target="#imageCarousel" data-slide-to="{{ forloop.counter0 }}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+
+                <div class="carousel-inner" style="max-width: 70rem;">
+                    {% for img in productImg %}
+                        {% if forloop.first %}
+                            <a class="carousel-item active" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
+                                <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
+                            </a>
+                        {% else %}
+                            <a class="carousel-item" data-toggle="modal" data-target="#modal-{{ forloop.counter0 }}">
+                                <img class="d-block w-100" src="{{ img.image.url }}" alt="foto-mascota">
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        {% for img in productImg %}
+            <div class="modal fade" id="modal-{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content custom-height-modal">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <img class="custom-height-modal" src="{{ img.image.url }}" alt="foto-mascota">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </article>
 {% endblock %}

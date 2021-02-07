@@ -18,7 +18,11 @@ class ProductForm(forms.ModelForm):
             options={
                 'format': 'DD/MM/YYYY',
                 'locale': 'es',
-            }),
+            },
+            attrs={
+                'autocomplete': 'off'
+            },
+        ),
     )
     quantity = forms.IntegerField(required=False)
     obs = forms.CharField(required=False, widget=forms.Textarea)

@@ -4,6 +4,7 @@
 {% block static %}
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/file_content_list.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'files/css/edit_data_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sales/css/edit_product.css' %}">
 {% endblock %}
 
 {% block title %} Editar producto {{ product.product_id }} {% endblock %}
@@ -70,11 +71,35 @@
             <label for="obs">Observaciones: </label>
             {{ productForm.obs }}
         </div>
+
+        <div class="img-formset">
+            <button id="add_more" type="button">
+                <img src={% static 'img/plus-square-solid.svg' %} alt="Agregar Foto">
+            </button> 
+
+            {{ imgFormset.management_form }}
+            
+            <div id="form_set">
+                {% for form in imgFormset.forms %}
+                    <table class='no_error'>
+                        {{ form }}
+                    </table>
+                {% endfor %}
+            </div>
+            
+            <div id="empty_form" style="display:none">
+                <table class='no_error'>
+                    {{ imgFormset.empty_form }}
+                </table>
+            </div>
+        </div>       
     </form>
 
-    <style>
-        .container {
-            justify-content: center;
-        }
-    </style>
+    <script>
+        $('#add_more').click(function() {
+            var form_idx = $('#id_form-TOTAL_FORMS').val();
+            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
 {% endblock %}

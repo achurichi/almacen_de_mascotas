@@ -66,26 +66,62 @@ def delete_product(request):
 
 def show_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    productImg = ProductImg.objects.filter(
+        product=product)
     context = {
         'product': product,
+        'productImg': productImg,
     }
     return render(request, 'sales/show_product.html', context)
 
 
 def edit_product(request, pk):
+    ImgFormset = modelformset_factory(ProductImg,
+                                      form=ProductImgForm,
+                                      extra=1,
+                                      can_delete=True,)
+
     if request.method == "POST":
         product = get_object_or_404(Product, id=pk)
         productForm = ProductForm(request.POST, instance=product)
+        imgFormset = ImgFormset(request.POST,
+                                request.FILES,
+                                queryset=ProductImg.objects.filter(
+                                    product_id=pk))
         if productForm.has_changed() and productForm.is_valid():
             productForm.save()
+
+        if imgFormset.is_valid():
+            for form in imgFormset.cleaned_data:
+                if form == {} or form['id'] == None and form['DELETE'] == True:
+                    continue
+                else:
+                    if form['id'] == None:
+                        photo = ProductImg(
+                            product=product, image=form['image'])
+                        photo.save()
+                    elif form['DELETE'] == True:
+                        ProductImg.objects.filter(
+                            id=form['id'].pk).delete()
+                    else:
+                        photo = ProductImg.objects.filter(
+                            id=form['id'].pk)[0]
+                        if photo.image != form['image']:
+                            photo.image = form['image']
+                            photo.save()
 
         url = reverse('sales:show_product', kwargs={'pk': pk})
         return HttpResponseRedirect(url)
 
     product = get_object_or_404(Product, id=pk)
     productForm = ProductForm(instance=product)
+    imgFormset = ImgFormset(queryset=ProductImg.objects.filter(
+        product_id=pk))
+
     context = {
         'product': product,
         'productForm': productForm,
+        'imgFormset': imgFormset,
     }
+
     return render(request, 'sales/edit_product.html', context)
